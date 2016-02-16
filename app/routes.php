@@ -2,7 +2,7 @@
 	
 	$w_routes = array(
 		['GET|POST', '/', 'Default#home', 'home'],// vers la page accueil
-		['GET|POST', '/inscription', 'Users#signup', 'signup'],
+		['GET|POST', '/inscription', 'Default#signup', 'signup'],
 		['GET|POST', '/resultats-recherche', 'Default#searchResults', 'search-results'],// profil utilsateur
 		['GET|POST', '/a-propos','Default#aboutUs', 'about-us'],// qui sommes-nous
 		['GET|POST', '/selection-film[:id]', 'Default#selectionMovie', 'selection-movie'], // film selectionné
