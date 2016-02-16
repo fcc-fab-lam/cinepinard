@@ -22,9 +22,9 @@
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="pseudo">Pseudo :</label>
+				<label class="control-label col-sm-3" for="nickname">Pseudo :</label>
 				<div class="col-sm-7">
-					<input type="text" id="pseudo" name="pseudo" />
+					<input type="text" id="nickname" name="nickname" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -35,9 +35,9 @@
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="password1">Mot de passe :</label>
+				<label class="control-label col-sm-3" for="password">Mot de passe :</label>
 				<div class="col-sm-7">
-					<input type="password" id="password1" name="password1" />
+					<input type="password" id="password" name="password" />
 				</div>
 			</div>
 
