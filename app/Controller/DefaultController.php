@@ -97,23 +97,24 @@ class DefaultController extends Controller
 				if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
 					$userManager->update(["photo" => $imgPath], $newUser["id"]);
 				}
-				$authentificationManager->logUserIn($this->getUser());
+				$user = $userManager->find($signIn);
+				$authentificationManager->logUserIn($user);
 				$formValid = true;
 			}
 		}
 		$this->show('default/signup', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
 	}
 
-	// HOME PAGE : TRAITEMENT DU FORMULAIRE DE CONNEXION & RECHERCHE
+	// TRAITEMENT DU FORMULAIRE DE CONNEXION
 	public function home()
 	{
-		// TRAITEMENT DU FORMULAIRE DE CONNEXION
 		// On instancie nos variables
 		$err = array();
 		$formValid = false;
 		$showErr = false;
+		$userManager = new UserManager();
 		$authentificationManager = new AuthentificationManager();
-		if(!empty($_POST) && isset($_POST['email']) && isset($_POST['password'])){
+		if(!empty($_POST)){
 			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
 			$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
 			if($signIn == 0){
@@ -121,20 +122,16 @@ class DefaultController extends Controller
 			}
 			// Si email et password correct on enregistre en session les données de l'utilisateur
 			else{
-				$authentificationManager->logUserIn($this->getUser());
+				$user = $userManager->find($signIn);
+				$authentificationManager->logUserIn($user);
 				$formValid = true;
 			}
 			// On regarde s'il y a des erreurs
 			if(count($err)>0){
 				$showErr = true;
 			}
+			var_dump($_SESSION);
 		}
-
-		// TRAITEMENT DU FORMULAIRE DE RECHERCHE
-		if(!empty($_POST) && (isset($_POST['film']) || isset($_POST['genre']))){
-			
-		}
-		
 		$this->show('default/home', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
 	}
 
