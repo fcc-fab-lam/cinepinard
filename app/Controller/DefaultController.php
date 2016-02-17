@@ -13,6 +13,7 @@ class DefaultController extends Controller
 	public function signUp()
 	{
 		$userManager = new UserManager();
+		$authentificationManager = new AuthentificationManager();
 		// On instancie nos variables
 		$post = array();
 		$err = array();
@@ -96,9 +97,11 @@ class DefaultController extends Controller
 				if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
 					$userManager->update(["photo" => $imgPath], $newUser["id"]);
 				}
+				$authentificationManager->logUserIn($this->getUser());
+				$formValid = true;
 			}
 		}
-		$this->show('default/signup', ['showErr' => $showErr, 'err' => $err]);
+		$this->show('default/signup', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
 	}
 
 	// TRAITEMENT DU FORMULAIRE DE CONNEXION
@@ -115,6 +118,7 @@ class DefaultController extends Controller
 			if($signIn == 0){
 				$err[] = 'L\'adresse email ou le mot de passe est incorrect';
 			}
+			// Si email et password correct on enregistre en session les données de l'utilisateur
 			else{
 				$authentificationManager->logUserIn($this->getUser());
 				$formValid = true;

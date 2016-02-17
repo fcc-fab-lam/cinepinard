@@ -84,6 +84,9 @@
 				echo implode('<br/>', $err);
 				echo '</div>';
 			}
+			if($formValid){
+				echo 'Inscription réussie';
+			}
 		?>
 	</div>
 </div>
