@@ -6,7 +6,7 @@
 		['GET|POST', '/resultats-recherche', 'Default#searchResults', 'search-results'],// profil utilsateur
 		['GET|POST', '/a-propos','Default#aboutUs', 'about-us'],// qui sommes-nous
 		['GET|POST', '/selection-film[:id]', 'Default#selectionMovie', 'selection-movie'], // film selectionné
-		['GET|POST', '/profil-utilisateur', 'Admin#userProfil', 'user-profil'], // Profil de l'utilisateur
+		['GET|POST', '/profil-utilisateur', 'Users#userProfil', 'user-profil'], // Profil de l'utilisateur
 		['GET|POST', '/modification-profil', 'Admin#updateProfil', 'update-profil'], // Modif profil de l'utilisateur
 		['GET|POST', '/votre-cave', 'Admin#cave', 'cave'], // liste des choix de l'utilisateur(cave)
 		['GET|POST', '/ajouter-commmentaire', 'Admin#addComments', 'add-comments'], // Ajouter un commentaire

@@ -2,6 +2,18 @@
 
 <?php $this->start('main_content') ?>
 
-<h1>Desactiver un compte</h1>
+
+<p>Voulez-vous vraiment effacer votre compte ?</p>
+
+ <input type="checkbox" name="disable" value="disable"> Oui<br>
+ <input type="checkbox" name="disable" value="disable"> Non<br>
+
+
+
+
+
+
+
+
 
 <?php $this->stop('main_content') ?>

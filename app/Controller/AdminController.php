@@ -66,7 +66,7 @@ class AdminController extends Controller
 	// Desactiver un compte
 	public function disableAccount()
 	{
-		$this->show('back/disable-acccount', ['showErr' => $showErr, 'err' => $err]);
+		$this->show('back/disable-account');
 	}
 
 }
