@@ -6,31 +6,30 @@
 <div class="container-fluid">
 	<div class="row">
 		<form role="form" class="form-horizontal" method="post" action="" enctype="multipart/form-data">
-			
 			<div class="form-group">
 				<label class="control-label col-sm-3" for="lastname">Nom :</label>
 				<div class="col-sm-7">
-					<input type="text" id="lastname" name="lastname" />
+					<input type="text" id="lastname" name="lastname" value="<?php if(isset($post['lastname'])){echo $post['lastname'];} ?>" />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="control-label col-sm-3" for="firstname">Prénom :</label>
 				<div class="col-sm-7">
-					<input type="text" id="firstname" name="firstname" />
+					<input type="text" id="firstname" name="firstname" value="<?php if(isset($post['firstname'])){echo $post['firstname'];} ?>" />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="control-label col-sm-3" for="nickname">Pseudo :</label>
 				<div class="col-sm-7">
-					<input type="text" id="nickname" name="nickname" />
+					<input type="text" id="nickname" name="nickname" value="<?php if(isset($post['nickname'])){echo $post['nickname'];} ?>" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3" for="email">Email :</label>
 				<div class="col-sm-7">
-					<input type="email" id="email" name="email" />
+					<input type="email" id="email" name="email" value="<?php if(isset($post['email'])){echo $post['email'];} ?>" />
 				</div>
 			</div>
 

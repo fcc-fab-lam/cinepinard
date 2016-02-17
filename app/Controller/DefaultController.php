@@ -59,9 +59,9 @@ class DefaultController extends Controller
 				$err[] = 'Les mots de passe doivent être identique';
 			}
 			// Image
-			if(empty($_FILES['photo']['tmp_name'])){
+			/*if(empty($_FILES['photo']['tmp_name'])){
 				$err[] = 'Vous devez insérer une image';
-			}
+			}*/
 			elseif($_FILES['photo']['size'] > $maxSize){
 				$err[] = 'L\'image excède le poids autorisé';
 			}
@@ -102,7 +102,7 @@ class DefaultController extends Controller
 				$formValid = true;
 			}
 		}
-		$this->show('default/signup', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
+		$this->show('default/signup', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid, 'post' => $post]);
 	}
 
 	// TRAITEMENT DU FORMULAIRE DE CONNEXION
@@ -130,7 +130,6 @@ class DefaultController extends Controller
 			if(count($err)>0){
 				$showErr = true;
 			}
-			var_dump($_SESSION);
 		}
 		$this->show('default/home', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
 	}
