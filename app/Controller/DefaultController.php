@@ -82,9 +82,11 @@ class DefaultController extends Controller
 			}
 			// S'il n'y a pas d'erreur on enregistre en BDD
 			else{
-				// On supprime la variable password2 dont on a pas besoin
+				// On supprime les variables majeur & password2 dont on a pas besoin
 				unset($post['password2']);
 				unset($post['majeur']);
+				// On définit le role à utilisateur par défault 
+				$post['role_id'] = 2;
 				// On hash le password
 				$post['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
 
