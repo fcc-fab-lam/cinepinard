@@ -7,6 +7,7 @@
 		['GET|POST', '/a-propos','Default#aboutUs', 'about-us'],// qui sommes-nous
 		['GET|POST', '/selection-film[:id]', 'Default#selectionMovie', 'selection-movie'], // film selectionné
 		['GET|POST', '/profil-utilisateur', 'Users#userProfil', 'user-profil'], // Profil de l'utilisateur
+		['GET|POST', '/desactiver-compte', 'Users#disableAccount', 'disable-acccount'], // Desactiver un compte
 		['GET|POST', '/modification-profil', 'Admin#updateProfil', 'update-profil'], // Modif profil de l'utilisateur
 		['GET|POST', '/votre-cave', 'Admin#cave', 'cave'], // liste des choix de l'utilisateur(cave)
 		['GET|POST', '/ajouter-commmentaire', 'Admin#addComments', 'add-comments'], // Ajouter un commentaire
@@ -18,5 +19,5 @@
 		['GET|POST', '/liste-associations-non-moderees', 'Admin#listNotModeratedAssociations', 'list-not-moderated-associations'], // Liste des associations non-modérées 
 		['GET|POST', '/liste-commentaires-non-moderees', 'Admin#listNotModeratedComments', 'list-not-moderated-comments'], // Liste des commentaires non-moderés 
 		['GET|POST', '/formulaire-moderation', 'Admin#moderationForm', 'moderation-form'], // Formulaire de moderation  
-		['GET|POST', '/desactiver-compte', 'Admin#disableAccount', 'disable-acccount'], // Desactiver un compte
+		
 	);

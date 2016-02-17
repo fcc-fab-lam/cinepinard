@@ -63,10 +63,4 @@ class AdminController extends Controller
 		$this->show('back/moderation-form', ['showErr' => $showErr, 'err' => $err]);
 	}
 
-	// Desactiver un compte
-	public function disableAccount()
-	{
-		$this->show('back/disable-account');
-	}
-
 }
