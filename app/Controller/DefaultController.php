@@ -3,17 +3,11 @@
 namespace Controller;
 
 use \W\Controller\Controller;
+use \Manager\FixUserManager as UserManager;
+use W\Security\AuthentificationManager;
 
 class DefaultController extends Controller
 {
-
-	/**
-	 * Page d'accueil par défaut
-	 */
-	public function home()
-	{
-		$this->show('default/home');
-	}
 
 	// TRAITEMENT FORMULAIRE D'INSCRIPTION
 	public function signUp()
@@ -105,6 +99,32 @@ class DefaultController extends Controller
 			}
 		}
 		$this->show('default/signup', ['showErr' => $showErr, 'err' => $err]);
+	}
+
+	// TRAITEMENT DU FORMULAIRE DE CONNEXION
+	public function home()
+	{
+		// On instancie nos variables
+		$err = array();
+		$formValid = false;
+		$showErr = false;
+		$authentificationManager = new AuthentificationManager();
+		if(!empty($_POST)){
+			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
+			$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
+			if($signIn == 0){
+				$err[] = 'L\'adresse email ou le mot de passe est incorrect';
+			}
+			else{
+				$authentificationManager->logUserIn($this->getUser());
+				$formValid = true;
+			}
+			// On regarde s'il y a des erreurs
+			if(count($err)>0){
+				$showErr = true;
+			}
+		}
+		$this->show('default/home', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
 	}
 
 	/**

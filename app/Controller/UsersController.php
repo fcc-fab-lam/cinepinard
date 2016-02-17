@@ -99,6 +99,33 @@ class UsersController extends Controller
 		}
 		$this->show('default/signup', ['showErr' => $showErr, 'err' => $err]);
 	}
+
+	// TRAITEMENT DU FORMULAIRE DE CONNEXION
+	public function signIn()
+	{
+		// On instancie nos variables
+		$err = array();
+		$formValid = false;
+		$showErr = false;
+		$authentificationManager = new AuthentificationManager();
+		// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
+		$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
+		if($signIn = 0){
+			$err[] = 'L\'adresse email ou le mot de passe est incorrect';
+		}
+		// On regarde s'il y a des erreurs
+		if(count($err)>0){
+			$showErr = true;
+		}
+		else{
+			if($authentificationManager->logUserIn($user)){
+				$formValid = true;
+			}
+		}
+		$this->show('default/home', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
+	}
+
+
 	// Profil de l'utilisateur
 	public function userProfil()
 	{
