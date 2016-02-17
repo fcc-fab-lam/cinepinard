@@ -104,15 +104,16 @@ class DefaultController extends Controller
 		$this->show('default/signup', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
 	}
 
-	// TRAITEMENT DU FORMULAIRE DE CONNEXION
+	// HOME PAGE : TRAITEMENT DU FORMULAIRE DE CONNEXION & RECHERCHE
 	public function home()
 	{
+		// TRAITEMENT DU FORMULAIRE DE CONNEXION
 		// On instancie nos variables
 		$err = array();
 		$formValid = false;
 		$showErr = false;
 		$authentificationManager = new AuthentificationManager();
-		if(!empty($_POST)){
+		if(!empty($_POST) && isset($_POST['email']) && isset($_POST['password'])){
 			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
 			$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
 			if($signIn == 0){
@@ -128,6 +129,12 @@ class DefaultController extends Controller
 				$showErr = true;
 			}
 		}
+
+		// TRAITEMENT DU FORMULAIRE DE RECHERCHE
+		if(!empty($_POST) && (isset($_POST['film']) || isset($_POST['genre']))){
+			
+		}
+		
 		$this->show('default/home', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
 	}
 
