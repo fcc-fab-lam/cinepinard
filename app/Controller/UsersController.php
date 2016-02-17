@@ -4,6 +4,9 @@ namespace Controller;
 
 use \W\Controller\Controller;
 use \Manager\FixUserManager as UserManager;
+use W\Security\AuthentificationManager;
+use \Manager\UsersPreferencesManager;
+
 
 class UsersController extends Controller
 {
@@ -14,7 +17,17 @@ class UsersController extends Controller
 	// Profil de l'utilisateur
 	public function userProfil()
 	{
-		$this->show('back/user-profil', ['showErr' => $showErr, 'err' => $err]);
+		$userPreferences = new UsersPreferencesManager();
+		$authentificationManager = new AuthentificationManager();
+		$userInfos = $authentificationManager->getLoggedUser();
+		$userPrefs = $userPreferences->getUsersPreferences($userInfos['id']);
+		$params = [
+			'userInfos' => $userInfos,
+			'userPrefs' => $userPrefs,
+			];
+
+
+		$this->show('back/user-profil', $params);
 	}
 
 	// Modif profil de l'utilisateur
