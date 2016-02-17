@@ -27,17 +27,14 @@
 <!-- FIN CONNEXION / LOG IN -->
 <!-- DEBUT RECHERCHE -->
 <div>
-	<div>Recherche</div>
+	<div>Recherche d'un film</div>
 	<form method="post" action="">
-		<label for="film">Par film</label>
-		<input type="text" id="film" name="film">
+		<input type="text" placeholder="Titre de votre film ..." name="film">
 
 		<div>J'aime :
-			<label><input type="checkbox" id="preferences1" name="preferences1" value="1" />Vin blanc</label>
-			<label><input type="checkbox" id="preferences2" name="preferences2" value="2" />Vin rouge</label>
-			<label><input type="checkbox" id="preferences3" name="preferences3" value="3" />Vin rosé</label>
-			<label><input type="checkbox" id="preferences4" name="preferences4" value="4" />Bière</label>
-			<label><input type="checkbox" id="preferences5" name="preferences5" value="5" />Autre</label>
+			<?php foreach($categories as $value): ?>
+				<label><input type="checkbox" name="preferences[]" value="<?=$value['id']; ?>" /><?=$value['name']; ?></label>
+			<?php endforeach; ?>
 		</div>
 
 		<input type="submit" value="recherche" />

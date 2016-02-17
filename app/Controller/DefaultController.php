@@ -4,6 +4,8 @@ namespace Controller;
 
 use \W\Controller\Controller;
 use \Manager\FixUserManager as UserManager;
+use \Manager\WinesCategoriesManager as WinesCategories;
+use \Manager\AlloCineManager as AlloCine;
 use W\Security\AuthentificationManager;
 
 class DefaultController extends Controller
@@ -134,7 +136,15 @@ class DefaultController extends Controller
 				$showErr = true;
 			}
 		}
-		$params = ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid];
+		$cat = new WinesCategories();
+		$categories = $cat->getCategories();
+
+		$params = [
+					'showErr' => $showErr,
+					'err' => $err,
+					'formValid' => $formValid,
+					'categories' => $categories,
+					];
 		$this->show('default/home', $params);
 	}
 
@@ -143,7 +153,13 @@ class DefaultController extends Controller
 	 */
 	public function searchResults()
 	{
-		$this->show('default/search-results');
+		$allocine = new Allocine();
+		$result = json_decode($allocine->search('dirty', true));
+		echo '<pre>';
+		var_dump($result['feed']['movie']['title']);
+		echo '</pre>';
+
+		$this->show('default/search-results', $params);
 	}
 	/**
 	 * Page A Propos
