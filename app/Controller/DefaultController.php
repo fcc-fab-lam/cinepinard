@@ -104,7 +104,8 @@ class DefaultController extends Controller
 				$formValid = true;
 			}
 		}
-		$this->show('default/signup', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid, 'post' => $post]);
+		$params = ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid, 'post' => $post];
+		$this->show('default/signup', $params);
 	}
 
 	// TRAITEMENT DU FORMULAIRE DE CONNEXION
@@ -133,7 +134,8 @@ class DefaultController extends Controller
 				$showErr = true;
 			}
 		}
-		$this->show('default/home', ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid]);
+		$params = ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid];
+		$this->show('default/home', $params);
 	}
 
 	/**
