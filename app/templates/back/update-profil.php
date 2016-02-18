@@ -6,8 +6,6 @@
 <div class="container-fluid">
 	<div class="row">
 	<?php 
-
-		var_dump($_SESSION);
 		foreach ($userPrefs as $value) {
 			$userCat[] = $value['categorie_id'];
 		}
@@ -61,17 +59,17 @@
 
  			<div class="checkbox">
 	 			<div class="control-label col-sm-3"></div>
-				<input class="btn btn-default" type="submit" value="Je m'inscris !" />
+				<input class="btn btn-default" type="submit" value="Valider" />
 			</div>
 		</form>
 		<?php
-			if($showErr){
+			if(isset($showErr) && $showErr){
 				echo '<div class="erreurs">';
 				echo implode('<br/>', $err);
 				echo '</div>';
 			}
-			if($formValid){
-				echo 'Inscription réussie';
+			if(isset($formValid) && $formValid){
+				echo 'Modifications enregistrées';
 			}
 		?>
 	</div>

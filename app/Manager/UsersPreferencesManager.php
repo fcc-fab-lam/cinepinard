@@ -25,17 +25,13 @@ class UsersPreferencesManager extends \W\Manager\Manager {
 	public function setUsersPreferences($uPrefs, $userId){
 		$sql = "DELETE FROM users_preferences WHERE user_id = :id";
 		$sth = $this->dbh->prepare($sql);
-		$sth->bindValue(":id", $id);
+		$sth->bindValue(":id", $userId);
 		$sth->execute();
 
-		$sql2 = "INSERT INTO users_preferences (user_id, categorie_id) VALUES (:userId, :categorieId)";
+		$this->setTable('users_preferences');
 		foreach ($uPrefs as $value) {
-			$sth2 = $this->dbh->prepare($sql2);
-			$sth2->bindValue(":userId", $userId);
-			$sth2->bindValue(":categorieId", $value);
-			$sth2->execute();
+			$this->insert(['user_id' => $userId, 'categorie_id' => $value]);
 		}
-			
 	}
 
 }

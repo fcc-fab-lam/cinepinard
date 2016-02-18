@@ -27,7 +27,6 @@ class UsersController extends Controller
 			'userPrefs' => $userPrefs,
 			];
 
-
 		$this->show('back/user-profil', $params);
 	}
 
@@ -47,6 +46,8 @@ class UsersController extends Controller
 			$mimeTypeAllowed = array('image/jpg', 'image/jpeg', 'image/gif', 'image/png'); // Controle l'extension de l'image
 				// On nettoie $_POST
 			if(!empty($_POST)){
+				$preferences = $_POST['preferences'];
+				unset($_POST['preferences']);
 				foreach($_POST as $key => $value){
 					$post[$key] = trim(strip_tags($value));
 				}
@@ -79,18 +80,19 @@ class UsersController extends Controller
 				if(!empty($_FILES['photo']['tmp_name'])){
 					if($_FILES['photo']['size'] > $maxSize){
 					$err[] = 'L\'image excède le poids autorisé';
-				}
-				elseif(!empty($_FILES['photo']['tmp_name'])){ 
-					$finfo = new \finfo();
-					$fileMimeType = $finfo->file($_FILES['photo']['tmp_name'], FILEINFO_MIME_TYPE);
-					if(!in_array($fileMimeType, $mimeTypeAllowed)){
-						$err[] = 'Le fichier n\'est pas une image';
 					}
-
+					elseif(!empty($_FILES['photo']['tmp_name'])){ 
+						$finfo = new \finfo();
+						$fileMimeType = $finfo->file($_FILES['photo']['tmp_name'], FILEINFO_MIME_TYPE);
+						if(!in_array($fileMimeType, $mimeTypeAllowed)){
+							$err[] = 'Le fichier n\'est pas une image';
+						}
+					}
 				}
-				if (is_array($post['preferences'])) {
+				// Preferences Vins
+				if (is_array($preferences)) {
 					$prefsInvalides = false;
-					foreach ($post['preferences'] as $value) {
+					foreach ($preferences as $value) {
 						if(!is_numeric($value)) {
 							$prefsInvalides = true;
 						}
@@ -111,24 +113,28 @@ class UsersController extends Controller
 
 					$userUpdate = $userManager->update($post, $_SESSION['user']['id']);
 
-					$imgExtension = explode('/', $fileMimeType)[1];
-					// On récupère la classe qui permet d'utiliser la fonction
-					$app = getApp();
-					$imgPath = $app->getBasePath().'/uploads/'.$userUpdate["id"].'.'.$imgExtension;
-					if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
-						$userManager->update(["photo" => $imgPath], $userUpdate["id"]);
+					if(!empty($_FILES['photo']['tmp_name'])){
+						$imgExtension = explode('/', $fileMimeType)[1];
+						// On récupère la classe qui permet d'utiliser la fonction
+						$app = getApp();
+						$imgPath = $app->getBasePath().'/uploads/'.$userUpdate["id"].'.'.$imgExtension;
+						if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
+							$userManager->update(["photo" => $imgPath], $userUpdate["id"]);
+						}
 					}
+					
 					$formValid = true;
-					$setPreferences = new UserPreferencesManager();
-					$setPreferences->setUsersPreferences($post['preferences'], $_SESSION['user']['id']);
-					$this->redirectToRoute('user-profil');
+					$setPreferences = new UsersPreferencesManager();
+					$setPreferences->setUsersPreferences($preferences, $_SESSION['user']['id']);
+					//$this->redirectToRoute('user-profil');
 				}
 			}
 			$params = ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid, 'post' => $post];
-		} else {
+		}
 		// Recupère le profil de l'utilisateur 
 			$userPreferences = new UsersPreferencesManager();
 			$authentificationManager = new AuthentificationManager();
+			$authentificationManager->refreshUser();
 			$userInfos = $authentificationManager->getLoggedUser();
 			$userPrefs = $userPreferences->getUsersPreferences($userInfos['id']);
 			$cat = new WinesCategories();
@@ -137,8 +143,9 @@ class UsersController extends Controller
 			'userInfos' => $userInfos,
 			'userPrefs' => $userPrefs,
 			'categories' => $categories,
+			'post' => $post,
 			];
-		}
+		
 		$this->show('back/update-profil', $params);
 	}
 
