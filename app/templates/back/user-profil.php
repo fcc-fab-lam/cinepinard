@@ -7,7 +7,7 @@
 <div class="container-fluid">
 	<div class=row>
 		<div class="col-md-8">
-			<img src="..." alt="avatar" class="img-circle">
+			<img src="<?php echo $userInfos['photo'];?>" alt="avatar" class="img-circle">
 			<h3 class="bg-primary"><?php echo $userInfos['nickname']; ?></h3>
 			<h4><?php echo $userInfos['firstname'].' '.$userInfos['lastname']; ?></h4>
 			<p><?php echo $userInfos['email']; ?></p>
