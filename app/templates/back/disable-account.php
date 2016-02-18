@@ -13,6 +13,7 @@
  	<label for="non">non</label><br />
 
  	<input class="btn btn-default" type="submit" value="Validation" />
+ 	
 </form>
 
  	<?php

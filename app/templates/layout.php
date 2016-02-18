@@ -17,12 +17,17 @@
 		<section>
 			<?= $this->section('main_content') ?>
 		</section>
+		<footer>
+		</footer>
+
+
 		<!-- JQUERY CDN -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 		<!-- BOOTSTRAP CDN -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-		<footer>
-		</footer>
+
+<!-- lance le script add-wine-genre-->
+		<?= $this->section('scripts') ?>
 	</div>
 </body>
 </html>
