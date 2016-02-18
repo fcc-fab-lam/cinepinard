@@ -11,7 +11,7 @@ use \Manager\UsersPreferencesManager;
 class UsersController extends Controller
 {
 	public function __construct() {
-		$this->allowTo(['1','2']);
+		//$this->allowTo(['1','2']);
 	}
 
 	// Profil de l'utilisateur
@@ -34,7 +34,15 @@ class UsersController extends Controller
 
 	public function updateProfil()
 	{
-		$this->show('back/update-profil', ['showErr' => $showErr, 'err' => $err]);
+			$userPreferences = new UsersPreferencesManager();
+			$authentificationManager = new AuthentificationManager();
+			$userInfos = $authentificationManager->getLoggedUser();
+			$userPrefs = $userPreferences->getUsersPreferences($userInfos['id']);
+			$params = [
+			'userInfos' => $userInfos,
+			'userPrefs' => $userPrefs,
+			];
+		$this->show('back/update-profil', $params);
 	}
 
 	// liste des choix de l'utilisateur(cave)
