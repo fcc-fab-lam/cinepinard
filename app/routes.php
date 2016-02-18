@@ -5,7 +5,7 @@
 		['GET|POST', '/inscription', 'Default#signup', 'signup'],
 		['GET|POST', '/resultats-recherche', 'Default#searchResults', 'search-results'],// profil utilsateur
 		['GET|POST', '/a-propos','Default#aboutUs', 'about-us'],// qui sommes-nous
-		['GET|POST', '/selection-film[:id]', 'Default#selectionMovie', 'selection-movie'], // film selectionné
+		['GET|POST', '/selection-film', 'Default#selectionMovie', 'selection-movie'], // film selectionné
 		['GET|POST', '/profil-utilisateur', 'Users#userProfil', 'user-profil'], // Profil de l'utilisateur
 		['GET|POST', '/desactiver-compte', 'Users#disableAccount', 'disable-acccount'], // Desactiver un compte
 		['GET|POST', '/modification-profil', 'Admin#updateProfil', 'update-profil'], // Modif profil de l'utilisateur

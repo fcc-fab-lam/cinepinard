@@ -153,11 +153,11 @@ class DefaultController extends Controller
 	 */
 	public function searchResults()
 	{
-		$allocine = new Allocine();
-		$result = json_decode($allocine->search('dirty', true));
-		echo '<pre>';
-		var_dump($result['feed']['movie']['title']);
-		echo '</pre>';
+		$allocine = new AlloCine();
+		$result = json_decode($allocine->search($_GET['film']));
+		$params = [
+				'resultats' => $result->feed->movie,
+				];
 
 		$this->show('default/search-results', $params);
 	}

@@ -4,7 +4,7 @@
 <!-- DEBUT CONNEXION / LOG IN -->
 <div>
 	<div>Connexion</div>
-	<form method="post" action="">
+	<form method="post">
 		<label for="email">Email</label>
 		<input type="email" id="email" name="email">
 
@@ -28,7 +28,7 @@
 <!-- DEBUT RECHERCHE -->
 <div>
 	<div>Recherche d'un film</div>
-	<form method="post" action="">
+	<form action="resultats-recherche">
 		<input type="text" placeholder="Titre de votre film ..." name="film">
 
 		<div>J'aime :
