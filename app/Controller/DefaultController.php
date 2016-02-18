@@ -172,7 +172,46 @@ class DefaultController extends Controller
 	 */ 
 	public function selectionMovie()
 	{
-		$this->show('default/selection-movie');
+		// On instancie nos variables
+		$err = array();
+		$params = array();
+
+		// On vérifie que $_GET existe et n'est pas vide
+		if(isset($_GET['id']) && !empty($_GET['id'])){
+			// On nettoie $_GET
+			$idFilm = trim(strip_tags($_GET['id']));
+			if(!is_numeric($idFilm)){
+				$err[] = 'L\'id du film sélectionné n\'est pas correct';
+			}
+			else{
+				// S'il n'y a pas d'erreur on fait appel à la classe Allocine
+				$allocine = new AlloCine();
+				$filmInfos = json_decode($allocine->get($idFilm), true);
+
+				// On vérifie que l'id passé en paramètre correspond à un film
+				if(isset($filmInfos['error'])){
+					$err[] = 'Aucun film correspondant';
+				}
+				else{
+					$params['filmInfos'] = $filmInfos;
+					$genres = array();
+					foreach($filmInfos['movie']['genre'] as $value){
+						$genres[] = $value['code'];
+					}
+					$params['genres'] = $genres;
+					$cat = new WinesCategories();
+					$params['categories'] = $cat->getWinesGenres($genres);
+					$params['propositionVin'] = $cat->getWinesProposition($params['categories'], [1, 2]);
+					
+
+				}
+			}
+		}
+		if(count($err) > 0){
+			$params['err'] = $err;
+		}
+
+		$this->show('default/selection-movie', $params);
 	
 	}
 
