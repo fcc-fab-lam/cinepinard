@@ -283,7 +283,8 @@ class DefaultController extends Controller
 					$cat = new WinesCategories();
 					$params['categories'] = $cat->getWinesGenres($genres);
 					$params['propositionVin'] = $cat->getWinesProposition($params['categories'], $userPrefs);
-					
+					$params['perfectMatch'] = $cat->getPerfectMatch($params['categories'], $userPrefs, $idFilm);
+					$params['usersProposition'] = $cat->getWinesUsersProposition($params['categories'], $userPrefs, $idFilm);
 
 				}
 			}

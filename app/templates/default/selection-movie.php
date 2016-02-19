@@ -43,4 +43,64 @@
 	<!-- IMAGE -->
 	<p><?= (!empty($propositionVin[0]['image'])) ? '<img height="300px" src="'.$propositionVin[0]['image'].'" />' : '' ?></p>
 
+	<!-- ID VIN -->
+	<p><?= (!empty($propositionVin[0]['id'])) ? $propositionVin[0]['id'] : '' ?></p>
+
+	<?php if(!empty($perfectMatch)) : ?>
+
+	<!-- VIN PARFAIT POUR FILM SELECTIONE -->
+	<h1>Vin parfait pour ce film :</h1>
+
+	<!-- NOM DU VIN -->
+	<h4><?= (!empty($perfectMatch[0]['name'])) ? $perfectMatch[0]['name'] : 'Nom inconnu' ?></h4>
+
+	<!-- APPELLATION -->
+	<p>Appellation : <?= (!empty($perfectMatch[0]['appellation'])) ? $perfectMatch[0]['appellation'] : 'Appellation inconnue' ?></p>
+
+	<!-- PROVENANCE -->
+	<p>Provenance : <?= (!empty($perfectMatch[0]['country'])) ? $perfectMatch[0]['country'] : 'Provenance inconnue' ?></p>
+
+	<!-- DESCRIPTION -->
+	<p>Description : <?= (!empty($perfectMatch[0]['description'])) ? $perfectMatch[0]['description'] : 'Pas de description pour cette recommandation' ?></p>
+
+	<!-- IMAGE -->
+	<p><?= (!empty($perfectMatch[0]['image'])) ? '<img height="300px" src="'.$perfectMatch[0]['image'].'" />' : '' ?></p>
+
+	<!-- ID VIN -->
+	<p><?= (!empty($perfectMatch[0]['id'])) ? $perfectMatch[0]['id'] : '' ?></p>
+
+	<!-- COMMENTAIRE UTILISATEUR -->
+	<p><?= (!empty($perfectMatch[0]['comment'])) ? $perfectMatch[0]['comment'] : '' ?></p>
+
+	<?php endif; ?>
+
+
+	<?php if(!empty($usersProposition)) : ?>
+
+	<!-- PROPOSITION VIN DES UTILISATEURS POUR FILM SELECTIONE -->
+	<h1>Nos utilisateurs proposent pour ce film :</h1>
+
+	<!-- NOM DU VIN -->
+	<h4><?= (!empty($usersProposition[0]['name'])) ? $usersProposition[0]['name'] : 'Nom inconnu' ?></h4>
+
+	<!-- APPELLATION -->
+	<p>Appellation : <?= (!empty($usersProposition[0]['appellation'])) ? $usersProposition[0]['appellation'] : 'Appellation inconnue' ?></p>
+
+	<!-- PROVENANCE -->
+	<p>Provenance : <?= (!empty($usersProposition[0]['country'])) ? $usersProposition[0]['country'] : 'Provenance inconnue' ?></p>
+
+	<!-- DESCRIPTION -->
+	<p>Description : <?= (!empty($usersProposition[0]['description'])) ? $usersProposition[0]['description'] : 'Pas de description pour cette recommandation' ?></p>
+
+	<!-- IMAGE -->
+	<p><?= (!empty($usersProposition[0]['image'])) ? '<img height="300px" src="'.$usersProposition[0]['image'].'" />' : '' ?></p>
+
+	<!-- ID VIN -->
+	<p><?= (!empty($usersProposition[0]['id'])) ? $usersProposition[0]['id'] : '' ?></p>
+
+	<!-- COMMENTAIRE UTILISATEUR -->
+	<p><?= (!empty($usersProposition[0]['comment'])) ? $usersProposition[0]['comment'] : '' ?></p>
+
+	<?php endif; ?>
+
 <?php $this->stop('main_content') ?>
