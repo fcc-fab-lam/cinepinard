@@ -3,6 +3,13 @@
 <?php $this->start('main_content') ?>
 <!-- DEBUT CONNEXION / LOG IN -->
 <div>
+	<?php 
+		$userCat = array();
+		foreach ($userPrefs as $value) {
+			$userCat[] = $value['categorie_id'];
+		}
+	;?>
+	<?php if(empty($w_user)) : ?>
 	<div>Connexion</div>
 	<form method="post">
 		<label for="email">Email</label>
@@ -13,6 +20,7 @@
 
 		<input type="submit" value="connexion" />
 	</form>
+	<?php endif; ?>
 	<?php
 		if($showErr){
 			echo '<div class="erreurs">';
@@ -20,7 +28,8 @@
 			echo '</div>';
 		}
 		if($formValid){
-			echo 'Vous êtes bien connecté';
+			echo 'Bonjour '.$w_user['nickname'];
+			echo '<a href="'.$this->url('home').'?logout=yes">Se déconnecter</a>';
 		}
 	?>
 </div>
@@ -33,7 +42,7 @@
 
 		<div>J'aime :
 			<?php foreach($categories as $value): ?>
-				<label><input type="checkbox" name="preferences[]" value="<?=$value['id']; ?>" /><?=$value['name']; ?></label>
+				<label><input type="checkbox" name="preferences[]" value="<?=$value['id']; ?>" <?php if(in_array($value['id'], $userCat)){echo 'checked="checked"';} ?> /><?=$value['name']; ?></label>
 			<?php endforeach; ?>
 		</div>
 

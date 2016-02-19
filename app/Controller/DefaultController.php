@@ -6,6 +6,7 @@ use \W\Controller\Controller;
 use \Manager\FixUserManager as UserManager;
 use \Manager\WinesCategoriesManager as WinesCategories;
 use \Manager\AlloCineManager as AlloCine;
+use \Manager\UsersPreferencesManager as UsersPreferences;
 use W\Security\AuthentificationManager;
 
 class DefaultController extends Controller
@@ -119,6 +120,12 @@ class DefaultController extends Controller
 		$showErr = false;
 		$userManager = new UserManager();
 		$authentificationManager = new AuthentificationManager();
+		$userPrefs = array();
+
+		if(isset($_GET['logout']) && $_GET['logout'] == 'yes'){
+			$authentificationManager->logUserOut();
+		}
+
 		if(!empty($_POST)){
 			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
 			$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
@@ -129,6 +136,9 @@ class DefaultController extends Controller
 			else{
 				$user = $userManager->find($signIn);
 				$authentificationManager->logUserIn($user);
+				$userInfos = $authentificationManager->getLoggedUser();
+				$pref = new UsersPreferences();
+				$userPrefs = $pref->getUsersPreferences($userInfos['id']);
 				$formValid = true;
 			}
 			// On regarde s'il y a des erreurs
@@ -144,6 +154,7 @@ class DefaultController extends Controller
 					'err' => $err,
 					'formValid' => $formValid,
 					'categories' => $categories,
+					'userPrefs' => $userPrefs,
 					];
 		$this->show('default/home', $params);
 	}

@@ -44,7 +44,7 @@ class WinesCategoriesManager extends \W\Manager\Manager {
 	 * @return array la liste des id des genres de boissons
 	 */
 	public function getWinesProposition($genresVins, $userPref){
-		$sql = "SELECT * FROM wines WHERE genre_id IN ";
+		$sql = "SELECT * FROM wines WHERE moderation = 1 AND genre_id IN ";
 		$listeIdGenresVins = '(';
 		for($i=0;$i < count($genresVins);$i++){
 			if($i!= count($genresVins) - 1){

@@ -43,7 +43,4 @@
 	<!-- IMAGE -->
 	<p><?= (!empty($propositionVin[0]['image'])) ? '<img height="300px" src="'.$propositionVin[0]['image'].'" />' : '' ?></p>
 
-	<!-- MODERATION -->
-	<p>Moderation : <?= (!empty($propositionVin[0]['modération'])) ? $propositionVin[0]['modération'] : 'Pas de modération pour cette recommandation' ?></p>
-
 <?php $this->stop('main_content') ?>
