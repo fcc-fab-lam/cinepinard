@@ -7,6 +7,7 @@
 		echo 'erreur';
 	}
 	else{
+        var_dump($filmInfos);
 ?>
 		<!-- TITRE ORIGINAL OU FRANCAIS -->
 		<h4><?= (isset($filmInfos['movie']['title'])) ? $filmInfos['movie']['title'] : $filmInfos['movie']['originalTitle'] ?></h4>
@@ -42,10 +43,10 @@
 
 	<!-- IMAGE -->
 	<p><?= (!empty($propositionVin[0]['image'])) ? '<img height="300px" src="'.$propositionVin[0]['image'].'" />' : '' ?></p>
-
-	<!-- ID VIN -->
-	<p><?= (!empty($propositionVin[0]['id'])) ? $propositionVin[0]['id'] : '' ?></p>
-
+    
+    <!-- LIEN POUR CHOISIR CETTE ASSOCIATION -->
+    <p><a href="<?=$this->url('cave').'?idFilm='.$filmInfos['movie']['code'].'&idVin='.$propositionVin[0]['id'] ?>">Choisir ce vin avec ce film</a></p>
+    
 	<?php if(!empty($perfectMatch)) : ?>
 
 	<!-- VIN PARFAIT POUR FILM SELECTIONE -->
@@ -66,9 +67,9 @@
 	<!-- IMAGE -->
 	<p><?= (!empty($perfectMatch[0]['image'])) ? '<img height="300px" src="'.$perfectMatch[0]['image'].'" />' : '' ?></p>
 
-	<!-- ID VIN -->
-	<p><?= (!empty($perfectMatch[0]['id'])) ? $perfectMatch[0]['id'] : '' ?></p>
-
+    <!-- LIEN POUR CHOISIR CETTE ASSOCIATION -->
+    <p><a href="<?=$this->url('cave').'?idFilm='.$filmInfos['movie']['code'].'&idVin='.$perfectMatch[0]['id'] ?>">Choisir ce vin avec ce film</a></p>
+ 
 	<!-- COMMENTAIRE UTILISATEUR -->
 	<p><?= (!empty($perfectMatch[0]['comment'])) ? $perfectMatch[0]['comment'] : '' ?></p>
 
@@ -95,9 +96,10 @@
 	<!-- IMAGE -->
 	<p><?= (!empty($usersProposition[0]['image'])) ? '<img height="300px" src="'.$usersProposition[0]['image'].'" />' : '' ?></p>
 
-	<!-- ID VIN -->
-	<p><?= (!empty($usersProposition[0]['id'])) ? $usersProposition[0]['id'] : '' ?></p>
 
+    <!-- LIEN POUR CHOISIR CETTE ASSOCIATION -->
+    <p><a href="<?=$this->url('cave').'?idFilm='.$filmInfos['movie']['code'].'&idVin='.$usersProposition[0]['id'] ?>">Choisir ce vin avec ce film</a></p>
+ 
 	<!-- COMMENTAIRE UTILISATEUR -->
 	<p><?= (!empty($usersProposition[0]['comment'])) ? $usersProposition[0]['comment'] : '' ?></p>
 
