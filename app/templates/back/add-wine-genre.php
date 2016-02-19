@@ -13,7 +13,7 @@
 	<a class="btn btn-default" href="<?= $this->url("user-profil")?>">non </a>
 
 
-	<!-- mettre le "#=oui" en CSS Display-none-->
+	<!-- mettre le id = 'name'; en CSS Display-none-->
 
 	<form id="oui" role="form" class="form-horizontal" method="post" action="" enctype="multipart/form-data">
  		<p> Ajouter un genre de vin </p>

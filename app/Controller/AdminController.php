@@ -60,7 +60,7 @@ class AdminController extends Controller
 				$showErr = true;
 			} 
 			else {
-				
+				// cette fonction permet d'aller dans la BDD et d' y inscrire le nouveau genre tout en nettoyant à l'aide d'un strip tag. 
 				$genreManager->insert($post, $stripTags = true);
 				$formValid = true;
 			}
