@@ -19,11 +19,17 @@
  		<p> Ajouter un genre de vin </p>
 
  		<label for="name">Genre de Vin</label><br />
- 		<input type="text" name="name" placeholder="genre" id="name" />
+ 		<?php $name = '';if(!empty($inputValue)){$name = $inputValue;} ?>
+ 		<input type="text" name="name" placeholder="genre" id="name" value="<?=$name ?>" />
 
 		<input class="btn btn-default" type="submit" value="Validation" />
 
-		<?php
+		<?php			
+			 
+			foreach ($listGenreFilm as $key => $value){
+				echo '<label><input type="checkbox" value="'.$value['id'].'" name="movies_genre[]" />'.$value['name'].'</label> <br>'  ;
+				}
+
 	 		// envoyer les erreurs si il y en a
 			if($showErr){
 				echo '<div class="erreurs">';

@@ -5,6 +5,9 @@ namespace Controller;
 use \W\Controller\Controller;
 use \Manager\FixUserManager as UserManager;
 use \Manager\WinesGenresManager;
+use \Manager\FilmGenreManager;
+use \Manager\GenresAssociationsManager;
+
 
 
 class AdminController extends Controller
@@ -35,43 +38,95 @@ class AdminController extends Controller
 
 	// Ajout genre de vin
 	public function addWineGenre()
-	 {
+	{
 
 	// je cree mes variables
 		$post = array();
 		$err = array();
+		$inputValue=false;
 		$formValid = false;
 		$showErr = false;
-		$genreManager = new WinesGenresManager ;
-		$listGenre = $genreManager->findAll();
+		$genreVinManager = new WinesGenresManager ;//permet d'afficher la liste  pre-existante des genre de film.
+		$listGenreVin = $genreVinManager->findAll();
+		$filmGenreManager = new FilmGenreManager;
+		$listGenreFilm = $filmGenreManager->findAll();
 
 		// permet d'entrer dans le post si les champs sont vides	
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			if(isset($_POST['movies_genre'])) {
+				$movies_genre = $_POST['movies_genre'];
+				unset($_POST['movies_genre']);
+				
+				// Vérifier que les valeurs sont valides
+				if (is_array($movies_genre)) {
+					$mvInvalides = false;
+					foreach ($movies_genre as $value) {
+						if(!is_numeric($value)) {
+							$mvInvalides = true;
+						}
+					} 
+					if($mvInvalides) {
+						$err[] = 'tu n\'es pas très urbain petit lapin';
+					}
+				}
+
+			} else{
+				$err[]= 'Vous devez selectionner au moins un genre de film';
+			}
+				
 			foreach ($_POST as $key => $value) {
 				$post[$key] = trim(strip_tags($value));
 			}
-
 			if(empty($post['name'])){
 				$err[] = 'Vous devez definir un genre pour valider votre choix';
 			}
+			else {
+				// si un genre de vin de ce nom existe déjà en bd,
+				$genresDeMemeNom = $genreVinManager->getGenreByName($post['name']);
+				var_dump(empty($genresDeMemeNom));
+				if(!empty($genresDeMemeNom)) {
+					// erreur
+					$err[] = "Ce genre de vin existe déja";
+					$inputValue = $post['name'];
+
+				}
+			}
+
+			
 
 			// Si il ya  un erreur
 			if(count($err)>0){
 				$showErr = true;
 			} 
 			else {
+				var_dump($post);
+				var_dump($movies_genre);	
 				// cette fonction permet d'aller dans la BDD et d' y inscrire le nouveau genre tout en nettoyant à l'aide d'un strip tag. 
-				$genreManager->insert($post, $stripTags = true);
+				$wineGenre = $genreVinManager->insert($post);
 				$formValid = true;
+		
+				$genresAssociationsManager = new genresAssociationsManager ;
+				foreach ($movies_genre as $genre) {
+					$genre = $genresAssociationsManager->insert([
+						"id_movies_genre" => $genre,
+						"id_wines_genre" => $wineGenre['id'],
+						"moderation" => 1
+						]) ;
+				}
 			}
-
-
+		
 		}
-		$this->show('back/add-wine-genre', ['err' => $err, 'showErr' => $showErr, 'formValid' => $formValid, 'listGenre'=>$listGenre]);
+		$this->show('back/add-wine-genre', [
+			'err' => $err, 
+			'showErr' => $showErr, 
+			'formValid' => $formValid, 
+			/*'listGenreVin'=>$listGenreVin,*/
+			'listGenreFilm' =>$listGenreFilm,
+			'inputValue' => $inputValue,
+		]);
 	}
 
 	//Ajout genre de film
-
 	public function addMovieGenre()
 	{
 		$this->show('back/add-movie-genre', ['showErr' => $showErr, 'err' => $err]);
