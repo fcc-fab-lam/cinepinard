@@ -1,0 +1,62 @@
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans);
+
+/* INITIALISATION */
+html, body{
+}
+
+
+/* PAGE D'ACCUEIL */
+
+/* Connexion */
+header{
+	background-color: #BD0A41;
+	font-family: 'Alegreya Sans', serif;
+	color: white;
+}
+
+.connexion{
+	padding: 5px;
+}
+
+.formulaire{
+	float: right;
+}
+
+header .formulaire input{
+	margin: 10px;
+	padding: 2px;
+	border: 0;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* BACKGROUND */
+.background{
+	background-image: url('../../img/background.jpg');
+	background-size: cover;
+	opacity: 0.7;
+	height: 500px;
+}
+
+/* RECHERCHE */
+.recherche{
+	background-color: #BD0A41;
+	font-family: 'Alegreya Sans', serif;
+	color: white;
+}
+
+.searchfilm{
+	padding: 30px 0px 60px 120px;
+}
+
+.searchfilm input[name="film"]{
+	width: 350px;
+	height: 60px;
+	background-color: rgba(255, 255, 255, 0.5);
+	border: 0;
+	font-size: 30px;
+	padding : 10px;
+}
+
+form div{
+	display: inline-block;
+}
