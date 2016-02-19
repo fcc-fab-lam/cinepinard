@@ -7,6 +7,7 @@ use \Manager\FixUserManager as UserManager;
 use W\Security\AuthentificationManager;
 use \Manager\UsersPreferencesManager;
 use \Manager\WinesCategoriesManager as WinesCategories;
+use \Manager\AlloCineManager as AlloCine;
 
 
 class UsersController extends Controller
@@ -126,7 +127,7 @@ class UsersController extends Controller
 					$formValid = true;
 					$setPreferences = new UsersPreferencesManager();
 					$setPreferences->setUsersPreferences($preferences, $_SESSION['user']['id']);
-					//$this->redirectToRoute('user-profil');
+					$this->redirectToRoute('user-profil');
 				}
 			}
 			$params = ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid, 'post' => $post];
@@ -152,7 +153,25 @@ class UsersController extends Controller
 	// liste des choix de l'utilisateur(cave)
 	public function cave()
 	{
-		$this->show('back/cave', ['showErr' => $showErr, 'err' => $err]);
+		$userCave = new UsersPreferencesManager();
+		$authentificationManager = new AuthentificationManager();
+		$userInfos = $authentificationManager->getLoggedUser();
+		$userSelection = $userCave->getUsersCave($userInfos['id']);
+		$AlloCine = new AlloCine();
+		foreach($userSelection as $key => $value){
+			$allInfos[$key]['infosFilm'] =  json_decode($AlloCine->get($value['movie_id']), true);
+			$allInfos[$key]['id'] = $value['id'];
+			$allInfos[$key]['name'] = $value['name'];
+			$allInfos[$key]['appellation'] = $value['appellation'];
+			$allInfos[$key]['description'] = $value['description'];
+			$allInfos[$key]['comment'] = $value['comment'];
+			$allInfos[$key]['note'] = $value['note'];
+
+		}
+		$params = [
+			'userCave' => $allInfos,
+			];
+		$this->show('back/cave', $params);
 	}
 	
 	// Ajouter un commentaire
