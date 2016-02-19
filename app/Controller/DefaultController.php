@@ -153,13 +153,68 @@ class DefaultController extends Controller
 	 */
 	public function searchResults()
 	{
+		// On instancie nos variables
+		$listErr = array();
+		// On appelle la classe Allocine
 		$allocine = new AlloCine();
-		$result = json_decode($allocine->search($_GET['film']));
-		$params = [
-				'resultats' => $result->feed->movie,
-				];
+		// On vérifie que $_GET n'est pas vide
+		if(!empty($_GET)){
+			$userPrefs = array();
+			// On nettoie $_GET['preferences'] et on le passe dans une variable propre
+			if(isset($_GET['preferences'])){
+				foreach($_GET['preferences'] as $value){
+					$userPrefs[] = trim(strip_tags($value));
+				}
+				// On supprime la variable d'origine
+				unset($_GET['preferences']);
+			}
+			// On nettoie $_GET['film']
+			$get['film'] = trim(strip_tags($_GET['film']));
 
-		$this->show('default/search-results', $params);
+			// Si la recherche film est vide, on met une erreur
+			if(empty($get['film'])){
+				$listErr[] = 'Vous devez renseigner un film';
+			}
+			if(isset($userPrefs)){
+				foreach($userPrefs as $value){
+					if(empty($value) || !is_numeric($value)){
+						$listErr[] = 'Vous devez renseigner des préférences valides';
+					}
+				}
+			}
+			// Si le nombre d'erreur est positif, on renvoie vers la page d'accueil avec les erreurs
+			if(count($listErr)>0){
+				// On définie $params
+				$_SESSION['listErr'] = $listErr;
+				// On redirige vers la page d'accueil
+				$this->redirectToRoute('home');
+			}
+
+			// Si la recherche est correct
+			else{
+				$result = json_decode($allocine->search($get['film']));
+				$resultats = array();
+				$error = array();
+
+				if($result->feed->totalResults == 0){
+					$error = 'Aucun film ne correspond à votre recherche';
+				}
+				else{
+					$resultats = $result->feed->movie;
+				}
+				// On stock nos paramètres dans une variables
+				$params = [
+						'resultats' => $resultats,
+						'preferences' => $userPrefs,
+						'erreur' => $error, 
+						];
+
+				$this->show('default/search-results', $params);
+			}
+		}
+		else{
+			$this->redirectToRoute('home');
+		}
 	}
 	/**
 	 * Page A Propos
@@ -175,6 +230,7 @@ class DefaultController extends Controller
 		// On instancie nos variables
 		$err = array();
 		$params = array();
+		$userPrefs = array();
 
 		// On vérifie que $_GET existe et n'est pas vide
 		if(isset($_GET['id']) && !empty($_GET['id'])){
@@ -184,6 +240,20 @@ class DefaultController extends Controller
 				$err[] = 'L\'id du film sélectionné n\'est pas correct';
 			}
 			else{
+				if(isset($_GET['preferences'])){
+					foreach($_GET['preferences'] as $value){
+						$userPrefs[] = trim(strip_tags($value));
+					}
+					// On supprime la variable d'origine
+					unset($_GET['preferences']);
+				}				
+				if(isset($userPrefs)){
+					foreach($userPrefs as $value){
+						if(empty($value) || !is_numeric($value)){
+							$err[] = 'Vous devez renseigner des préférences valides';
+						}
+					}
+				}
 				// S'il n'y a pas d'erreur on fait appel à la classe Allocine
 				$allocine = new AlloCine();
 				$filmInfos = json_decode($allocine->get($idFilm), true);
@@ -201,7 +271,7 @@ class DefaultController extends Controller
 					$params['genres'] = $genres;
 					$cat = new WinesCategories();
 					$params['categories'] = $cat->getWinesGenres($genres);
-					$params['propositionVin'] = $cat->getWinesProposition($params['categories'], [1, 2]);
+					$params['propositionVin'] = $cat->getWinesProposition($params['categories'], $userPrefs);
 					
 
 				}

@@ -39,6 +39,14 @@
 
 		<input type="submit" value="recherche" />
 	</form>
+	<?php if(isset($_SESSION['listErr'])) : ?>
+		<div class="erreurs">
+			<?php 
+				echo implode('<br/>', $_SESSION['listErr']);
+				unset($_SESSION['listErr']);
+			 ?>
+		</div>
+	<?php endif; ?>
 </div>
 <!-- FIN RECHERCHE -->
 <?php $this->stop('main_content') ?>
