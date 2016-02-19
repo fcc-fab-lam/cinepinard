@@ -14,22 +14,24 @@
 				foreach($userCave as $key => $value) : ?>
 					<div class="row">
 						<div class="col-md-4">
-							<h4><?=ucfirst($value['name']) ?></h4>
-							<h5><?=ucfirst($value['appellation']) ?></h5>
-							<p><?=ucfirst($value['description']) ?></p><br>
+							<h4><?= (isset($value['infosFilm']['movie']['title'])) ? $value['infosFilm']['movie']['title'] : $value['infosFilm']['movie']['originalTitle']?></h4>
+							<p><?= (isset($value['infosFilm']['movie']['poster']['href'])) ? '<img height="300px" src="'.$value['infosFilm']['movie']['poster']['href'].'" />' : '' ?></p>
 						</div>
 
 						<div class="col-md-4">
-							<p><?= (isset($value['infosFilm']['movie']['poster']['href'])) ? '<img height="300px" src="'.$value['infosFilm']['movie']['poster']['href'].'" />' : '' ?></p>
-							<h4><?= (isset($value['infosFilm']['movie']['title'])) ? $value['infosFilm']['movie']['title'] : $value['infosFilm']['movie']['originalTitle']?></h4>
+							<h4><?=ucfirst($value['name']) ?></h4>
+							<h5><?=ucfirst($value['appellation']) ?></h5>
+							<a class="btn btn-info" href="../public/ajouter-commentaire" role="button">Noter et Commenter l'association</a>
+
 						</div>
 
 						<div class="col-md-4">
 							<h4>Commentaire</h4>
-							<quote><?=ucfirst($value['comment']) ?></quote>
-							<h3>Note : <?=ucfirst($value['note']) ?></h3>
+							<quote><?= (isset($value['comment'])) ? ucfirst($value['comment']) : '' ?></quote>
+							<h3>Note de l'association : <?=ucfirst($value['note']) ?></h3>
 						</div>
 					</div>
+					<hr>
 				<?php endforeach; ?>
 		</div>
 </div>
