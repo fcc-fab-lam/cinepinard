@@ -32,8 +32,13 @@ class AdminController extends Controller
 
 	//creation fiche vin
 	public function addWine()
-	{
-		$this->show('back/add-wine', ['showErr' => $showErr, 'err' => $err]);
+	{	$genreVinManager = new WinesGenresManager ;
+		$listGenreVin = $genreVinManager->findAll();
+		$params = [
+				'listGenreVin' => $listGenreVin,
+				];
+
+		$this->show('back/add-wine', $params);
 	}
 
 	// Ajout genre de vin
@@ -46,9 +51,9 @@ class AdminController extends Controller
 		$inputValue=false;
 		$formValid = false;
 		$showErr = false;
-		$genreVinManager = new WinesGenresManager ;//permet d'afficher la liste  pre-existante des genre de film.
+		$genreVinManager = new WinesGenresManager ;
 		$listGenreVin = $genreVinManager->findAll();
-		$filmGenreManager = new FilmGenreManager;
+		$filmGenreManager = new FilmGenreManager;//permet d'afficher la liste  pre-existante des genre de film.
 		$listGenreFilm = $filmGenreManager->findAll();
 
 		// permet d'entrer dans le post si les champs sont vides	

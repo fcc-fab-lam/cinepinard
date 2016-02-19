@@ -19,6 +19,7 @@
  		<p> Ajouter un genre de vin </p>
 
  		<label for="name">Genre de Vin</label><br />
+ 		 <!-- ne vide pas le champs du formulaire -->
  		<?php $name = '';if(!empty($inputValue)){$name = $inputValue;} ?>
  		<input type="text" name="name" placeholder="genre" id="name" value="<?=$name ?>" />
 
