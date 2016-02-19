@@ -11,30 +11,6 @@
 				$userCat[] = $value['categorie_id'];
 			}
 		;?>
-		<?php if(empty($w_user)) : ?>
-		<div class="formulaire">
-			<form method="post">
-				<label for="email">Email</label>
-				<input type="email" id="email" name="email">
-
-				<label for="password">Mot de passe</label>
-				<input type="password" id="password" name="password">
-
-				<input type="submit" value="connexion" />
-			</form>
-			<?php endif; ?>
-			<?php
-				if($showErr){
-					echo '<div class="erreurs">';
-					echo implode('<br/>', $err);
-					echo '</div>';
-				}
-				if($formValid){
-					echo 'Bonjour '.$w_user['nickname'];
-					echo '<a href="'.$this->url('home').'?logout=yes">Se déconnecter</a>';
-				}
-			?>
-		</div>
 	</div>
 </header>
 <!-- FIN CONNEXION / LOG IN -->

@@ -110,23 +110,59 @@ class DefaultController extends Controller
 		$params = ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid, 'post' => $post];
 		$this->show('default/signup', $params);
 	}
+    
+    // LOGIN
+    public function login()
+    {
+        // On instancie nos variables
+		$err = array();
+		$showErr = false;
+		$userManager = new UserManager();
+		$authentificationManager = new AuthentificationManager();
 
+		if(!empty($_POST)){
+			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
+			$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
+			if($signIn == 0){
+				$err[] = 'L\'adresse email ou le mot de passe est incorrect';
+			}
+			// Si email et password correct on enregistre en session les données de l'utilisateur
+			else{
+				$user = $userManager->find($signIn);
+				$authentificationManager->logUserIn($user);
+				$userInfos = $authentificationManager->getLoggedUser();
+				$pref = new UsersPreferences();
+				$userPrefs = $pref->getUsersPreferences($userInfos['id']);
+                header('Location: '.$_POST['currentPage']);
+			}
+			// On regarde s'il y a des erreurs
+			if(count($err)>0){
+				$showErr = true;
+			}
+		}
+    }
+    
+    // LOGOUT
+    public function logout()
+    {
+        $authentificationManager = new AuthentificationManager();
+		$authentificationManager->logUserOut();
+        $this->redirectToRoute('home');
+    }
+    
+    
 	// TRAITEMENT DU FORMULAIRE DE CONNEXION
 	public function home()
 	{
 		// On instancie nos variables
-		$err = array();
-		$formValid = false;
-		$showErr = false;
-		$userManager = new UserManager();
-		$authentificationManager = new AuthentificationManager();
-		$userPrefs = array();
+		//$err = array();
+		//$formValid = false;
+		//$showErr = false;
+		//$userManager = new UserManager();
+		//$authentificationManager = new AuthentificationManager();
+		//$userPrefs = array();
 
-		if(isset($_GET['logout']) && $_GET['logout'] == 'yes'){
-			$authentificationManager->logUserOut();
-		}
-
-		if(!empty($_POST)){
+		/*if(!empty($_POST)){
 			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
 			$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
 			if($signIn == 0){
@@ -145,16 +181,16 @@ class DefaultController extends Controller
 			if(count($err)>0){
 				$showErr = true;
 			}
-		}
+		}*/
 		$cat = new WinesCategories();
 		$categories = $cat->getCategories();
 
 		$params = [
-					'showErr' => $showErr,
-					'err' => $err,
-					'formValid' => $formValid,
+					//'showErr' => $showErr,
+					//'err' => $err,
+					//'formValid' => $formValid,
 					'categories' => $categories,
-					'userPrefs' => $userPrefs,
+					//'userPrefs' => $userPrefs,
 					];
 		$this->show('default/home', $params);
 	}

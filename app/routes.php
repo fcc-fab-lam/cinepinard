@@ -1,10 +1,10 @@
 <?php
 	
 	$w_routes = array(
-		['GET|POST', '/', 'Default#home', 'home'],// vers la page accueil
+		['GET|POST', '/', 'Default#home', 'home'], // vers la page accueil
 		['GET|POST', '/inscription', 'Default#signup', 'signup'],
-		['GET|POST', '/resultats-recherche', 'Default#searchResults', 'search-results'],// profil utilsateur
-		['GET|POST', '/a-propos','Default#aboutUs', 'about-us'],// qui sommes-nous
+		['GET|POST', '/resultats-recherche', 'Default#searchResults', 'search-results'], // profil utilsateur
+		['GET|POST', '/a-propos','Default#aboutUs', 'about-us'], // qui sommes-nous
 		['GET|POST', '/selection-film', 'Default#selectionMovie', 'selection-movie'], // film selectionné
 		['GET|POST', '/profil-utilisateur', 'Users#userProfil', 'user-profil'], // Profil de l'utilisateur
 		['GET|POST', '/desactiver-compte', 'Users#disableAccount', 'disable-acccount'], // Desactiver un compte
@@ -18,6 +18,7 @@
 		['GET|POST', '/association-genres', 'Admin#associationGenres', 'association-genres'], // Association 1 genre de film et 1 genre de vin 
 		['GET|POST', '/liste-associations-non-moderees', 'Admin#listNotModeratedAssociations', 'list-not-moderated-associations'], // Liste des associations non-modérées 
 		['GET|POST', '/liste-commentaires-non-moderees', 'Admin#listNotModeratedComments', 'list-not-moderated-comments'], // Liste des commentaires non-moderés 
-		['GET|POST', '/formulaire-moderation', 'Admin#moderationForm', 'moderation-form'], // Formulaire de moderation  
-		
+		['GET|POST', '/formulaire-moderation', 'Admin#moderationForm', 'moderation-form'], // Formulaire de moderation		
+		['GET|POST', '/login', 'Default#login', 'login'], // Connexion
+		['GET|POST', '/logout', 'Default#logout', 'logout'], // Déconnexion 		
 	);

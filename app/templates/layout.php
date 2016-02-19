@@ -9,6 +9,25 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
+        <header>            
+		<?php if(empty($w_user)) : ?>
+		<div class="formulaire">
+			<form method="post" action="<?=$this->url('login') ?>">
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email">
+
+				<label for="password">Mot de passe</label>
+				<input type="password" id="password" name="password">
+
+				<input type="submit" value="connexion" />
+				<input type="hidden" value="" name="currentPage">
+			</form>
+			<?php else : ?>
+                Bonjour <?=$w_user['nickname'] ?>
+                <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
+			<?php endif; ?>
+		</div>
+        </header>
 
 		<main>
 			<?= $this->section('main_content') ?>
