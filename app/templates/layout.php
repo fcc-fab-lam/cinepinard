@@ -21,6 +21,9 @@
                                 <?php endif; ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
+                        <?php if(!empty($w_user)) : // si l'utilisateur est connecté on affiche un lien vers le back ?>
+                            <li><a href="<?=$this->url('user-profil') ?>">Gérer mon profil</a></li>
+                        <?php endif; ?>
                 </ul>
             </nav>
             <div class="row connexion">
