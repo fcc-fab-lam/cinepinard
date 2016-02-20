@@ -18,6 +18,6 @@
 		['GET|POST', '/liste-associations-non-moderees', 'Admin#listNotModeratedAssociations', 'list-not-moderated-associations', 'Modérer les associations film/vin', 'back', '1'], // Liste des associations non-modérées 
 		['GET|POST', '/liste-commentaires-non-moderees', 'Admin#listNotModeratedComments', 'list-not-moderated-comments', 'Modérer les commentaires', 'back', '1'], // Liste des commentaires non-moderés 
 		['GET|POST', '/formulaire-moderation', 'Admin#moderationForm', 'moderation-form', 'Formulaire de modération', '', '1'], // Formulaire de moderation		
-		['GET|POST', '/login', 'Default#login', 'login', 'Connexion', 'front', '2'], // Connexion
+		['GET|POST', '/login', 'Default#login', 'login', 'Connexion', '', '2'], // Connexion
 		['GET|POST', '/logout', 'Default#logout', 'logout', 'Déconnexion', 'back', '2'], // Déconnexion 		
 	);
