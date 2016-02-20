@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Genre de vin']) ?>
+<?php $this->layout('layout-back', ['title' => 'Genre de vin']) ?>
 
 <?php $this->start('main_content') ?>
 

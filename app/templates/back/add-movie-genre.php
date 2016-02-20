@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Genre de film']) ?>
+<?php $this->layout('layout-back', ['title' => 'Genre de film']) ?>
 
 <?php $this->start('main_content') ?>
 

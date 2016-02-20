@@ -9,41 +9,27 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
-       <!-- DEBUT CONNEXION / LOG IN -->
         <header class="container-fluid">
             <nav>
                 <ul>
+                    <li><a href="<?=$this->url('home') ?>">Accueil</a></li>
                     <?php require('../app/routes.php'); // on recupere requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes ?>
                         <?php foreach($w_routes as $value) : // on boucle sur le tableau des routes ?>
-                            <?php if($value['5'] == 'front') : // si la route est prévue pour le front ?>
+                            <?php if($value['5'] == 'back') : // si la route est prévue pour le back ?>
                                 <?php if($value['6'] == '2') : // si la route est prevu pour tous les utilisateurs ?>
+                                    <li><a href="<?=$this->url($value['3']) ?>"><?=$value['4'] ?></a></li>
+                                <? elseif($value['6'] == '1' && $w_user['role_id'] == 1) : // si la route est prévue pour les administrateurs  ?>
                                     <li><a href="<?=$this->url($value['3']) ?>"><?=$value['4'] ?></a></li>
                                 <?php endif; ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
                 </ul>
             </nav>
-            <div class="row connexion">
-            <?php if(empty($w_user)) : ?>
-                <div class="formulaire">
-                    <form method="post" action="<?=$this->url('login') ?>">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email">
-
-                        <label for="password">Mot de passe</label>
-                        <input type="password" id="password" name="password">
-
-                        <input type="submit" value="connexion" />
-                        <input type="hidden" value="" name="currentPage">
-                    </form>
-                </div>
-            <?php else : ?>
-                Bonjour <?=$w_user['nickname'] ?>
-                <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
-            <?php endif; ?>
+                    Bonjour <?=$w_user['nickname'] ?>
+                    <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
             </div>
         </header>
-        <!-- FIN CONNEXION / LOG IN -->
+
 		<main>
 			<?= $this->section('main_content') ?>
 		</main>

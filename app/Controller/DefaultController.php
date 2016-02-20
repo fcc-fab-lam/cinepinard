@@ -119,6 +119,7 @@ class DefaultController extends Controller
 		$showErr = false;
 		$userManager = new UserManager();
 		$authentificationManager = new AuthentificationManager();
+        $userPrefs = array();
 
 		if(!empty($_POST)){
 			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
@@ -133,12 +134,22 @@ class DefaultController extends Controller
 				$userInfos = $authentificationManager->getLoggedUser();
 				$pref = new UsersPreferences();
 				$userPrefs = $pref->getUsersPreferences($userInfos['id']);
-                header('Location: '.$_POST['currentPage']);
 			}
 			// On regarde s'il y a des erreurs
 			if(count($err)>0){
 				$showErr = true;
 			}
+
+		$cat = new WinesCategories();
+		$categories = $cat->getCategories();
+		$params = [
+					'showErr' => $showErr,
+					'err' => $err,
+					'categories' => $categories,
+					'userPrefs' => $userPrefs,
+					];
+            
+		$this->redirectToRoute('home',$params);
 		}
     }
     
@@ -160,7 +171,7 @@ class DefaultController extends Controller
 		//$showErr = false;
 		//$userManager = new UserManager();
 		//$authentificationManager = new AuthentificationManager();
-		//$userPrefs = array();
+		$userPrefs = array();
 
 		/*if(!empty($_POST)){
 			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
@@ -190,7 +201,7 @@ class DefaultController extends Controller
 					//'err' => $err,
 					//'formValid' => $formValid,
 					'categories' => $categories,
-					//'userPrefs' => $userPrefs,
+					'userPrefs' => $userPrefs,
 					];
 		$this->show('default/home', $params);
 	}

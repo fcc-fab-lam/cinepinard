@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Commentaires non modérées']) ?>
+<?php $this->layout('layout-back', ['title' => 'Commentaires non modérées']) ?>
 
 <?php $this->start('main_content') ?>
 

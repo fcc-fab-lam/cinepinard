@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Desactiver un compte']) ?>
+<?php $this->layout('layout-back', ['title' => 'Desactiver un compte']) ?>
 
 <?php $this->start('main_content') ?>
 

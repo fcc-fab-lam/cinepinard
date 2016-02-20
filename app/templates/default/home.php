@@ -2,18 +2,6 @@
 
 <?php $this->start('main_content') ?>
 
-<!-- DEBUT CONNEXION / LOG IN -->
-<header class="container-fluid">
-	<div class="row connexion">
-		<?php 
-			$userCat = array();
-			foreach ($userPrefs as $value) {
-				$userCat[] = $value['categorie_id'];
-			}
-		;?>
-	</div>
-</header>
-<!-- FIN CONNEXION / LOG IN -->
 <div class="background"></div>
 <!-- DEBUT RECHERCHE -->
 <div class="recherche">
@@ -24,7 +12,13 @@
 				<input type="text" placeholder="Ex : Deadpool" name="film">
 
 				<div class="preferences">J'aime :
-					<?php foreach($categories as $value): ?>
+					<?php 
+                        foreach($categories as $value): 
+                            $userCat = array();
+                            foreach ($userPrefs as $value) {
+                                $userCat[] = $value['categorie_id'];
+                            };
+                    ?>
 						<label><input type="checkbox" name="preferences[]" value="<?=$value['id']; ?>" <?php if(in_array($value['id'], $userCat)){echo 'checked="checked"';} ?> /><?=$value['name']; ?></label>
 					<?php endforeach; ?>
 				</div>

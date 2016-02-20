@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Profil']) ?>
+<?php $this->layout('layout-back', ['title' => 'Profil']) ?>
 
 <?php $this->start('main_content') ?>
 

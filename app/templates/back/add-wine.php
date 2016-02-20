@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Ajouter un vin']) ?>
+<?php $this->layout('layout-back', ['title' => 'Ajouter un vin']) ?>
 
 <?php $this->start('main_content') ?>
 

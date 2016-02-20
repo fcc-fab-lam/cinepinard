@@ -35,16 +35,17 @@ class UsersController extends Controller
 
 	public function updateProfil()
 	{
+        // On instancie nos variables
+        $post = array();
+        $err = array();
+        $formValid = false;
+        $showErr = false;
+        $maxSize = 200000;
+        $mimeTypeAllowed = array('image/jpg', 'image/jpeg', 'image/gif', 'image/png'); // Controle l'extension de l'image
+        
 		if (!empty($_POST)) {
 			$userManager = new UserManager();
 			$authentificationManager = new AuthentificationManager();
-			// On instancie nos variables
-			$post = array();
-			$err = array();
-			$formValid = false;
-			$showErr = false;
-			$maxSize = 200000;
-			$mimeTypeAllowed = array('image/jpg', 'image/jpeg', 'image/gif', 'image/png'); // Controle l'extension de l'image
 				// On nettoie $_POST
 			if(!empty($_POST)){
 				$preferences = $_POST['preferences'];
@@ -158,16 +159,21 @@ class UsersController extends Controller
 		$userInfos = $authentificationManager->getLoggedUser();
 		$userSelection = $userCave->getUsersCave($userInfos['id']);
 		$AlloCine = new AlloCine();
-		foreach($userSelection as $key => $value){
-			$allInfos[$key]['infosFilm'] =  json_decode($AlloCine->get($value['movie_id']), true);
-			$allInfos[$key]['id'] = $value['id'];
-			$allInfos[$key]['name'] = $value['name'];
-			$allInfos[$key]['appellation'] = $value['appellation'];
-			$allInfos[$key]['description'] = $value['description'];
-			$allInfos[$key]['comment'] = $value['comment'];
-			$allInfos[$key]['note'] = $value['note'];
+        $allInfos = array();
+        if(!empty($userSelection)){
+            foreach($userSelection as $key => $value){
+                $allInfos[$key]=[
+                                'infosFilm' =>  json_decode($AlloCine->get($value['movie_id']), true),
+                                'id' => $value['id'],
+                                'name' => $value['name'],
+                                'appellation' => $value['appellation'],
+                                'description' => $value['description'],
+                                'comment' => $value['comment'],
+                                'note' => $value['note'],
+                                ];
 
-		}
+            }
+        }
 		$params = [
 			'userCave' => $allInfos,
 			];

@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Formulaire de moderation']) ?>
+<?php $this->layout('layout-back', ['title' => 'Formulaire de moderation']) ?>
 
 <?php $this->start('main_content') ?>
 

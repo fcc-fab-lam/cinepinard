@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Association non modérées']) ?>
+<?php $this->layout('layout-back', ['title' => 'Association non modérées']) ?>
 
 <?php $this->start('main_content') ?>
 

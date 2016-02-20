@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Logout']) ?>
+<?php $this->layout('layout-back', ['title' => 'Logout']) ?>
 
 <?php $this->start('main_content') ?>
 

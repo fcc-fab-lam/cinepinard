@@ -1,4 +1,4 @@
-<?php $this->layout('layout', ['title' => 'Association genre']) ?>
+<?php $this->layout('layout-back', ['title' => 'Association genre']) ?>
 
 <?php $this->start('main_content') ?>
 
