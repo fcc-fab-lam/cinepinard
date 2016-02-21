@@ -50,7 +50,7 @@ class UsersPreferencesManager extends \W\Manager\Manager {
 	 *
 	 */
 	public function getUsersCave($id){
-		$sql3 = 'SELECT * FROM users_notes_comments AS unc LEFT JOIN wines as wi ON (unc.wine_id = wi.id) WHERE user_id = :userId';
+		$sql3 = 'SELECT unc.id AS assoId, unc.movie_id, unc.wine_id, unc.comment, unc.note, wi.name, wi.appellation, wi.description FROM users_notes_comments AS unc LEFT JOIN wines AS wi ON (unc.wine_id = wi.id) WHERE unc.user_id = :userId';
 		$req3 = $this->dbh->prepare($sql3);
 		$req3->bindValue(':userId', $id);
 		$req3->execute();

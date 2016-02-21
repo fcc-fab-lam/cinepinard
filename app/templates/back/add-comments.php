@@ -16,7 +16,7 @@
 		</form>		
 	</div>
 </div>
-aéaé
+
 
 
 <?php $this->stop('main_content') ?>

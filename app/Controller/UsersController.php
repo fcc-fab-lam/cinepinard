@@ -158,18 +158,19 @@ class UsersController extends Controller
 		$authentificationManager = new AuthentificationManager();
 		$userInfos = $authentificationManager->getLoggedUser();
 		$userSelection = $userCave->getUsersCave($userInfos['id']);
+
 		$AlloCine = new AlloCine();
         $allInfos = array();
         if(!empty($userSelection)){
             foreach($userSelection as $key => $value){
                 $allInfos[$key]=[
                                 'infosFilm' =>  json_decode($AlloCine->get($value['movie_id']), true),
-                                'id' => $value['id'],
-                                'name' => $value['name'],
-                                'appellation' => $value['appellation'],
-                                'description' => $value['description'],
-                                'comment' => $value['comment'],
-                                'note' => $value['note'],
+                                'id' => $value['assoId'],
+                                'name' => $value['wi.name'],
+                                'appellation' => $value['wi.appellation'],
+                                'description' => $value['wi.description'],
+                                'comment' => $value['unc.comment'],
+                                'note' => $value['unc.note'],
                                 ];
 
             }

@@ -107,7 +107,12 @@ class DefaultController extends Controller
 				$formValid = true;
 			}
 		}
-		$params = ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid, 'post' => $post];
+		$params = [
+            'showErr' => $showErr,
+            'err' => $err,
+            'formValid' => $formValid,
+            'post' => $post,
+        ];
 		$this->show('default/signup', $params);
 	}
     
@@ -327,6 +332,7 @@ class DefaultController extends Controller
 						$genres[] = $value['code'];
 					}
 					$params['genres'] = $genres;
+					$selec =  array_count_values($genres);
 					$cat = new WinesCategories();
 					$params['categories'] = $cat->getWinesGenres($genres);
 					$params['propositionVin'] = $cat->getWinesProposition($params['categories'], $userPrefs);
