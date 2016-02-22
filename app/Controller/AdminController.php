@@ -9,6 +9,8 @@ use \Manager\WinesCategoriesManager;
 use \Manager\FilmGenreManager;
 use \Manager\GenresAssociationsManager;
 use \Manager\AddWineManager as AddWine;
+use \Manager\CommentsNotModarateManager;
+
 
 
 
@@ -135,22 +137,7 @@ class AdminController extends Controller
 		$this->show('back/add-wine',$params);
 	}		
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		// Ajout genre de vin
+// Ajout genre de vin
 	public function addWineGenre()
 	{
 
@@ -260,8 +247,16 @@ class AdminController extends Controller
 
 	// Liste des commentaires non-moderés 
 	public function listNotModeratedComments()
-	{
-		$this->show('back/list-not-moderated-comments', ['showErr' => $showErr, 'err' => $err]);
+	{	
+		$notModeratedComments = new CommentsNotModarateManager() ;
+		$listNotModeratedComments = $notModeratedComments->getCommentsNotModarate();
+		$params = [
+			'listNotModeratedComments' => $listNotModeratedComments,
+			];
+		
+
+
+		$this->show('back/list-not-moderated-comments', $params);
 	}
 
 	// Formulaire de moderation  
