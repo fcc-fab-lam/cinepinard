@@ -387,7 +387,7 @@ class DefaultController extends Controller
                     $err[] = 'Aucun vin correspondant';
                 }
             }
-            if(empty($userInfos){ // on verifie si l'utilisateur est connecté
+            if(empty($userInfos)){ // on verifie si l'utilisateur est connecté
                 $this->redirectToRoute('home');
             }
             if(count($err) > 0){ // on verifie s'il y a des erreurs

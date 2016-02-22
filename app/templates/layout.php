@@ -43,6 +43,7 @@
                     <div class="login">
                         <div class="islogin">
                             Bonjour <span class="bold"><?=$w_user['nickname'] ?></span>
+                            <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
                         </div>
                     </div>
                 <?php endif; ?>
