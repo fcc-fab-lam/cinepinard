@@ -23,7 +23,7 @@
                             };
                         }
 	            ?>
-					<label><input type="checkbox" name="preferences[]" value="<?=$value['id']; ?>" <?php if(in_array($value['id'], $userCat)){echo 'checked="checked"';} ?> /><?= ucfirst($value['name']); ?></label>
+					<label for="<?=$value['id']; ?>"><input type="checkbox" id="<?=$value['id']; ?>" name="preferences[]" value="<?=$value['id']; ?>" <?php if(in_array($value['id'], $userCat)){echo 'checked="checked"';} ?> /><span></span><?= ucfirst($value['name']); ?></label>
 				<?php endforeach; ?>
 			</div>
 

@@ -128,8 +128,8 @@ class UsersController extends Controller
 					$userPreferences = new UsersPreferencesManager();
 					$userPreferences->setUsersPreferences($preferences, $_SESSION['user']['id']);
                     $userPrefs = $userPreferences->getUsersPreferences($_SESSION['user']['id']);
-                    $_SESSION['userPrefs'] = $userPrefs;
                     $authentificationManager->refreshUser();
+                    $_SESSION['userPrefs'] = $userPrefs;
 					$this->redirectToRoute('user-profil');
 				}
 			}

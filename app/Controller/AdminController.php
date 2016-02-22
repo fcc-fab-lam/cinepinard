@@ -17,7 +17,7 @@ use \Manager\CommentsNotModarateManager;
 class AdminController extends Controller
 {//  autorisation exclusive à l'admin.
 	public function __construct() {
-		$this->allowTo(['1']);
+		//$this->allowTo(['1']);
 
 	}
 

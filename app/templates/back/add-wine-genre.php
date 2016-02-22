@@ -28,7 +28,7 @@
 		<?php			
 			 
 			foreach ($listGenreFilm as $key => $value){
-				echo '<label><input type="checkbox" value="'.$value['id'].'" name="movies_genre[]" />'.$value['name'].'</label> <br>'  ;
+				echo '<label><input type="checkbox" value="'.$value['id'].'" name="movies_genre[]" /><span></span>'.$value['name'].'</label> <br>'  ;
 				}
 
 	 		// envoyer les erreurs si il y en a

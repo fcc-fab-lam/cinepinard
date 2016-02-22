@@ -1,5 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans);
 
+/* CheckBoxes */
+input[type="checkbox"]{
+    display: none;
+}
+input[type="checkbox"] + span{
+    display: inline-block;
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: url('../../img/unchecked.png');
+    background-size: contain;
+}
+input[type="checkbox"]:checked + span{
+    background: url('../../img/checked.png');
+    background-size: contain;
+}
+
+
 /* PAGE D'ACCUEIL */
 
 /* Menu */

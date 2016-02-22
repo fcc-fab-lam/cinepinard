@@ -50,7 +50,7 @@
 				<label class="control-label col-sm-3">Modifier vos préférences :</label>
 				<div class="col-sm-9">
 					<?php foreach($categories as $value):?>
-						<label><input type="checkbox" name="preferences[]" value="<?php echo $value['id'];?>" <?php if(in_array($value['id'], $userCat)){ echo 'checked="checked"';}?>/><?php echo $value['name'];?></label>
+						<label><input type="checkbox" name="preferences[]" value="<?php echo $value['id'];?>" <?php if(in_array($value['id'], $userCat)){ echo 'checked="checked"';}?>/><span></span><?php echo $value['name'];?></label>
 					<?php endforeach; ?>
 				</div>
 			</div>
