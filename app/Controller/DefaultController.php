@@ -129,11 +129,12 @@ class DefaultController extends Controller
 		if(!empty($_POST)){
 			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
 			$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
+			
 			if($signIn == 0){
 				$err[] = 'L\'adresse email ou le mot de passe est incorrect';
 			}
 			// Si email et password correct on enregistre en session les données de l'utilisateur
-			else{
+			else {
 				$user = $userManager->find($signIn);
 				$authentificationManager->logUserIn($user);
 				$userInfos = $authentificationManager->getLoggedUser();
@@ -145,16 +146,16 @@ class DefaultController extends Controller
 				$showErr = true;
 			}
 
-		$cat = new WinesCategories();
-		$categories = $cat->getCategories();
-		$params = [
-					'showErr' => $showErr,
-					'err' => $err,
-					'categories' => $categories,
-					'userPrefs' => $userPrefs,
-					];
+			$cat = new WinesCategories();
+			$categories = $cat->getCategories();
+			$params = [
+				'showErr' => $showErr,
+				'err' => $err,
+				'categories' => $categories,
+				'userPrefs' => $userPrefs,
+			];
             
-		$this->redirectToRoute('home',$params);
+			$this->redirectToRoute('home', $params);
 		}
     }
     
@@ -202,12 +203,12 @@ class DefaultController extends Controller
 		$categories = $cat->getCategories();
 
 		$params = [
-					//'showErr' => $showErr,
-					//'err' => $err,
-					//'formValid' => $formValid,
-					'categories' => $categories,
-					'userPrefs' => $userPrefs,
-					];
+			//'showErr' => $showErr,
+			//'err' => $err,
+			//'formValid' => $formValid,
+			'categories' => $categories,
+			'userPrefs' => $userPrefs,
+		];
 		$this->show('default/home', $params);
 	}
 

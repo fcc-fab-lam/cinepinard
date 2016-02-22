@@ -15,16 +15,16 @@
                             </div>
 
                             <div class="col-md-4">
-                                <h4><?=ucfirst($value['wi.name']) ?></h4>
-                                <h5><?=ucfirst($value['wi.appellation']) ?></h5>
+                                <h4><?=ucfirst($value['name']) ?></h4>
+                                <h5><?=ucfirst($value['appellation']) ?></h5>
                                 <a class="btn btn-info" href="<?php echo $this->url('add-comments') ?>?id=<?php echo $value['id'] ?>" role="button">Noter et Commenter l'association</a>
 
                             </div>
 
                             <div class="col-md-4">
                                 <h4>Commentaire</h4>
-                                <quote><?= (isset($value['unc.comment'])) ? ucfirst($value['unc.comment']) : '' ?></quote>
-                                <h3>Note de l'association : <?=ucfirst($value['unc.note']) ?></h3>
+                                <quote><?= (isset($value['comment'])) ? ucfirst($value['comment']) : '' ?></quote>
+                                <h3>Note de l'association : <?=ucfirst($value['note']) ?></h3>
                             </div>
                         </div>
                         <hr>

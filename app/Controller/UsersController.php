@@ -26,7 +26,7 @@ class UsersController extends Controller
 		$params = [
 			'userInfos' => $userInfos,
 			'userPrefs' => $userPrefs,
-			];
+		];
 
 		$this->show('back/user-profil', $params);
 	}
@@ -57,15 +57,15 @@ class UsersController extends Controller
 
 				// On verifie les champs
 				// Nom
-				if(strlen($post['lastname'])<3){
+				if(strlen($post['lastname']) < 3){
 					$err[] = 'Le nom doit faire au moins 3 caractères';
 				}
 				// Prénom
-				if(strlen($post['firstname'])<3){
+				if(strlen($post['firstname']) < 3){
 					$err[] = 'Le prénom doit faire au moins 3 caractères';
 				}
 				// Pseudo
-				if(strlen($post['nickname'])<3){
+				if(strlen($post['nickname']) < 3){
 					$err[] = 'Le pseudo doit faire au moins 3 caractères';
 				}
 				// Email
@@ -104,15 +104,14 @@ class UsersController extends Controller
 					}
 				}
 
-			// On regarde s'il y a des erreurs
-				if(count($err)>0){
+				// On regarde s'il y a des erreurs
+				if(count($err) > 0){
 					$showErr = true;
 				}
 				// S'il n'y a pas d'erreur on enregistre en BDD
 				else{
 					// On définit le role à utilisateur par défault 
 					// On hash le password
-
 					$userUpdate = $userManager->update($post, $_SESSION['user']['id']);
 
 					if(!empty($_FILES['photo']['tmp_name'])){
@@ -131,23 +130,28 @@ class UsersController extends Controller
 					$this->redirectToRoute('user-profil');
 				}
 			}
+		
 			$params = ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid, 'post' => $post];
 		}
-		// Recupère le profil de l'utilisateur 
-			$userPreferences = new UsersPreferencesManager();
-			$authentificationManager = new AuthentificationManager();
-			$authentificationManager->refreshUser();
-			$userInfos = $authentificationManager->getLoggedUser();
-			$userPrefs = $userPreferences->getUsersPreferences($userInfos['id']);
-			$cat = new WinesCategories();
-			$categories = $cat->getCategories();
-			$params = [
+			
+		// On instancie nos classes
+		$userPreferences = new UsersPreferencesManager();
+		$authentificationManager = new AuthentificationManager();
+		$cat = new WinesCategories();
+
+		// Recupère le profil de l'utilisateur et ses préférences
+		$authentificationManager->refreshUser();
+		$userInfos = $authentificationManager->getLoggedUser();
+		$userPrefs = $userPreferences->getUsersPreferences($userInfos['id']);
+
+		$categories = $cat->getCategories();
+		$params = [
 			'userInfos' => $userInfos,
 			'userPrefs' => $userPrefs,
 			'categories' => $categories,
 			'post' => $post,
-			];
-		
+		];
+	
 		$this->show('back/update-profil', $params);
 	}
 
@@ -163,21 +167,21 @@ class UsersController extends Controller
         $allInfos = array();
         if(!empty($userSelection)){
             foreach($userSelection as $key => $value){
-                $allInfos[$key]=[
-                                'infosFilm' =>  json_decode($AlloCine->get($value['movie_id']), true),
-                                'id' => $value['assoId'],
-                                'name' => $value['wi.name'],
-                                'appellation' => $value['wi.appellation'],
-                                'description' => $value['wi.description'],
-                                'comment' => $value['unc.comment'],
-                                'note' => $value['unc.note'],
-                                ];
-
+                $allInfos[$key] = [
+                    'infosFilm' =>  json_decode($AlloCine->get($value['movie_id']), true),
+                    'id' => $value['assoId'],
+                    'name' => $value['name'], // table wine
+                    'appellation' => $value['appellation'], // table wine
+                    'description' => $value['description'], // table wine
+                    'comment' => $value['comment'], // table user_note_comment
+                    'note' => $value['note'], // table user_note_comment
+           		];
             }
         }
 		$params = [
 			'userCave' => $allInfos,
-			];
+		];
+
 		$this->show('back/cave', $params);
 	}
 	
@@ -186,6 +190,7 @@ class UsersController extends Controller
 	{
 		$this->show('back/add-comments', ['showErr' => $showErr, 'err' => $err]);
 	}
+
 	// Desactiver un compte
 	public function disableAccount()
 	{
@@ -196,9 +201,9 @@ class UsersController extends Controller
 		$showErr = false;
 		$userManager = new UserManager();
 		
-			// permet d'entrer dans le post si les champs sont vides	
-		if($_SERVER['REQUEST_METHOD'] == 'POST'){
-			foreach ($_POST as $key => $value) {
+		// permet d'entrer dans le post si les champs sont vides	
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			foreach($_POST as $key => $value) {
 				$post[$key] = trim(strip_tags($value));
 			}
 			// je verifie qu'un choix a été fait
@@ -208,7 +213,7 @@ class UsersController extends Controller
 			// si il se desincrit
 			elseif($post['disable'] == 'oui'){
 			  $user = $this->getUser();
-			  $userManager->update(['nickname'=>'Anonyme'.$user['id']],$user['id']);
+			  $userManager->update(['nickname'=>'Anonyme'.$user['id']], $user['id']);
 			}
 			// s'il ne se desincrit pas
 			elseif($post['disable'] == 'non'){

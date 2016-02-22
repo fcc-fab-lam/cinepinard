@@ -12,7 +12,7 @@
        <!-- DEBUT CONNEXION / LOG IN -->
         <header class="container-fluid">
             <nav>
-                <ul>
+                <ul class="list-inline">
                     <?php require('../app/routes.php'); // on recupere requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes ?>
                         <?php foreach($w_routes as $value) : // on boucle sur le tableau des routes ?>
                             <?php if($value['5'] == 'front') : // si la route est prévue pour le front ?>

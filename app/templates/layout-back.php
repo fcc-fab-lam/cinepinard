@@ -11,7 +11,7 @@
 <body>
         <header class="container-fluid">
             <nav>
-                <ul>
+                <ul class="list-inline">
                     <li><a href="<?=$this->url('home') ?>">Accueil</a></li>
                     <?php require('../app/routes.php'); // on recupere requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes ?>
                         <?php foreach($w_routes as $value) : // on boucle sur le tableau des routes ?>
