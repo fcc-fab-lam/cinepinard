@@ -14,4 +14,7 @@ class AddWineManager extends \W\Manager\Manager {
 		$this->dbh = \W\Manager\ConnectionManager::getDbh();
 	}
 
+
+
+
 }

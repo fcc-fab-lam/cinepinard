@@ -5,9 +5,10 @@ namespace Controller;
 use \W\Controller\Controller;
 use \Manager\FixUserManager as UserManager;
 use \Manager\WinesGenresManager;
+use \Manager\WinesCategoriesManager;
 use \Manager\FilmGenreManager;
 use \Manager\GenresAssociationsManager;
-use \Manager\AddWineManager;
+use \Manager\AddWineManager as AddWine;
 
 
 
@@ -35,8 +36,11 @@ class AdminController extends Controller
 	public function addWine()
 	{	$genreVinManager = new WinesGenresManager ;
 		$listGenreVin = $genreVinManager->findAll();
+		$cat = new WinesCategoriesManager();
+		$categories = $cat->getCategories();
 		$params = [
 				'listeGenreVin' => $listGenreVin,
+				'categories' => $categories,
 				];
 	
 				// Mes variables 
@@ -66,36 +70,62 @@ class AdminController extends Controller
 			if(strlen($post['appellation'])<5){
 				$err[] = 'Le prénom doit faire au moins 5 caractères';
 			}
-			if(empty($post['listeGenreVin'])){
+			if(empty($post['genre_id'])){
 				$err[] = 'Le genre de vin est obligatoire';
+			}
+			if(empty($post['categorie_id'])){
+				$err[] = 'La catégorie de vin est obligatoire';
 			}
 			// Pays
 
-			if(strlen($post['pays'])<4){
+			if(strlen($post['country'])<4){
 				$err[] = 'Le pays doit faire au moins 4 caractères';
 			}
 			
+			if(strlen($post['description'])<1){
+				$err[] = 'La description doit faire au moins 20 caractères';
+			}
 				// verification de l'image
 			if(!empty($_FILES['photo']['tmp_name'])){
 				if($_FILES['photo']['size'] > $maxSize){
 					$err[] = 'L\'image excède le poids autorisé';
 				}
-			}	
-			elseif(!empty($_FILES['photo']['tmp_name'])){ 
-				$finfo = new \finfo();
-				$fileMimeType = $finfo->file($_FILES['photo']['tmp_name'], FILEINFO_MIME_TYPE);
-				if(!in_array($fileMimeType, $mimeTypeAllowed)){
-					$err[] = 'Le fichier n\'est pas une image';
-				}
-			}	
-	
+				elseif(!empty($_FILES['photo']['tmp_name'])){ 
+					$finfo = new \finfo();
+					$fileMimeType = $finfo->file($_FILES['photo']['tmp_name'], FILEINFO_MIME_TYPE);
+					if(!in_array($fileMimeType, $mimeTypeAllowed)){
+						$err[] = 'Le fichier n\'est pas une image';
+					}
+				}	
+			}
 			// Si il ya  un erreur
 			if(count($err)>0){
 				$showErr = true;
 			} 
 			else{
-				$formValid = true; 
+				$insertValues =[
+					'name' => $post['name'],
+					'appellation' => $post['appellation'],
+					'country' => $post['country'],
+					'description'=> $post['description'],
+					'categorie_id'=>$post['categorie_id'],
+					'genre_id' => $post['genre_id'],
+				];
 
+				$userManager = new AddWine();
+				$newWine = $userManager->insert($insertValues);
+
+				if(!empty($_FILES['photo']['tmp_name'])){
+					$imgExtension = explode('/', $fileMimeType)[1];
+					// On récupère la classe qui permet d'utiliser la fonction
+					$app = getApp();
+					$imgPath = $app->getBasePath().'/uploads/wine-'.$newWine["id"].'.'.$imgExtension;
+					if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
+						$userManager->update(["image" => $imgPath], $newWine["id"]);
+					}
+				}
+
+				$formValid = true;
 			}
 		}
 		$params['err'] = $err;
