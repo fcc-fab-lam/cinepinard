@@ -7,7 +7,6 @@
 		echo 'erreur';
 	}
 	else{
-        var_dump($filmInfos);
 ?>
 		<!-- TITRE ORIGINAL OU FRANCAIS -->
 		<h4><?= (isset($filmInfos['movie']['title'])) ? $filmInfos['movie']['title'] : $filmInfos['movie']['originalTitle'] ?></h4>

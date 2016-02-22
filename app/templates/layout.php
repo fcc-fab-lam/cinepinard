@@ -13,17 +13,17 @@
         <header class="container-fluid">
             <nav>
                 <ul class="list-inline">
-                    <?php require('../app/routes.php'); // on recupere requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes ?>
-                        <?php foreach($w_routes as $value) : // on boucle sur le tableau des routes ?>
-                            <?php if($value['5'] == 'front') : // si la route est prévue pour le front ?>
-                                <?php if($value['6'] == '2') : // si la route est prevu pour tous les utilisateurs ?>
-                                    <li><a href="<?=$this->url($value['3']) ?>"><?=$value['4'] ?></a></li>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                        <?php if(!empty($w_user)) : // si l'utilisateur est connecté on affiche un lien vers le back ?>
-                            <li><a href="<?=$this->url('user-profil') ?>">Gérer mon profil</a></li>
-                        <?php endif; ?>
+    <?php require('../app/routes.php'); // on recupere requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes ?>
+        <?php foreach($w_routes as $value) : // on boucle sur le tableau des routes ?>
+            <?php if($value['5'] == 'front') : // si la route est prévue pour le front ?>
+                <?php if($value['6'] == '2') : // si la route est prevu pour tous les utilisateurs ?>
+                    <li><a href="<?=$this->url($value['3']) ?>"><?=$value['4'] ?></a></li>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+                <?php if(!empty($w_user)) : // si l'utilisateur est connecté on affiche un lien vers le back ?>
+                    <li><a href="<?=$this->url('user-profil') ?>">Gérer mon profil</a></li>
+                <?php endif; ?>
                 </ul>
             </nav>
             <div class="row connexion">
@@ -37,7 +37,7 @@
                         <input type="password" id="password" name="password">
 
                         <input type="submit" value="connexion" />
-                        <input type="hidden" value="" name="currentPage">
+                        <input type="hidden" value="<?=$_SERVER['W_ROUTE_NAME'] ?>" name="currentPage">
                     </form>
                 </div>
             <?php else : ?>

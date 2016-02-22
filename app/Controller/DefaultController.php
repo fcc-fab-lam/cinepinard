@@ -88,8 +88,6 @@ class DefaultController extends Controller
 				// On supprime les variables majeur & password2 dont on a pas besoin
 				unset($post['password2']);
 				unset($post['majeur']);
-				// On définit le role à utilisateur par défault 
-				$post['role_id'] = 2;
 				// On hash le password
 				$post['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
 
