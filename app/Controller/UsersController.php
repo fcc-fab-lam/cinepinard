@@ -118,15 +118,18 @@ class UsersController extends Controller
 						$imgExtension = explode('/', $fileMimeType)[1];
 						// On récupère la classe qui permet d'utiliser la fonction
 						$app = getApp();
-						$imgPath = $app->getBasePath().'/uploads/'.$userUpdate["id"].'.'.$imgExtension;
+						$imgPath = $app->getBasePath().'/uploads/user-'.$userUpdate["id"].'.'.$imgExtension;
 						if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
 							$userManager->update(["photo" => $imgPath], $userUpdate["id"]);
 						}
 					}
 					
 					$formValid = true;
-					$setPreferences = new UsersPreferencesManager();
-					$setPreferences->setUsersPreferences($preferences, $_SESSION['user']['id']);
+					$userPreferences = new UsersPreferencesManager();
+					$userPreferences->setUsersPreferences($preferences, $_SESSION['user']['id']);
+                    $userPrefs = $userPreferences->getUsersPreferences($_SESSION['user']['id']);
+                    $_SESSION['userPrefs'] = $userPrefs;
+                    $authentificationManager->refreshUser();
 					$this->redirectToRoute('user-profil');
 				}
 			}
@@ -143,7 +146,8 @@ class UsersController extends Controller
 		$authentificationManager->refreshUser();
 		$userInfos = $authentificationManager->getLoggedUser();
 		$userPrefs = $userPreferences->getUsersPreferences($userInfos['id']);
-
+        $_SESSION['userPrefs'] = $userPrefs;
+        
 		$categories = $cat->getCategories();
 		$params = [
 			'userInfos' => $userInfos,

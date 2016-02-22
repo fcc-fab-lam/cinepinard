@@ -22,13 +22,7 @@ class AdminController extends Controller
 	}
 
 
-	// TRAITEMENT FORMULAIRE D'INSCRIPTION
-	public function signUp()
-	{
-		$this->show('back/signup', ['showErr' => $showErr, 'err' => $err]);
-	}
-	
- 	// association 1 film et 1 vin
+	// association 1 film et 1 vin
 	public function associationMovieWine()
 	{
 		$this->show('back/association-movie-wine', ['showErr' => $showErr, 'err' => $err]);

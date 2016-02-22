@@ -138,6 +138,7 @@ class DefaultController extends Controller
 				$userInfos = $authentificationManager->getLoggedUser();
 				$pref = new UsersPreferences();
 				$userPrefs = $pref->getUsersPreferences($userInfos['id']);
+                $_SESSION['userPrefs'] = $userPrefs;
                 
 			}
 			// On regarde s'il y a des erreurs
@@ -163,6 +164,7 @@ class DefaultController extends Controller
     {
         $authentificationManager = new AuthentificationManager();
 		$authentificationManager->logUserOut();
+        unset($_SESSION['userPrefs']);
         $this->redirectToRoute('home');
     }
     

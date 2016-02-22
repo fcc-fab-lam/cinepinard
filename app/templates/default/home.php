@@ -15,12 +15,13 @@
 
 			<div class="preferences col-lg-6 col-md-12">
 				<h2>J'aime :</h2>
-				<?php 
-	                foreach($categories as $value): 
+				<?php foreach($categories as $value): 
 	                    $userCat = array();
-	                    foreach ($userPrefs as $value) {
-	                        $userCat[] = $value['categorie_id'];
-	                    };
+                        if(isset($_SESSION['userPrefs'])){
+                            foreach ($_SESSION['userPrefs'] as $value1) {
+                                $userCat[] = $value1['categorie_id'];
+                            };
+                        }
 	            ?>
 					<label><input type="checkbox" name="preferences[]" value="<?=$value['id']; ?>" <?php if(in_array($value['id'], $userCat)){echo 'checked="checked"';} ?> /><?= ucfirst($value['name']); ?></label>
 				<?php endforeach; ?>
