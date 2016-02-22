@@ -14,6 +14,7 @@ class Matcher
 		$match = $router->match();
 
 		if ($match){
+            $_SERVER['W_ROUTE_NAME'] = $match["name"];
 
 			$callableParts = explode("#", $match["target"]);
 			//retire l'optionnel suffixe 'Controller', pour le remettre ci-dessous

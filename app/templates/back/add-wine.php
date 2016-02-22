@@ -34,8 +34,25 @@
 
 			<select name="wines_genre">
 				<option value="">Choisissez un genre : </option>
-			<?php foreach ($listGenreVin as $key => $value) : ?>
+			<?php foreach ($listeGenreVin as $key => $value) : ?>
 				<option value="<?php echo $value['id'] ?>" /><?php echo ucfirst($value['name']) ?></option>
 			<?php endforeach; ?>
+
+			<input class="btn btn-default" type="submit" value="Validation" />
+
+			<?php
+			
+			if($showErr){
+				echo '<div class="erreurs">';
+				echo implode('<br/>', $err);
+				echo '</div>';
+			}
+			if($formValid) {
+				echo " Envoyé avec succés";
+				}
+
+			?>
+
+
 
 <?php $this->stop('main_content') ?>

@@ -7,6 +7,7 @@ use \Manager\FixUserManager as UserManager;
 use \Manager\WinesGenresManager;
 use \Manager\FilmGenreManager;
 use \Manager\GenresAssociationsManager;
+use \Manager\AddWineManager;
 
 
 
@@ -35,13 +36,91 @@ class AdminController extends Controller
 	{	$genreVinManager = new WinesGenresManager ;
 		$listGenreVin = $genreVinManager->findAll();
 		$params = [
-				'listGenreVin' => $listGenreVin,
+				'listeGenreVin' => $listGenreVin,
 				];
+	
+				// Mes variables 
+		$post = array();
+        $err = array();
+        $formValid = false;
+        $showErr = false;
+        $maxSize = 200000;
+        // Controle l'extension de l'image
+        $mimeTypeAllowed = array('image/jpg', 'image/jpeg', 'image/gif', 'image/png'); 
 
-		$this->show('back/add-wine', $params);
-	}
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			// Debut des verificationns et securité
+			if(isset($_POST['wines'])) {
+				$wines_genre = $_POST['wines'];
+				unset($_POST['wines']);
+			}
 
-	// Ajout genre de vin
+			foreach($_POST as $key => $value){
+				$post[$key] = trim(strip_tags($value));
+			}
+	    	// nom du vin
+			if(strlen($post['name'])<5){
+				$err[] = 'Le nom doit faire au moins 4 caractères';
+			}
+			// appelation
+			if(strlen($post['appellation'])<5){
+				$err[] = 'Le prénom doit faire au moins 5 caractères';
+			}
+			if(empty($post['listeGenreVin'])){
+				$err[] = 'Le genre de vin est obligatoire';
+			}
+			// Pays
+
+			if(strlen($post['pays'])<4){
+				$err[] = 'Le pays doit faire au moins 4 caractères';
+			}
+			
+				// verification de l'image
+			if(!empty($_FILES['photo']['tmp_name'])){
+				if($_FILES['photo']['size'] > $maxSize){
+					$err[] = 'L\'image excède le poids autorisé';
+				}
+			}	
+			elseif(!empty($_FILES['photo']['tmp_name'])){ 
+				$finfo = new \finfo();
+				$fileMimeType = $finfo->file($_FILES['photo']['tmp_name'], FILEINFO_MIME_TYPE);
+				if(!in_array($fileMimeType, $mimeTypeAllowed)){
+					$err[] = 'Le fichier n\'est pas une image';
+				}
+			}	
+	
+			// Si il ya  un erreur
+			if(count($err)>0){
+				$showErr = true;
+			} 
+			else{
+				$formValid = true; 
+
+			}
+		}
+		$params['err'] = $err;
+		$params['showErr'] = $showErr;
+		$params['formValid'] = $formValid;
+
+		$this->show('back/add-wine',$params);
+	}		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Ajout genre de vin
 	public function addWineGenre()
 	{
 
@@ -98,11 +177,11 @@ class AdminController extends Controller
 			}
 
 			
-
-			// Si il ya  un erreur
-			if(count($err)>0){
-				$showErr = true;
-			} 
+					// Si il ya  un erreur
+					if(count($err)>0){
+					$showErr = true;
+				} 
+			
 			else {
 				var_dump($post);
 				var_dump($movies_genre);	

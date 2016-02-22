@@ -33,19 +33,16 @@
                         <form method="post" action="<?=$this->url('login') ?>">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email">
-
                             <label for="password">Mot de passe</label>
                             <input type="password" id="password" name="password">
-
                             <input type="submit" value="connexion" />
-                            <input type="hidden" value="" name="currentPage">
+                            <input type="hidden" value="<?=$_SERVER['W_ROUTE_NAME'] ?>" name="currentPage">
                         </form>
                     </div>
                 <?php else : ?>
                     <div class="login">
                         <div class="islogin">
                             Bonjour <span class="bold"><?=$w_user['nickname'] ?></span>
-                            <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
                         </div>
                     </div>
                 <?php endif; ?>
