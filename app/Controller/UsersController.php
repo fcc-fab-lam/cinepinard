@@ -13,7 +13,7 @@ use \Manager\AlloCineManager as AlloCine;
 class UsersController extends Controller
 {
 	public function __construct() {
-		$this->allowTo(['1','2']);
+		//$this->allowTo(['1','2']);
 	}
 
 	// Profil de l'utilisateur
@@ -174,26 +174,26 @@ class UsersController extends Controller
                 $err[] = 'L\'id du film ne peut être vide.';
             }
             elseif(!is_numeric($get['idFilm'])){ // on verifie si idFilm est un nombre
-                $err[] = 'L\'id du film doit être un nombre';
+                $err[] = 'L\'id du film doit être un nombre.';
             }
             else{ // on verifie si idFilm correspond bien à un film
                 $alloCine = new AlloCine();
                 $filmInfos = json_decode($alloCine->get($get['idFilm']), true);
                 if(isset($filmInfos['error'])){
-					$err[] = 'Aucun film correspondant';
+					$err[] = 'Aucun film correspondant.';
 				}
             }
             if(empty($get['idVin'])){ // on verifie si idVin est vide
                 $err[] = 'L\'id du vin ne peut être vide.';
             }
             elseif(!is_numeric($get['idVin'])){ // on verfie si idVin est un nombre
-                $err[] = 'L\'id du vin doit être un nombre';
+                $err[] = 'L\'id du vin doit être un nombre.';
             }
             else{ // on verifie si idVin correspond bien à un vin
                 $userManager->setTable('wines');
                 $vinInfos = $userManager->find($get['idVin']);
                 if(empty($vinInfos)){
-                    $err[] = 'Aucun vin correspondant';
+                    $err[] = 'Aucun vin correspondant.';
                 }
             }
             if(empty($userInfos)){ // on verifie si l'utilisateur est connecté

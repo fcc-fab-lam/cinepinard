@@ -19,9 +19,10 @@
                 <?php if($value['6'] == 2) : // si la route est prevu pour tous les utilisateurs ?>
                     <li><a href="<?=$this->url($value['3']) ?>"><?=$value['4'] ?></a></li>
                 <?php else : ?>
-                    <? if($value['6'] == 1 && $w_user['role_id'] == 1) : // si la route est prévue pour les administrateurs  ?>
+                    <?php if($value['6'] == 1 && $w_user['role_id'] == 1) : // si la route est prévue pour les administrateurs  ?>
                     <li><a href="<?=$this->url($value['3']) ?>"><?=$value['4'] ?></a></li>
                     <?php endif; ?>
+                <?php endif; ?>
             <?php endif; ?>
         <?php endforeach; ?>
                 </ul>
