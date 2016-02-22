@@ -13,7 +13,7 @@ use \Manager\AlloCineManager as AlloCine;
 class UsersController extends Controller
 {
 	public function __construct() {
-		//$this->allowTo(['1','2']);
+		$this->allowTo(['1','2']);
 	}
 
 	// Profil de l'utilisateur

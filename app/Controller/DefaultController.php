@@ -138,6 +138,7 @@ class DefaultController extends Controller
 				$userInfos = $authentificationManager->getLoggedUser();
 				$pref = new UsersPreferences();
 				$userPrefs = $pref->getUsersPreferences($userInfos['id']);
+                
 			}
 			// On regarde s'il y a des erreurs
 			if(count($err)>0){
@@ -279,13 +280,14 @@ class DefaultController extends Controller
 		}
 	}
 	/**
-	 * Page A Propos
+	 * Page à Propos
 	 */ 
 	public function aboutUs()
 	{
 		$this->show('default/about-us');
 	}
-	/* Page Film selectionné
+	/**
+     * Page Film selectionné
 	 */ 
 	public function selectionMovie()
 	{
@@ -348,19 +350,20 @@ class DefaultController extends Controller
 		$this->show('default/selection-movie', $params);
 	
 	}
-    public function enCave($idFilm, $idVin)
-    {// on initialise nos variables et nos objets
+    
+    /**
+     * Page d'ajout à la cave de l'association film/vin 
+    */
+    public function addToCave($idFilm, $idVin)
+    {
+        // on initialise nos variables et nos objets
 		$userCave = new UsersPreferencesManager();
 		$authentificationManager = new AuthentificationManager();
 		$userInfos = $authentificationManager->getLoggedUser();
         $userManager = new UserManager();
         $get = array();
         $err = array();
-        
-        if(!empty($_GET)){ // on verifie si $_GET est vide ou pas
-            foreach($_GET as $key => $value){ // on nettoie $_GET
-                $get[$key] = trim(strip_tags($value));
-            }
+
             if(empty($get['idFilm'])){ // on verifie si idFilm est vide
                 $err[] = 'L\'id du film ne peut être vide.';
             }
@@ -404,7 +407,6 @@ class DefaultController extends Controller
                 $userManager->setTable('users_notes_comments');
                 $userManager->insert($insertInfos);                
             }
-        }
 
         // on initialise nos variables et nos objets
 		$userSelection = $userCave->getUsersCave($userInfos['id']);
