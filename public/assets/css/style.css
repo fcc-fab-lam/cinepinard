@@ -164,8 +164,8 @@ footer{
 	margin: 0;
 }
 
-@media screen and (max-width: 1024px){
-    .image-res-seach{
+@media screen and (max-width: 1024px) {
+    .image-res-seach {
         display: block;
     }
 }
@@ -174,3 +174,45 @@ footer{
 	display: inline-block;
 	vertical-align: top;
 }
+
+/* INSCRIPTION */
+
+.main-inscription{
+	background-image: url('../../img/background.jpg');
+	background-size: cover;
+	opacity: 0.7;
+}
+
+.form-inscription{
+	margin-top: 20px;
+	background-color: rgba(255, 255, 255, 0.7);
+	width: 50%;
+	margin: 40px auto;
+	padding: 40px;
+}
+
+.form-inscription .control-label{
+	padding-top: 0;
+}
+
+.form-inscription label, .form-inscription input, .majeur label, .majeur input{
+	color: black;
+	height: 27px;
+	line-height: 27px;
+	vertical-align: middle;
+}
+
+.checkbox input[type="submit"]{
+	height: 45px;
+}
+
+.preferences-signup label, .majeur label{
+	margin: 0 10px 0 0;
+	padding: 0;
+}
+
+.preferences-signup input, .majeur input{
+	margin: 0;
+	padding: 0;
+}
+
