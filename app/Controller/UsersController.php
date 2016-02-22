@@ -163,59 +163,6 @@ class UsersController extends Controller
 		$authentificationManager = new AuthentificationManager();
 		$userInfos = $authentificationManager->getLoggedUser();
         $userManager = new UserManager();
-        $get = array();
-        $err = array();
-        
-        if(!empty($_GET)){ // on verifie si $_GET est vide ou pas
-            foreach($_GET as $key => $value){ // on nettoie $_GET
-                $get[$key] = trim(strip_tags($value));
-            }
-            if(empty($get['idFilm'])){ // on verifie si idFilm est vide
-                $err[] = 'L\'id du film ne peut être vide.';
-            }
-            elseif(!is_numeric($get['idFilm'])){ // on verifie si idFilm est un nombre
-                $err[] = 'L\'id du film doit être un nombre.';
-            }
-            else{ // on verifie si idFilm correspond bien à un film
-                $alloCine = new AlloCine();
-                $filmInfos = json_decode($alloCine->get($get['idFilm']), true);
-                if(isset($filmInfos['error'])){
-					$err[] = 'Aucun film correspondant.';
-				}
-            }
-            if(empty($get['idVin'])){ // on verifie si idVin est vide
-                $err[] = 'L\'id du vin ne peut être vide.';
-            }
-            elseif(!is_numeric($get['idVin'])){ // on verfie si idVin est un nombre
-                $err[] = 'L\'id du vin doit être un nombre.';
-            }
-            else{ // on verifie si idVin correspond bien à un vin
-                $userManager->setTable('wines');
-                $vinInfos = $userManager->find($get['idVin']);
-                if(empty($vinInfos)){
-                    $err[] = 'Aucun vin correspondant.';
-                }
-            }
-            if(empty($userInfos)){ // on verifie si l'utilisateur est connecté
-                $this->redirectToRoute('home');
-            }
-            if(count($err) > 0){ // on verifie s'il y a des erreurs
-                $params = [
-                    'err' => $err,
-                ];
-            }
-            else{
-                $insertInfos = [
-                    'movie_id' => $get['idFilm'],
-                    'wine_id' => $get['idVin'],
-                    'user_id' => $userInfos['id'],
-                ];
-                $userManager->setTable('users_notes_comments');
-                $userManager->insert($insertInfos);                
-            }
-        }
-
-        // on initialise nos variables et nos objets
 		$userSelection = $userCave->getUsersCave($userInfos['id']);
 		$AlloCine = new AlloCine();
         $allInfos = array();
@@ -238,6 +185,71 @@ class UsersController extends Controller
 
 		$this->show('back/cave', $params);
 	}
+    
+        /**
+     * Page d'ajout à la cave de l'association film/vin 
+    */
+    public function addToCave($idFilm, $idVin)
+    {
+        // on initialise nos variables et nos objets
+		$userCave = new UsersPreferencesManager();
+		$authentificationManager = new AuthentificationManager();
+		$userInfos = $authentificationManager->getLoggedUser();
+        $userManager = new UserManager();
+        $get = array();
+        $err = array();
+
+            if(empty($idFilm)){ // on verifie si idFilm est vide
+                $err[] = 'L\'id du film ne peut être vide.';
+            }
+            elseif(!is_numeric($idFilm)){ // on verifie si idFilm est un nombre
+                $err[] = 'L\'id du film doit être un nombre';
+            }
+            else{ // on verifie si idFilm correspond bien à un film
+                $alloCine = new AlloCine();
+                $filmInfos = json_decode($alloCine->get($idFilm), true);
+                if(isset($filmInfos['error'])){
+					$err[] = 'Aucun film correspondant';
+				}
+            }
+            if(empty($idVin)){ // on verifie si idVin est vide
+                $err[] = 'L\'id du vin ne peut être vide.';
+            }
+            elseif(!is_numeric($idVin)){ // on verfie si idVin est un nombre
+                $err[] = 'L\'id du vin doit être un nombre';
+            }
+            else{ // on verifie si idVin correspond bien à un vin
+                $userManager->setTable('wines');
+                $vinInfos = $userManager->find($idVin);
+                if(empty($vinInfos)){
+                    $err[] = 'Aucun vin correspondant';
+                }
+            }
+            if(empty($userInfos)){ // on verifie si l'utilisateur est connecté
+                $this->redirectToRoute('home');
+            }
+            if(count($err) > 0){ // on verifie s'il y a des erreurs
+                $params = [
+                    'err' => $err,
+                ];
+            }
+            else{
+                $insertValues = [
+                    'movie_id' => $idFilm,
+                    'wine_id' => $idVin,
+                    'user_id' => $userInfos['id'],
+                ];
+                $params = [
+                    'insertValues' => $insertValues,
+                ];
+                //$userManager->setTable('users_notes_comments');
+                //$userManager->insert($insertInfos);                
+            }
+
+		$this->show('back/add-to-cave', $params);
+        
+    }
+
 	
 	// Ajouter un commentaire
 	public function addComments()

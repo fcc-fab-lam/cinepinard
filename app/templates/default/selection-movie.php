@@ -44,7 +44,7 @@
 	<p><?= (!empty($propositionVin[0]['image'])) ? '<img height="300px" src="'.$propositionVin[0]['image'].'" />' : '' ?></p>
     
     <!-- LIEN POUR CHOISIR CETTE ASSOCIATION -->
-    <p><a href="<?=$this->url('add-to-cave').'?idFilm='.$filmInfos['movie']['code'].'&idVin='.$propositionVin[0]['id'] ?>">Choisir ce vin avec ce film</a></p>
+    <p><a href="<?=$this->url('add-to-cave', ['idFilm' => $filmInfos['movie']['code'], 'idVin' => $propositionVin[0]['id']]) ?>">Choisir ce vin avec ce film</a></p>
     
 	<?php if(!empty($perfectMatch)) : ?>
 
@@ -67,7 +67,7 @@
 	<p><?= (!empty($perfectMatch[0]['image'])) ? '<img height="300px" src="'.$perfectMatch[0]['image'].'" />' : '' ?></p>
 
     <!-- LIEN POUR CHOISIR CETTE ASSOCIATION -->
-    <p><a href="<?=$this->url('add-to-cave').'?idFilm='.$filmInfos['movie']['code'].'&idVin='.$perfectMatch[0]['id'] ?>">Choisir ce vin avec ce film</a></p>
+    <p><a href="<?=$this->url('add-to-cave', ['idFilm' => $filmInfos['movie']['code'], 'idVin' => $perfectMatch[0]['id']]) ?>">Choisir ce vin avec ce film</a></p>
  
 	<!-- COMMENTAIRE UTILISATEUR -->
 	<p><?= (!empty($perfectMatch[0]['comment'])) ? $perfectMatch[0]['comment'] : '' ?></p>
@@ -97,7 +97,7 @@
 
 
     <!-- LIEN POUR CHOISIR CETTE ASSOCIATION -->
-    <p><a href="<?=$this->url('add-to-cave').'?idFilm='.$filmInfos['movie']['code'].'&idVin='.$usersProposition[0]['id'] ?>">Choisir ce vin avec ce film</a></p>
+    <p><a href="<?=$this->url('add-to-cave', ['idFilm' => $filmInfos['movie']['code'], 'idVin' => $usersProposition[0]['id']]) ?>">Choisir ce vin avec ce film</a></p>
  
 	<!-- COMMENTAIRE UTILISATEUR -->
 	<p><?= (!empty($usersProposition[0]['comment'])) ? $usersProposition[0]['comment'] : '' ?></p>

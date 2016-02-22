@@ -6,7 +6,7 @@
 		['GET|POST', '/resultats-recherche', 'Default#searchResults', 'search-results', 'Resultats de la recherche', '', 2], // profil utilsateur
 		['GET|POST', '/a-propos','Default#aboutUs', 'about-us', 'Qui sommes nous ?', 'front', 2], // Qui sommes-nous
 		['GET|POST', '/selection-film', 'Default#selectionMovie', 'selection-movie', 'Film sélectionné', '', 2], // film selectionné
-		['GET|POST', '/mise-en-cave/[:idFilm]/[:idvin]', 'Default#addToCave', 'add-to-cave', 'Mettre en cave', '', 2], // Mettre en cave
+		['GET|POST', '/mise-en-cave/[:idFilm]/[:idVin]', 'Users#addToCave', 'add-to-cave', 'Mettre à la cave', '', 2], // Mettre en cave
 		['GET|POST', '/profil-utilisateur', 'Users#userProfil', 'user-profil', 'Profil utilisateur', 'back', 2], // Profil de l'utilisateur
 		['GET|POST', '/desactiver-compte', 'Users#disableAccount', 'disable-acccount', 'Désactiver le compte', 'back', 2], // Desactiver un compte
 		['GET|POST', '/modification-profil', 'Users#updateProfil', 'update-profil', 'Modifier le profil', 'back', 2], // Modif profil de l'utilisateur
