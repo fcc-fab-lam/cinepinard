@@ -3,7 +3,7 @@
 <?php $this->start('main_content') ?>
 			
 <div class="container-fluid">
-
+<?php var_dump($recupComment); ?>
 	<div class="col-md-8">
 		<div class="panel panel-primary">
 			  <div class="panel-heading">
@@ -30,10 +30,7 @@
 			<input type="submit" value="valider" class="btn btn-default"/>
 		</form>
 	</div>
-	<div class="col-md-4">
-		<
 
-	</div>
 </div>
 
 

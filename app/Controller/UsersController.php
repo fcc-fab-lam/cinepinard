@@ -311,7 +311,7 @@ class UsersController extends Controller
 					$err[] = 'cette association n\'est pas enregistrée';
 				}
 				// on verifie que l'utilisateur connecte est bien celui du commentaire recupere
-				if ($this->getUser()['id'] != $recupComment['user_id']) {
+				if ($userInfos['id'] != $recupComment['user_id']) {
 					$err[] = 'Vous n\'avez pas les droits sur cette association';
 				}
 				if (count($err) > 0) {
@@ -342,8 +342,10 @@ class UsersController extends Controller
 			if(!is_numeric($post['idAsso'])){
 				$err[] = 'Merci de jouer au malin !!!';
 			}
-			else{				
-				$recupComment = $table->find($idAsso);
+			else{
+				$table->setTable('users_notes_comments');		
+				$recupComment = $table->find($post['idAsso']);
+
 		
 				// on verifie que le GET correspond en bdd a une assoc de  l'utilisateur	
 				if (empty($recupComment)) {
@@ -351,7 +353,7 @@ class UsersController extends Controller
 				}
 				else{
 					// on verifie que l'utilisateur connecte est bien celui du commentaire recupere
-					if ($this->getUser()['id'] != $recupComment['user_id']) {
+					if ($userInfos['id'] != $recupComment['user_id']) {
 						$err[] = 'Vous n\'avez pas les droits sur cette association';
 					}
 				}
@@ -366,8 +368,7 @@ class UsersController extends Controller
 						];
 				$table->setTable('users_notes_comments');
 				$vinInfos = $table->update($updateValues, $post['idAsso']);
-				var_dump($updateValues);
-				die();
+
 				$this->redirectToRoute('cave');
 			}
 		}
