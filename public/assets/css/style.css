@@ -175,20 +175,20 @@ footer{
 }
 
 /* RESULTATS RECHERCHE */
-
-.background-recherche{
-	background-color: rgba(0, 0, 0, 0.1);
+.container-film{
+	margin-top: 20px;
 }
 
-.resultats{
-	margin: 15px;
+.resultat-film{
+	background-color: rgba(255, 255, 255, 0.7);
+	padding: 20px;
+	margin-top: 20px;
 }
 
 .image-res-seach{
 	display: inline-block;
 	width: 200px;
 	vertical-align: top;
-	margin: 0;
 }
 
 @media screen and (max-width: 1024px) {
@@ -200,6 +200,23 @@ footer{
 .descriptif-res-search{
 	display: inline-block;
 	vertical-align: top;
+}
+
+.reco-title{
+	margin-top: 0;
+}
+
+.reco-vin{
+	padding-left: 30px;
+}
+
+.choisir-ce-vin{
+	background-color: #BD0A41;
+	border: 0;
+}
+
+.choisir-ce-vin:hover{
+	background-color: rgba(189, 10, 65, 0.7);
 }
 
 /* INSCRIPTION */
