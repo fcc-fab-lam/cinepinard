@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?= $this->assetUrl('css/style.css') ?>">
 </head>
 <body>
+    <div class="container-principal">
         <!-- DEBUT CONNEXION / LOG IN -->
         <div class="container-fluid">
             <header class="row">
@@ -57,7 +58,8 @@
 		<main>
 			<?= $this->section('main_content') ?>
 		</main>
-
+    <!-- FIN DU CONTAINER PRINCIPAL -->
+    </div>
 		<footer>
 		</footer>
 
