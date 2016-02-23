@@ -7,6 +7,7 @@ use \Manager\FixUserManager as UserManager;
 use \Manager\WinesGenresManager;
 use \Manager\WinesCategoriesManager;
 use \Manager\FilmGenreManager;
+use \Manager\UsersNotesCommentsManager;
 use \Manager\GenresAssociationsManager;
 use \Manager\AddWineManager as AddWine;
 use \Manager\CommentsNotModerateManager;
@@ -16,7 +17,10 @@ use \Manager\AlloCineManager as AlloCine;
 
 
 class AdminController extends Controller
-{//  autorisation exclusive à l'admin.
+{
+	private $itemsPerPage = 2;
+
+	//  autorisation exclusive à l'admin.
 	public function __construct() {
 		//$this->allowTo(['1']);
 
@@ -277,13 +281,59 @@ class AdminController extends Controller
 	}
 
 	// Liste des commentaires non-moderés 
-	public function listNotModeratedComments()
+	public function listNotModeratedComments($showPage = 1)
 	{	
-		$notModeratedComments = new CommentsNotModerateManager() ;
-		$listNotModeratedComments = $notModeratedComments->getCommentsNotModerate();
+		$notModeratedComments = new CommentsNotModerateManager();
+
+
+		// On récupère le nombre des vins de l'utilisateur
+		$countMovies = $notModeratedComments->countCommentsNotModerate();
+
+		// On compte le nombre total de page
+        $nbTotalPages = ceil($countMovies / $this->itemsPerPage);   
+
+        $currentPage = 1; // Page par defaut
+        // Parametre GET
+        if(isset($showPage) && is_numeric($showPage)){
+        	$currentPage = (int) $showPage;
+
+	        if($currentPage > $nbTotalPages){
+	        	$currentPage = $nbTotalPages;
+	        }
+        }
+
+        $startPage = ($currentPage - 1) * $this->itemsPerPage;
+		$listNotModeratedComments = $notModeratedComments->getCommentsNotModerate($startPage, $this->itemsPerPage);
+		$alloCine = new AlloCine();
+        $allInfos = array();
+        if(!empty($listNotModeratedComments)){
+            foreach($listNotModeratedComments as $key => $value){
+                $allInfos[$key] = [
+                    'infosFilm' =>  json_decode($alloCine->get($value['movie_id']), true),
+                    'id' => $value['idAsso'],
+                    'comment' => $value['comment'], // table user_note_comment
+                    'note' => $value['note'], // table user_note_comment
+                    'moderation' => $value['moderation'], // table user_note_comment
+                    'idUser' => $value['idUser'], // table users
+                    'nickname' => $value['nickname'], // table users
+                    'email' => $value['email'], // table users
+                    'photo' => $value['photo'], // table users
+                    'idWine' => $value['idWine'], // table wines
+                  	'name' => $value['name'], // table wines
+                    'appellation' => $value['appellation'], // table wines
+                    'country' => $value['country'], // table wines
+                    'image' => $value['image'], // table wines                    
+           		];
+            }
+        }
 		$params = [
-			'listNotModeratedComments' => $listNotModeratedComments,
-			];
+			'listNotModeratedComments' => $allInfos,
+			'err' 		=> $err,
+			'nbTotalPages' => $nbTotalPages,
+			'currentPage'  => $currentPage,
+		];
+
+
 		
 
 

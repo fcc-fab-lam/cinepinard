@@ -2,8 +2,6 @@
 
 <?php $this->start('main_content') ?>
 
-<?php var_dump($listNotModeratedComments); ?>
-
 <div class="container-fluid">
 		<div>
 			<?php if(!empty($listNotModeratedComments)) : ?>
@@ -84,6 +82,19 @@
                         </div>
                         <hr>
                     <?php endforeach; ?>
+
+                    <?php if($nbTotalPages > 1): ?>
+                        <div class="center-block text-center">
+                            <ul class="pagination">
+                            <?php for($i=1; $i<=$nbTotalPages; $i++):?>
+                                <li<?=($i == $currentPage) ? ' class="active"' : '';?>>
+                                    <a href="<?=$this->url('list-not-moderated-comments', ['showPage'=> $i]);?>"><?=$i;?></a>
+                                </li>
+                            <?php endfor; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+
                 <?php else : ?>
                 <h3>Aucun  !</h3>
                 <?php endif; ?>

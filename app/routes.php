@@ -17,7 +17,7 @@
 		['GET|POST', '/ajout-genre-vin', 'Admin#addWineGenre', 'add-wine-genre', 'Rajouter un genre de vin', 'back', 1], // Ajout genre de vin
 		['GET|POST', '/association-genres', 'Admin#associationGenres', 'association-genres', 'Associer les genres', 'back', 1], // Association 1 genre de film et 1 genre de vin 
 		['GET|POST', '/liste-associations-non-moderees', 'Admin#listNotModeratedAssociations', 'list-not-moderated-associations', 'Modérer les associations film/vin', 'back', 1], // Liste des associations non-modérées 
-		['GET|POST', '/liste-commentaires-non-moderees', 'Admin#listNotModeratedComments', 'list-not-moderated-comments', 'Modérer les commentaires', 'back', 1], // Liste des commentaires non-moderés 
+		['GET|POST', '/liste-commentaires-non-moderees/[i:showPage]?', 'Admin#listNotModeratedComments', 'list-not-moderated-comments', 'Modérer les commentaires', 'back', 1], // Liste des commentaires non-moderés 
 		['GET|POST', '/login', 'Default#login', 'login', 'Connexion', '', 2], // Connexion
 		['GET|POST', '/logout', 'Default#logout', 'logout', 'Déconnexion', '', 2], // Déconnexion 		
 	);
