@@ -2,50 +2,65 @@
 
 <?php $this->start('main_content') ?>
 
-	<h1>Ajouter un genre de vin</h1>
+<div class="container-fluid">
 
-	<!-- formulaire -  validation -->
-	<p> Souhaitez-vous vraiment ajouter un genre de vin ?</p>
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8"><h1 class="profil-title">Ajouter un genre de vin</h1></div>
+		<div class="col-sm-2"></div>
+	</div>
 
-	<a id="showForm" class="btn btn-default" href="">oui</a>
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8 profil-utilisateur">
+			<!-- formulaire -  validation -->
 
-	<!-- js on click show formulaire -->
-	<a class="btn btn-default" href="<?= $this->url("user-profil")?>">non </a>
+			<!-- NON NECESSAIRE
+			<div class="confirm-add">
+				<p> Souhaitez-vous vraiment ajouter un genre de vin ?</p>
+				<a id="showForm" class="btn btn-default" href="">oui</a>
+				<a class="btn btn-default" href="<?//= $this->url("user-profil")?>">non </a>
+			</div>
+			-->
 
+			<!-- mettre le id = 'name'; en CSS Display-none-->
 
-	<!-- mettre le id = 'name'; en CSS Display-none-->
+			<form id="oui" role="form" class="form-horizontal" method="post" action="" enctype="multipart/form-data">
 
-	<form id="oui" role="form" class="form-horizontal" method="post" action="" enctype="multipart/form-data">
- 		<p> Ajouter un genre de vin </p>
+		 		<label for="name">Genre de vin</label><br />
+		 		 <!-- ne vide pas le champs du formulaire -->
+		 		<?php $name = '';if(!empty($inputValue)){$name = $inputValue;} ?>
+		 		<input class="input-genre-vin" type="text" name="name" placeholder="" id="name" value="<?=$name ?>" />
 
- 		<label for="name">Genre de Vin</label><br />
- 		 <!-- ne vide pas le champs du formulaire -->
- 		<?php $name = '';if(!empty($inputValue)){$name = $inputValue;} ?>
- 		<input type="text" name="name" placeholder="genre" id="name" value="<?=$name ?>" />
+				<p class="confirm-add"><span class="bold">Genre(s) de film associé(s)</span></p>
 
-		<input class="btn btn-default" type="submit" value="Validation" />
+				<?php			
+					 
+					foreach ($listGenreFilm as $key => $value){
+						echo '<div class="genres-film-list"><label><input type="checkbox" value="'.$value['id'].'" name="movies_genre[]" /><span></span>'.$value['name'].'</label></div>'  ;
+						}
 
-		<?php			
-			 
-			foreach ($listGenreFilm as $key => $value){
-				echo '<label><input type="checkbox" value="'.$value['id'].'" name="movies_genre[]" /><span></span>'.$value['name'].'</label> <br>'  ;
-				}
+			 		// envoyer les erreurs si il y en a
+					if($showErr){
+						echo '<div class="erreurs">';
+						echo implode('<br/>', $err);
+						echo '</div>';
+					}
+					if($formValid) {
+						echo " Envoyé avec succés";
+						}
+				?>
 
-	 		// envoyer les erreurs si il y en a
-			if($showErr){
-				echo '<div class="erreurs">';
-				echo implode('<br/>', $err);
-				echo '</div>';
-			}
-			if($formValid) {
-				echo " Envoyé avec succés";
-				}
-		?>
-	</form>
-		<!-- il faut que le nouveau genre apparraise partout où il est appellé-->
+				<br/><br/>
 
+				<input class="btn btn-default" type="submit" value="Validation" />
+			</form>
 
-</form>
+		</div>
+		<div class="col-sm-2"></div>
+
+	</div>
+</div>
 <?php $this->stop('main_content') ?>
 
 <!-- lance le script de cette page uniquement -->

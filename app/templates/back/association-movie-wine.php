@@ -2,10 +2,10 @@
 
 <?php $this->start('main_content') ?>
 
-<div class="background"></div>
+<div class="background">
 <!-- DEBUT RECHERCHE -->
 <div class="recherche">
-	<div class="container">
+	<div class="container-fluid">
     <?php foreach($resultats as $value): ?>
         <div class="row resultats">
             <div class="image-res-seach">

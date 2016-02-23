@@ -238,9 +238,6 @@ footer{
 
 /* INSCRIPTION */
 
-.main-inscription{
-}
-
 .form-inscription{
 	margin-top: 20px;
 	background-color: rgba(255, 255, 255, 0.7);
@@ -354,4 +351,20 @@ footer{
 	padding: 20px;
 	margin-bottom: 20px;
 	color: black;
+}
+
+/* AJOUTER UN GENRE DE VIN */
+
+.confirm-add{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.genres-film-list{
+	display: inline-block;
+	width: 25%;
+}
+
+.input-genre-vin{
+	height: 31px;
 }
