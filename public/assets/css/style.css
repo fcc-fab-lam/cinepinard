@@ -288,6 +288,7 @@ footer{
 .profil-utilisateur{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 20px;
+	display: inline-block;
 }
 
 .profil-title{
@@ -295,6 +296,22 @@ footer{
 	color: white;
 	font-size: 50px;
 	margin: 40px auto;
+}
+
+.photo-de-profil{
+	margin: 20px 0px;
+	height: 260px;
+	width: 260px;
+	overflow: hidden;
+}
+
+.photo-de-profil img{
+	height: 340px;
+	text-align: center;
+}
+
+.bouton-profil{
+	width: 200px;
 }
 
 /* DESACTIVER COMPTE */

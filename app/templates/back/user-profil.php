@@ -8,7 +8,7 @@
 		<div class="col-md-1"></div>
 		<div class="profil-utilisateur col-md-10">
 			<div class="col-md-4">
-				<img src="<?php echo $userInfos['photo'];?>" alt="avatar" class="img-circle" />
+				<div class="photo-de-profil img-circle"><img src="<?php echo $userInfos['photo'];?>" alt="avatar" /></div>
 			</div>
 
 			<div class="col-md-4">
@@ -16,7 +16,8 @@
 				<h4><?php echo $userInfos['firstname'].' '.$userInfos['lastname']; ?></h4>
 				<p><?php echo $userInfos['email']; ?></p>
 				<p><?php echo $userInfos['phone_number']; ?></p>
-				<a class="btn btn-default btn-profil-modif" href="http://localhost/cinepinard/public/modification-profil">Modifier le profil</a>
+				<div class="bouton-profil"><a class="btn btn-default btn-profil-modif bouton-profil" href="<?= $this->url('update-profil') ?>">Modifier le profil</a></div>
+				<div class="bouton-profil"><a class="btn btn-default btn-profil-modif bouton-profil" href="<?= $this->url('disable-account') ?>">Supprimer mon compte</a></div>
 			</div>
 
 			<div class="col-md-4">
