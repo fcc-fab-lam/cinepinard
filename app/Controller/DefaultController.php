@@ -189,8 +189,15 @@ class DefaultController extends Controller
 				'categories' => $categories,
 				'userPrefs' => $userPrefs,
 			];
-            
+            if($userInfos['role_id'] == 1){
+                $this->redirectToRoute('user-profil', $params);
+            }
+            elseif(isset($post['currentPage'])){
 			$this->redirectToRoute($post['currentPage'], $params);
+            }
+            else{
+			$this->redirectToRoute('home', $params);
+            }
 		}
     }
     

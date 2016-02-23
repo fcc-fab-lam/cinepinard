@@ -10,6 +10,8 @@ use \Manager\FilmGenreManager;
 use \Manager\GenresAssociationsManager;
 use \Manager\AddWineManager as AddWine;
 use \Manager\CommentsNotModarateManager;
+use \Manager\AlloCineManager as AlloCine;
+
 
 
 
@@ -25,7 +27,45 @@ class AdminController extends Controller
 	// association 1 film et 1 vin
 	public function associationMovieWine()
 	{
-		$this->show('back/association-movie-wine', ['showErr' => $showErr, 'err' => $err]);
+        $params = array();
+        // On instancie nos variables
+		$listErr = array();
+		// On appelle la classe Allocine
+		$allocine = new AlloCine();
+		// On vérifie que $_GET n'est pas vide
+		if(!empty($_GET)){
+			// On nettoie $_GET['film']
+			$get['film'] = trim(strip_tags($_GET['film']));
+
+			// Si la recherche film est vide, on met une erreur
+			if(empty($get['film'])){
+				$listErr[] = 'Vous devez renseigner un film';
+			}
+			// Si le nombre d'erreur est positif, 
+			if(count($listErr)>0){
+				// On définie $params
+				$params = ['err'$listErr;
+			}
+			// Si la recherche est correct
+			else{
+				$result = json_decode($allocine->search($get['film']));
+				$resultats = array();
+				$error = array();
+
+				if($result->feed->totalResults == 0){
+					$error = 'Aucun film ne correspond à votre recherche';
+				}
+				else{
+					$resultats = $result->feed->movie;
+				}
+				// On stock nos paramètres dans une variables
+				$params = [
+						'resultats' => $resultats,
+						'err' => $error, 
+						];
+			}
+        
+		$this->show('back/association-movie-wine',$params);
 	}
 
 	//creation fiche vin
