@@ -30,7 +30,8 @@ class AdminController extends Controller
 
 	//creation fiche vin
 	public function addWine()
-	{	$genreVinManager = new WinesGenresManager ;
+	{	
+        $genreVinManager = new WinesGenresManager ;
 		$listGenreVin = $genreVinManager->findAll();
 		$cat = new WinesCategoriesManager();
 		$categories = $cat->getCategories();
@@ -131,7 +132,7 @@ class AdminController extends Controller
 		$this->show('back/add-wine',$params);
 	}		
 
-// Ajout genre de vin
+    // Ajout genre de vin
 	public function addWineGenre()
 	{
 

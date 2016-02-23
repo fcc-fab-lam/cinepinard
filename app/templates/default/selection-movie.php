@@ -108,44 +108,53 @@
 
 	<!-- IMAGE -->
 	<p><?= (!empty($perfectMatch[0]['image'])) ? '<img height="300px" src="'.$perfectMatch[0]['image'].'" />' : '' ?></p>
-
+    
     <!-- MODAL POUR CHOISIR CETTE ASSOCIATION -->
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">Choisir ce vin</button>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Êtes vous sûr de vouloir ajouter cette association à la cave ?</h4>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-                <div class="col-xs-5">
-                    <!-- TITRE ORIGINAL OU FRANCAIS -->
-                    <h4><?= (isset($filmInfos['movie']['title'])) ? $filmInfos['movie']['title'] : $filmInfos['movie']['originalTitle'] ?></h4>
-                    <!-- AFFICHE -->
-                    <p><?= (isset($filmInfos['movie']['poster']['href'])) ? '<img height="300px" src="'.$filmInfos['movie']['poster']['href'].'" />' : '' ?></p>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="bg-danger modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<?php           if(!empty($w_user)) : ?>
+                    <h4 class="modal-title text-danger" id="myModalLabel">Êtes vous sûr de vouloir ajouter cette association à la cave ?</h4>
+<?php           else : ?>
+                    <h4 class="modal-title text-danger text-center" id="myModalLabel">La fonction d'ajout à la cave est réservée aux utilisateurs connectés</h4>
+<?php           endif; ?>
                 </div>
-                <div class="col-xs-2"></div>
-                <div class="col-xs-5">
-                    <!-- NOM DU VIN -->
-                    <h4><?= (!empty($perfectMatch[0]['name'])) ? $perfectMatch[0]['name'] : 'Nom inconnu' ?></h4>
-                    <!-- APPELLATION -->
-                    <p>Appellation : <?= (!empty($perfectMatch[0]['appellation'])) ? $perfectMatch[0]['appellation'] : 'Inconnue' ?></p>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <!-- TITRE ORIGINAL OU FRANCAIS -->
+                            <h4><?= (isset($filmInfos['movie']['title'])) ? $filmInfos['movie']['title'] : $filmInfos['movie']['originalTitle'] ?></h4>
+                            <!-- AFFICHE -->
+                            <p><?= (isset($filmInfos['movie']['poster']['href'])) ? '<img height="300px" src="'.$filmInfos['movie']['poster']['href'].'" />' : '' ?></p>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <!-- NOM DU VIN -->
+                            <h4><?= (!empty($perfectMatch[0]['name'])) ? $perfectMatch[0]['name'] : 'Nom inconnu' ?></h4>
+                            <!-- APPELLATION -->
+                            <p>Appellation : <?= (!empty($perfectMatch[0]['appellation'])) ? $perfectMatch[0]['appellation'] : 'Inconnue' ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+<?php               if(!empty($w_user)) : ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                    <a href="<?=$this->url('add-to-cave', ['idFilm' => $filmInfos['movie']['code'], 'idVin' => $perfectMatch[0]['id']]) ?>" class="btn btn-success">Oui</a>
+<?php               else : ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+<?php               endif; ?>
                 </div>
             </div>
-          </div>
-          <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
-                <a href="<?=$this->url('add-to-cave', ['idFilm' => $filmInfos['movie']['code'], 'idVin' => $perfectMatch[0]['id']]) ?>" class="btn btn-primary">Oui</a>
-          </div>
         </div>
-      </div>
     </div>
- 
+   
 	<!-- COMMENTAIRE UTILISATEUR -->
 	<p><?= (!empty($perfectMatch[0]['comment'])) ? $perfectMatch[0]['comment'] : '' ?></p>
 
@@ -172,38 +181,54 @@
 	<!-- IMAGE -->
 	<p><?= (!empty($usersProposition[0]['image'])) ? '<img height="300px" src="'.$usersProposition[0]['image'].'" />' : '' ?></p>
 
-
+    
     <!-- MODAL POUR CHOISIR CETTE ASSOCIATION -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Choisir ce vin</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal3">Choisir ce vin</button>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Êtes vous sûr de vouloir ajouter cette association à la cave ?</h4>
-          </div>
-          <div class="modal-body">
-            <!-- TITRE ORIGINAL OU FRANCAIS -->
-            <h4><?= (isset($filmInfos['movie']['title'])) ? $filmInfos['movie']['title'] : $filmInfos['movie']['originalTitle'] ?></h4>
-            <!-- AFFICHE -->
-		    <p><?= (isset($filmInfos['movie']['poster']['href'])) ? '<img height="300px" src="'.$filmInfos['movie']['poster']['href'].'" />' : '' ?></p>
-            <!-- NOM DU VIN -->
-            <h4><?= (!empty($usersProposition[0]['name'])) ? $usersProposition[0]['name'] : 'Nom inconnu' ?></h4>
-
-            <!-- APPELLATION -->
-            <p>Appellation : <?= (!empty($usersProposition[0]['appellation'])) ? $usersProposition[0]['appellation'] : 'Inconnue' ?></p>
-          </div>
-          <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
-                <a href="<?=$this->url('add-to-cave', ['idFilm' => $filmInfos['movie']['code'], 'idVin' => $usersProposition[0]['id']]) ?>" class="btn btn-primary">Oui</a>
-          </div>
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="bg-danger modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<?php           if(!empty($w_user)) : ?>
+                    <h4 class="modal-title text-danger" id="myModalLabel">Êtes vous sûr de vouloir ajouter cette association à la cave ?</h4>
+<?php           else : ?>
+                    <h4 class="modal-title text-danger text-center" id="myModalLabel">La fonction d'ajout à la cave est réservée aux utilisateurs connectés</h4>
+<?php           endif; ?>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <!-- TITRE ORIGINAL OU FRANCAIS -->
+                            <h4><?= (isset($filmInfos['movie']['title'])) ? $filmInfos['movie']['title'] : $filmInfos['movie']['originalTitle'] ?></h4>
+                            <!-- AFFICHE -->
+                            <p><?= (isset($filmInfos['movie']['poster']['href'])) ? '<img height="300px" src="'.$filmInfos['movie']['poster']['href'].'" />' : '' ?></p>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <!-- NOM DU VIN -->
+                            <h4><?= (!empty($usersProposition[0]['name'])) ? $usersProposition[0]['name'] : 'Nom inconnu' ?></h4>
+                            <!-- APPELLATION -->
+                            <p>Appellation : <?= (!empty($usersProposition[0]['appellation'])) ? $usersProposition[0]['appellation'] : 'Inconnue' ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+<?php               if(!empty($w_user)) : ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                    <a href="<?=$this->url('add-to-cave', ['idFilm' => $filmInfos['movie']['code'], 'idVin' => $usersProposition[0]['id']]) ?>" class="btn btn-success">Oui</a>
+<?php               else : ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+<?php               endif; ?>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-	<!-- COMMENTAIRE UTILISATEUR -->
+  
+ 		<!-- COMMENTAIRE UTILISATEUR -->
 	<p><?= (!empty($usersProposition[0]['comment'])) ? $usersProposition[0]['comment'] : '' ?></p>
 
 	<?php endif; ?>
