@@ -54,6 +54,7 @@ header{
 	background-color: #BD0A41;
 	font-family: 'Alegreya Sans', serif;
 	color: white;
+	font-size: 18px;
 }
 
 .connexion{
@@ -85,9 +86,13 @@ header{
 	font-weight: bold;
 }
 
+header .login label{
+	font-weight: normal;
+}
+
 header .login input{
 	margin: 9px;
-	padding: 3px;
+	padding: 3px 8px;
 	border: 0;
 	background-color: rgba(255, 255, 255, 0.5);
 }
@@ -176,7 +181,6 @@ footer{
 	text-align: center;
 	line-height: 60px;
 	font-family: 'Alegreya Sans', serif;
-	font-weight: bold;
 	font-size: 20px;
 }
 
