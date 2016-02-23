@@ -118,15 +118,18 @@ class UsersController extends Controller
 						$imgExtension = explode('/', $fileMimeType)[1];
 						// On récupère la classe qui permet d'utiliser la fonction
 						$app = getApp();
-						$imgPath = $app->getBasePath().'/uploads/'.$userUpdate["id"].'.'.$imgExtension;
+						$imgPath = $app->getBasePath().'/uploads/user-'.$userUpdate["id"].'.'.$imgExtension;
 						if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
 							$userManager->update(["photo" => $imgPath], $userUpdate["id"]);
 						}
 					}
 					
 					$formValid = true;
-					$setPreferences = new UsersPreferencesManager();
-					$setPreferences->setUsersPreferences($preferences, $_SESSION['user']['id']);
+					$userPreferences = new UsersPreferencesManager();
+					$userPreferences->setUsersPreferences($preferences, $_SESSION['user']['id']);
+                    $userPrefs = $userPreferences->getUsersPreferences($_SESSION['user']['id']);
+                    $authentificationManager->refreshUser();
+                    $_SESSION['userPrefs'] = $userPrefs;
 					$this->redirectToRoute('user-profil');
 				}
 			}
@@ -143,7 +146,8 @@ class UsersController extends Controller
 		$authentificationManager->refreshUser();
 		$userInfos = $authentificationManager->getLoggedUser();
 		$userPrefs = $userPreferences->getUsersPreferences($userInfos['id']);
-
+        $_SESSION['userPrefs'] = $userPrefs;
+        
 		$categories = $cat->getCategories();
 		$params = [
 			'userInfos' => $userInfos,
@@ -158,11 +162,13 @@ class UsersController extends Controller
 	// liste des choix de l'utilisateur(cave)
 	public function cave()
 	{
+        // on initialise nos variables et nos objets
 		$userCave = new UsersPreferencesManager();
 		$authentificationManager = new AuthentificationManager();
 		$userInfos = $authentificationManager->getLoggedUser();
+        $userManager = new UserManager();
 		$userSelection = $userCave->getUsersCave($userInfos['id']);
-
+		
 		$alloCine = new AlloCine();
         $allInfos = array();
         if(!empty($userSelection)){
@@ -184,6 +190,71 @@ class UsersController extends Controller
 
 		$this->show('back/cave', $params);
 	}
+
+    
+        /**
+     * Page d'ajout à la cave de l'association film/vin 
+    */
+    public function addToCave($idFilm, $idVin)
+    {
+        // on initialise nos variables et nos objets
+		$userCave = new UsersPreferencesManager();
+		$authentificationManager = new AuthentificationManager();
+		$userInfos = $authentificationManager->getLoggedUser();
+        $userManager = new UserManager();
+        $get = array();
+        $err = array();
+
+            if(empty($idFilm)){ // on verifie si idFilm est vide
+                $err[] = 'L\'id du film ne peut être vide.';
+            }
+            elseif(!is_numeric($idFilm)){ // on verifie si idFilm est un nombre
+                $err[] = 'L\'id du film doit être un nombre';
+            }
+            else{ // on verifie si idFilm correspond bien à un film
+                $alloCine = new AlloCine();
+                $filmInfos = json_decode($alloCine->get($idFilm), true);
+                if(isset($filmInfos['error'])){
+					$err[] = 'Aucun film correspondant';
+				}
+            }
+            if(empty($idVin)){ // on verifie si idVin est vide
+                $err[] = 'L\'id du vin ne peut être vide.';
+            }
+            elseif(!is_numeric($idVin)){ // on verfie si idVin est un nombre
+                $err[] = 'L\'id du vin doit être un nombre';
+            }
+            else{ // on verifie si idVin correspond bien à un vin
+                $userManager->setTable('wines');
+                $vinInfos = $userManager->find($idVin);
+                if(empty($vinInfos)){
+                    $err[] = 'Aucun vin correspondant';
+                }
+            }
+            if(empty($userInfos)){ // on verifie si l'utilisateur est connecté
+                $this->redirectToRoute('home');
+            }
+            if(count($err) > 0){ // on verifie s'il y a des erreurs
+                $params = [
+                    'err' => $err,
+                ];
+            }
+            else{
+                $insertValues = [
+                    'movie_id' => $idFilm,
+                    'wine_id' => $idVin,
+                    'user_id' => $userInfos['id'],
+                ];
+                $params = [
+                    'insertValues' => $insertValues,
+                ];
+                //$userManager->setTable('users_notes_comments');
+                //$userManager->insert($insertInfos);                
+            }
+
+		$this->show('back/add-to-cave', $params);
+        
+    }
 
 	
 	// Ajouter un commentaire

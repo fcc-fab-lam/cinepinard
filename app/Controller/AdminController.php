@@ -5,26 +5,24 @@ namespace Controller;
 use \W\Controller\Controller;
 use \Manager\FixUserManager as UserManager;
 use \Manager\WinesGenresManager;
+use \Manager\WinesCategoriesManager;
 use \Manager\FilmGenreManager;
 use \Manager\GenresAssociationsManager;
+use \Manager\AddWineManager as AddWine;
+use \Manager\CommentsNotModarateManager;
+
 
 
 
 class AdminController extends Controller
 {//  autorisation exclusive à l'admin.
 	public function __construct() {
-		$this->allowTo(['1']);
+		//$this->allowTo(['1']);
 
 	}
 
 
-	// TRAITEMENT FORMULAIRE D'INSCRIPTION
-	public function signUp()
-	{
-		$this->show('back/signup', ['showErr' => $showErr, 'err' => $err]);
-	}
-	
- 	// association 1 film et 1 vin
+	// association 1 film et 1 vin
 	public function associationMovieWine()
 	{
 		$this->show('back/association-movie-wine', ['showErr' => $showErr, 'err' => $err]);
@@ -34,14 +32,106 @@ class AdminController extends Controller
 	public function addWine()
 	{	$genreVinManager = new WinesGenresManager ;
 		$listGenreVin = $genreVinManager->findAll();
+		$cat = new WinesCategoriesManager();
+		$categories = $cat->getCategories();
 		$params = [
-				'listGenreVin' => $listGenreVin,
+				'listeGenreVin' => $listGenreVin,
+				'categories' => $categories,
+				];
+	
+				// Mes variables 
+		$post = array();
+        $err = array();
+        $formValid = false;
+        $showErr = false;
+        $maxSize = 200000;
+        // Controle l'extension de l'image
+        $mimeTypeAllowed = array('image/jpg', 'image/jpeg', 'image/gif', 'image/png'); 
+
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			// Debut des verificationns et securité
+			if(isset($_POST['wines'])) {
+				$wines_genre = $_POST['wines'];
+				unset($_POST['wines']);
+			}
+
+			foreach($_POST as $key => $value){
+				$post[$key] = trim(strip_tags($value));
+			}
+	    	// nom du vin
+			if(strlen($post['name'])<5){
+				$err[] = 'Le nom doit faire au moins 4 caractères';
+			}
+			// appelation
+			if(strlen($post['appellation'])<5){
+				$err[] = 'Le prénom doit faire au moins 5 caractères';
+			}
+			if(empty($post['genre_id'])){
+				$err[] = 'Le genre de vin est obligatoire';
+			}
+			if(empty($post['categorie_id'])){
+				$err[] = 'La catégorie de vin est obligatoire';
+			}
+			// Pays
+
+			if(strlen($post['country'])<4){
+				$err[] = 'Le pays doit faire au moins 4 caractères';
+			}
+			
+			if(strlen($post['description'])<1){
+				$err[] = 'La description doit faire au moins 20 caractères';
+			}
+				// verification de l'image
+			if(!empty($_FILES['photo']['tmp_name'])){
+				if($_FILES['photo']['size'] > $maxSize){
+					$err[] = 'L\'image excède le poids autorisé';
+				}
+				elseif(!empty($_FILES['photo']['tmp_name'])){ 
+					$finfo = new \finfo();
+					$fileMimeType = $finfo->file($_FILES['photo']['tmp_name'], FILEINFO_MIME_TYPE);
+					if(!in_array($fileMimeType, $mimeTypeAllowed)){
+						$err[] = 'Le fichier n\'est pas une image';
+					}
+				}	
+			}
+			// Si il ya  un erreur
+			if(count($err)>0){
+				$showErr = true;
+			} 
+			else{
+				$insertValues =[
+					'name' => $post['name'],
+					'appellation' => $post['appellation'],
+					'country' => $post['country'],
+					'description'=> $post['description'],
+					'categorie_id'=>$post['categorie_id'],
+					'genre_id' => $post['genre_id'],
 				];
 
-		$this->show('back/add-wine', $params);
-	}
+				$userManager = new AddWine();
+				$newWine = $userManager->insert($insertValues);
 
-	// Ajout genre de vin
+				if(!empty($_FILES['photo']['tmp_name'])){
+					$imgExtension = explode('/', $fileMimeType)[1];
+					// On récupère la classe qui permet d'utiliser la fonction
+					$app = getApp();
+					$imgPath = $app->getBasePath().'/uploads/wine-'.$newWine["id"].'.'.$imgExtension;
+					if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
+						$userManager->update(["image" => $imgPath], $newWine["id"]);
+					}
+				}
+
+				$formValid = true;
+			}
+		}
+		$params['err'] = $err;
+		$params['showErr'] = $showErr;
+		$params['formValid'] = $formValid;
+
+		$this->show('back/add-wine',$params);
+	}		
+
+// Ajout genre de vin
 	public function addWineGenre()
 	{
 
@@ -98,11 +188,11 @@ class AdminController extends Controller
 			}
 
 			
-
-			// Si il ya  un erreur
-			if(count($err)>0){
-				$showErr = true;
-			} 
+					// Si il ya  un erreur
+					if(count($err)>0){
+					$showErr = true;
+				} 
+			
 			else {
 				var_dump($post);
 				var_dump($movies_genre);	
@@ -151,8 +241,16 @@ class AdminController extends Controller
 
 	// Liste des commentaires non-moderés 
 	public function listNotModeratedComments()
-	{
-		$this->show('back/list-not-moderated-comments', ['showErr' => $showErr, 'err' => $err]);
+	{	
+		$notModeratedComments = new CommentsNotModarateManager() ;
+		$listNotModeratedComments = $notModeratedComments->getCommentsNotModarate();
+		$params = [
+			'listNotModeratedComments' => $listNotModeratedComments,
+			];
+		
+
+
+		$this->show('back/list-not-moderated-comments', $params);
 	}
 
 	// Formulaire de moderation  

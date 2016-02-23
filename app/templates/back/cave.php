@@ -5,8 +5,8 @@
 <h1>Votre cave</h1>
 <div class="container-fluid">
 		<div>
-			<h3>Vos bouteilles à la cave</h3>
 			<?php if(!empty($userCave)) : ?>
+			<h3>Vos bouteilles à la cave</h3>
                 <?php foreach($userCave as $key => $value) : ?>
                         <div class="row">
                             <div class="col-md-4">
@@ -30,7 +30,7 @@
                         <hr>
                     <?php endforeach; ?>
                 <?php else : ?>
-                <p>La cave est vide !</p>
+                <h3>La cave est vide !</h3>
                 <?php endif; ?>
 		</div>
 </div>

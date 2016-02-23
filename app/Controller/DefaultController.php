@@ -88,8 +88,6 @@ class DefaultController extends Controller
 				// On supprime les variables majeur & password2 dont on a pas besoin
 				unset($post['password2']);
 				unset($post['majeur']);
-				// On définit le role à utilisateur par défault 
-				$post['role_id'] = 2;
 				// On hash le password
 				$post['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
 
@@ -140,6 +138,8 @@ class DefaultController extends Controller
 				$userInfos = $authentificationManager->getLoggedUser();
 				$pref = new UsersPreferences();
 				$userPrefs = $pref->getUsersPreferences($userInfos['id']);
+                $_SESSION['userPrefs'] = $userPrefs;
+                
 			}
 			// On regarde s'il y a des erreurs
 			if(count($err)>0){
@@ -164,6 +164,7 @@ class DefaultController extends Controller
     {
         $authentificationManager = new AuthentificationManager();
 		$authentificationManager->logUserOut();
+        unset($_SESSION['userPrefs']);
         $this->redirectToRoute('home');
     }
     
@@ -281,13 +282,14 @@ class DefaultController extends Controller
 		}
 	}
 	/**
-	 * Page A Propos
+	 * Page à Propos
 	 */ 
 	public function aboutUs()
 	{
 		$this->show('default/about-us');
 	}
-	/* Page Film selectionné
+	/**
+     * Page Film selectionné
 	 */ 
 	public function selectionMovie()
 	{
@@ -350,5 +352,5 @@ class DefaultController extends Controller
 		$this->show('default/selection-movie', $params);
 	
 	}
-
+    
 }

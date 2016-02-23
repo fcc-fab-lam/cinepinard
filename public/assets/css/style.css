@@ -1,11 +1,45 @@
 @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans);
 
-/* INITIALISATION */
-html, body{
+/* CheckBoxes */
+input[type="checkbox"]{
+    display: none;
+}
+input[type="checkbox"] + span{
+    display: inline-block;
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: url('../../img/unchecked.png');
+    background-size: contain;
+}
+input[type="checkbox"]:checked + span{
+    background: url('../../img/checked.png');
+    background-size: contain;
 }
 
 
 /* PAGE D'ACCUEIL */
+
+/* Menu */
+header ul, nav{
+	display: inline-block;
+	padding: 10px 0px 0px 0px;
+}
+
+header li:hover{
+	font-weight: bold;
+}
+
+
+header a{
+	color: white;
+}
+
+header a:hover{
+	color: white;
+	text-decoration: none;
+}
+
 
 /* Connexion */
 header{
@@ -15,18 +49,48 @@ header{
 }
 
 .connexion{
+	display: inline-block;
 	padding: 5px;
 }
 
-.formulaire{
+.login{
+	display: inline-block;
 	float: right;
+	margin-left: 10px;
 }
 
-header .formulaire input{
-	margin: 10px;
-	padding: 2px;
+@media screen and (max-width: 1200px){
+    .login{
+        float: none;
+    }
+}
+
+.islogin{
+	padding: 10px;
+	margin-top: 5px;
+}
+
+.islogin a{
+	margin-left: 15px;
+}
+
+.bold{
+	font-weight: bold;
+}
+
+header .login input{
+	margin: 9px;
+	padding: 3px;
 	border: 0;
 	background-color: rgba(255, 255, 255, 0.5);
+}
+
+header .login input[type="submit"]{
+	margin: 9px 9px 9px 0px;
+}
+
+header .login input:hover{
+	background-color: rgba(255, 255, 255, 0.8);
 }
 
 /* BACKGROUND */
@@ -34,22 +98,40 @@ header .formulaire input{
 	background-image: url('../../img/background.jpg');
 	background-size: cover;
 	opacity: 0.7;
-	height: 500px;
+	height: calc(100vh - 434px);
 }
 
 /* RECHERCHE */
+h1{
+	padding-left: 0;
+}
+
 .recherche{
 	background-color: #BD0A41;
 	font-family: 'Alegreya Sans', serif;
 	color: white;
+	padding: 30px 80px 30px 80px;
+	vertical-align: top;
 }
 
-.searchfilm{
-	padding: 30px 0px 60px 120px;
+.recherche input[name="film"]{
+	height: 60px;
+	background-color: rgba(255, 255, 255, 0.5);
+	border: 0;
+	font-size: 30px;
+	padding-left : 10px;
+	margin-bottom: 20px;
 }
 
-.searchfilm input[name="film"]{
-	width: 350px;
+label input[type="checkbox"]{
+	margin-right: 7px;
+}
+
+.recherche label{
+	margin-right: 10px;
+}
+
+.recherche input[type="submit"]{
 	height: 60px;
 	background-color: rgba(255, 255, 255, 0.5);
 	border: 0;
@@ -57,6 +139,98 @@ header .formulaire input{
 	padding : 10px;
 }
 
-form div{
-	display: inline-block;
+.recherche input[type="submit"]:hover{
+	background-color: rgba(255, 255, 255, 0.8);
 }
+
+.preferences{
+	font-family: 'Alegreya Sans', serif;
+	font-size: 20px;
+	vertical-align: top;
+	display: inline-block;
+	margin-bottom: 15px;
+	padding-left: 25px;
+}
+
+.preferences h2{
+	display: inline-block;
+	font-size: 26px;
+	margin-top: 0;
+}
+
+/* FOOTER */
+
+footer{
+	background-color: black;
+	height: 160px;
+}
+
+/* RESULTATS RECHERCHE */
+
+.background-recherche{
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.resultats{
+	margin: 15px;
+}
+
+.image-res-seach{
+	display: inline-block;
+	width: 200px;
+	vertical-align: top;
+	margin: 0;
+}
+
+@media screen and (max-width: 1024px) {
+    .image-res-seach {
+        display: block;
+    }
+}
+
+.descriptif-res-search{
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* INSCRIPTION */
+
+.main-inscription{
+	background-image: url('../../img/background.jpg');
+	background-size: cover;
+	opacity: 0.7;
+}
+
+.form-inscription{
+	margin-top: 20px;
+	background-color: rgba(255, 255, 255, 0.7);
+	width: 50%;
+	margin: 40px auto;
+	padding: 40px;
+}
+
+.form-inscription .control-label{
+	padding-top: 0;
+}
+
+.form-inscription label, .form-inscription input, .majeur label, .majeur input{
+	color: black;
+	height: 27px;
+	line-height: 27px;
+	vertical-align: middle;
+}
+
+.checkbox input[type="submit"]{
+	height: 45px;
+}
+
+.preferences-signup label, .majeur label{
+	margin: 0 10px 0 0;
+	padding: 0;
+}
+
+.preferences-signup input, .majeur input{
+	margin: 0;
+	padding: 0;
+}
+
