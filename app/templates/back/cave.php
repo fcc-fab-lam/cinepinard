@@ -49,19 +49,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                        <div class="col-md-1"> </div>
-                                                        <div class="form-group col-md-10">
-                                                            <label for="comment" class="control-label">Votre commentaire</label>
-                                                            <textarea id="comment" name="comment" class="input-md form-control" rows="8"><?php echo $value['comment']; ?></textarea>
-                                                        </div>
-                                                        <div class="col-md-1"> </div>
-                                                        <div class="col-md-4"> </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="note">Note</label>
-                                                            <input type="number" class="form-control" name ="note" id="note" step="1" value="<?php echo $value['note']; ?>" min="0" max="10"/>
-                                                            <input type="hidden" name="idAsso" value="<?php echo $value['id']; ?>"/>
-                                                        </div>
-                                                        <div class="col-md-4"> </div>
+                                                    <div class="col-md-1"> </div>
+                                                    <div class="form-group col-md-10">
+                                                        <label for="comment" class="control-label">Votre commentaire</label>
+                                                        <textarea id="comment" name="comment" class="input-md form-control" rows="8"><?php echo $value['comment']; ?></textarea>
+                                                    </div>
+                                                    <div class="col-md-1"> </div>
+                                                    <div class="col-md-4"> </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="note">Note</label>
+                                                        <input type="number" class="form-control" name ="note" id="note" step="1" value="<?php echo $value['note']; ?>" min="0" max="10"/>
+                                                        <input type="hidden" name="idAsso" value="<?php echo $value['id']; ?>"/>
+                                                    </div>
+                                                    <div class="col-md-4"> </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -90,3 +90,6 @@
 </div>
 
 <?php $this->stop('main_content') ?>
+<?php $this->start('scripts') ?>
+<!-- script pour renvoi à la section de l'association modifiée -->
+<?php $this->stop('scripts') ?>

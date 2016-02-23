@@ -174,6 +174,7 @@ class UsersController extends Controller
 		// Ajout Commentaires
 		$post = array();
         $err = array();
+        $idAsso = '';
         $formValid = false;
         $showErr = false;
 		$userCave = new UsersPreferencesManager();
@@ -181,6 +182,7 @@ class UsersController extends Controller
 		$table = new UserManager();
 		$userInfos = $authentificationManager->getLoggedUser();
 		$table->setTable('users_notes_comments');
+		$params = array();
 
 		if(!empty($_POST)){
 			foreach($_POST as $key => $value){
@@ -209,21 +211,17 @@ class UsersController extends Controller
 				}
 			}
 			if (count($err) > 0) {
-				$params = [
-					'err' => $err,
-					'post' => $post,
-					];
-
 			}
 			else{
 				$updateValues = [
 						'comment' => $post['comment'],
 						'note' => $post['note'],
+						'moderation' => 0,
 						];
 				$table->setTable('users_notes_comments');
 				$vinInfos = $table->update($updateValues, $post['idAsso']);
 
-				$this->redirectToRoute('cave');
+				$idAsso = $post['idAsso'];
 			}
 		}
 
@@ -231,10 +229,6 @@ class UsersController extends Controller
 
 
         // on initialise nos variables et nos objets
-		$userCave = new UsersPreferencesManager();
-		$authentificationManager = new AuthentificationManager();
-		$userInfos = $authentificationManager->getLoggedUser();
-        $userManager = new UserManager();
 		$userSelection = $userCave->getUsersCave($userInfos['id']);
 		
 		$alloCine = new AlloCine();
@@ -254,6 +248,8 @@ class UsersController extends Controller
         }
 		$params = [
 			'userCave' => $allInfos,
+			'err' => $err,
+			'idAsso' => $idAsso,
 		];
 
 		$this->show('back/cave', $params);
