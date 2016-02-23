@@ -6,12 +6,16 @@ use \W\Controller\Controller;
 use \Manager\FixUserManager as UserManager;
 use W\Security\AuthentificationManager;
 use \Manager\UsersPreferencesManager;
+use \Manager\UsersNotesCommentsManager;
 use \Manager\WinesCategoriesManager as WinesCategories;
 use \Manager\AlloCineManager as AlloCine;
 
 
 class UsersController extends Controller
 {
+
+	private $itemsPerPage = 2;
+
 	public function __construct() {
 		$this->allowTo(['1','2']);
 	}
@@ -169,8 +173,9 @@ class UsersController extends Controller
 	}
 
 	// liste des choix de l'utilisateur(cave)
-	public function cave()
+	public function cave($showPage = 1)
 	{
+
 		// Ajout Commentaires
 		$post = array();
         $err = array();
@@ -179,9 +184,8 @@ class UsersController extends Controller
         $showErr = false;
 		$userCave = new UsersPreferencesManager();
 		$authentificationManager = new AuthentificationManager();
-		$table = new UserManager();
+		$userNoteManager = new UsersNotesCommentsManager();
 		$userInfos = $authentificationManager->getLoggedUser();
-		$table->setTable('users_notes_comments');
 		$params = array();
 
 		if(!empty($_POST)){
@@ -194,10 +198,8 @@ class UsersController extends Controller
 			if(!is_numeric($post['idAsso'])){
 				$err[] = 'Merci de jouer au malin !!!';
 			}
-			else{
-				$table->setTable('users_notes_comments');		
-				$recupComment = $table->find($post['idAsso']);
-
+			else{	
+				$recupComment = $userNoteManager->find($post['idAsso']);
 		
 				// on verifie que le GET correspond en bdd a une assoc de  l'utilisateur	
 				if (empty($recupComment)) {
@@ -205,31 +207,46 @@ class UsersController extends Controller
 				}
 				else{
 					// on verifie que l'utilisateur connecte est bien celui du commentaire recupere
-					if ($userInfos['id'] != $recupComment['user_id']) {
+					if($userInfos['id'] != $recupComment['user_id']) {
 						$err[] = 'Vous n\'avez pas les droits sur cette association';
 					}
 				}
 			}
 			if (count($err) > 0) {
+
 			}
 			else{
 				$updateValues = [
-						'comment' => $post['comment'],
-						'note' => $post['note'],
-						'moderation' => 0,
-						];
-				$table->setTable('users_notes_comments');
-				$vinInfos = $table->update($updateValues, $post['idAsso']);
+					'comment' => $post['comment'],
+					'note' => $post['note'],
+					'moderation' => 0,
+				];
+				$vinInfos = $userNoteManager->update($updateValues, $post['idAsso']);
 
 				$idAsso = $post['idAsso'];
 			}
 		}
 
 
+		// On récupère le nombre des vins de l'utilisateur
+		$countMovies = $userNoteManager->countComments($userInfos['id']);
 
+		// On compte le nombre total de page
+        $nbTotalPages = ceil($countMovies / $this->itemsPerPage);   
 
-        // on initialise nos variables et nos objets
-		$userSelection = $userCave->getUsersCave($userInfos['id']);
+        $currentPage = 1; // Page par defaut
+        // Parametre GET
+        if(isset($showPage) && is_numeric($showPage)){
+        	$currentPage = (int) $showPage;
+
+	        if($currentPage > $nbTotalPages){
+	        	$currentPage = $nbTotalPages;
+	        }
+        }
+
+        $startPage = ($currentPage - 1) * $this->itemsPerPage;
+
+		$userSelection = $userCave->getUsersCave($userInfos['id'], $startPage, $this->itemsPerPage);
 		
 		$alloCine = new AlloCine();
         $allInfos = array();
@@ -247,9 +264,11 @@ class UsersController extends Controller
             }
         }
 		$params = [
-			'userCave' => $allInfos,
-			'err' => $err,
-			'idAsso' => $idAsso,
+			'userCave'  => $allInfos,
+			'err' 		=> $err,
+			'idAsso' 	=> $idAsso,
+			'nbTotalPages' => $nbTotalPages,
+			'currentPage'  => $currentPage,
 		];
 
 		$this->show('back/cave', $params);
@@ -336,101 +355,6 @@ class UsersController extends Controller
         
     }
 
-	
-	// Ajouter un commentaire
-	public function addComments()
-	{
-		$post = array();
-        $err = array();
-        $formValid = false;
-        $showErr = false;
-		$userCave = new UsersPreferencesManager();
-		$authentificationManager = new AuthentificationManager();
-		$table = new UserManager();
-		$userInfos = $authentificationManager->getLoggedUser();
-		$table->setTable('users_notes_comments');
-
-
-		// on controle que le GET n'est pas vide, nettoyage et isnumeric
-		if (!empty($_GET['id'])) {
-			$idAsso = trim(strip_tags($_GET['id']));
-			if (!is_numeric($idAsso)) {
-				$err[] = 'Association inconnue';
-			} 
-			else{
-				$userSelection = $userCave->getUsersCave($userInfos['id']);
-				$recupComment = $table->find($idAsso);
-		
-				// on verifie que le GET correspond en bdd a une assoc de  l'utilisateur	
-				if (empty($recupComment)) {
-					$err[] = 'cette association n\'est pas enregistrée';
-				}
-				// on verifie que l'utilisateur connecte est bien celui du commentaire recupere
-				if ($userInfos['id'] != $recupComment['user_id']) {
-					$err[] = 'Vous n\'avez pas les droits sur cette association';
-				}
-				if (count($err) > 0) {
-					$this->redirectToRoute('cave');
-				}
-				else{
-					$alloCine = new AlloCine();
-					$filmInfos = json_decode($alloCine->get($recupComment['movie_id']), true);
-					$table->setTable('wines');
-					$vinInfos = $table->find($recupComment['wine_id']);
-
-					$params = [
-						'recupComment' => $recupComment,
-						'filmInfos' => $filmInfos,
-						'vinInfos' => $vinInfos,
-						];
-				}
-			}
-		}// fin verification du $_GET non vide
-
-		if(!empty($_POST)){
-			foreach($_POST as $key => $value){
-				$post[$key] = trim(strip_tags($value));
-			}
-			if(!is_numeric($post['note'])){
-				$err[] = 'La note doit être un nombre.';
-			}
-			if(!is_numeric($post['idAsso'])){
-				$err[] = 'Merci de jouer au malin !!!';
-			}
-			else{
-				$table->setTable('users_notes_comments');		
-				$recupComment = $table->find($post['idAsso']);
-
-		
-				// on verifie que le GET correspond en bdd a une assoc de  l'utilisateur	
-				if (empty($recupComment)) {
-					$err[] = 'cette association n\'est pas enregistrée';
-				}
-				else{
-					// on verifie que l'utilisateur connecte est bien celui du commentaire recupere
-					if ($userInfos['id'] != $recupComment['user_id']) {
-						$err[] = 'Vous n\'avez pas les droits sur cette association';
-					}
-				}
-			}
-			if (count($err) > 0) {
-				//$this->redirectToRoute('cave');
-			}
-			else{
-				$updateValues = [
-						'comment' => $post['comment'],
-						'note' => $post['note'],
-						];
-				$table->setTable('users_notes_comments');
-				$vinInfos = $table->update($updateValues, $post['idAsso']);
-
-				$this->redirectToRoute('cave');
-			}
-		}
-
-	$this->show('back/add-comments', $params);
-
-	}
 
 	// Desactiver un compte
 	public function disableAccount()

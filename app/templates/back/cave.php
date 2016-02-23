@@ -83,6 +83,19 @@
                         </div>
                         <hr>
                     <?php endforeach; ?>
+
+                    <?php if($nbTotalPages > 1): ?>
+                        <div class="center-block text-center">
+                            <ul class="pagination">
+                            <?php for($i=1; $i<=$nbTotalPages; $i++):?>
+                                <li<?=($i == $currentPage) ? ' class="active"' : '';?>>
+                                    <a href="<?=$this->url('cave', ['showPage'=> $i]);?>"><?=$i;?></a>
+                                </li>
+                            <?php endfor; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                    
                 <?php else : ?>
                 <h3>La cave est vide !</h3>
                 <?php endif; ?>

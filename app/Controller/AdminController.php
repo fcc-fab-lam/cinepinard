@@ -9,7 +9,7 @@ use \Manager\WinesCategoriesManager;
 use \Manager\FilmGenreManager;
 use \Manager\GenresAssociationsManager;
 use \Manager\AddWineManager as AddWine;
-use \Manager\CommentsNotModarateManager;
+use \Manager\CommentsNotModerateManager;
 
 
 
@@ -243,8 +243,8 @@ class AdminController extends Controller
 	// Liste des commentaires non-moderés 
 	public function listNotModeratedComments()
 	{	
-		$notModeratedComments = new CommentsNotModarateManager() ;
-		$listNotModeratedComments = $notModeratedComments->getCommentsNotModarate();
+		$notModeratedComments = new CommentsNotModerateManager() ;
+		$listNotModeratedComments = $notModeratedComments->getCommentsNotModerate();
 		$params = [
 			'listNotModeratedComments' => $listNotModeratedComments,
 			];
