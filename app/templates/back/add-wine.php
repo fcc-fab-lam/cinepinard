@@ -54,7 +54,7 @@
 			    <select id="genre_id" name="genre_id" class="form-control">
 			    	<option value="">Choisir un genre de vin</option>
 				<?php foreach ($listeGenreVin as $key => $value) : ?>
-					<option value="<?php echo $value['id'] ?>" /><?php echo ucfirst($value['name']) ?></option>
+					<option value="<?php echo $value['id'] ?>"><?php echo ucfirst($value['name']) ?></option>
 				<?php endforeach; ?>
 			    </select>
 			  </div>
@@ -67,7 +67,7 @@
 			    <select id="categorie_id" name="categorie_id" class="form-control">
 			    	<option value="">Choisir un genre de vin</option>
 				<?php foreach ($categories as $key => $value) : ?>
-					<option value="<?php echo $value['id'] ?>" /><?php echo ucfirst($value['name']) ?></option>
+					<option value="<?php echo $value['id'] ?>"><?php echo ucfirst($value['name']) ?></option>
 				<?php endforeach; ?>
 			    </select>
 			  </div>

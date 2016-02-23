@@ -29,7 +29,8 @@ class AdminController extends Controller
 	{
         $params = array();
         // On instancie nos variables
-		$listErr = array();
+		$err = array();
+		$resultats = array();
 		// On appelle la classe Allocine
 		$allocine = new AlloCine();
 		// On vérifie que $_GET n'est pas vide
@@ -39,31 +40,27 @@ class AdminController extends Controller
 
 			// Si la recherche film est vide, on met une erreur
 			if(empty($get['film'])){
-				$listErr[] = 'Vous devez renseigner un film';
+				$err[] = 'Vous devez renseigner un film';
 			}
-			// Si le nombre d'erreur est positif, 
-			if(count($listErr)>0){
-				// On définie $params
-				$params = ['err'$listErr;
-			}
-			// Si la recherche est correct
-			else{
+			// S'il n'y a pas d'erreur jusque là
+			if(count($err) == 0){
 				$result = json_decode($allocine->search($get['film']));
 				$resultats = array();
 				$error = array();
 
 				if($result->feed->totalResults == 0){
-					$error = 'Aucun film ne correspond à votre recherche';
+					$err = 'Aucun film ne correspond à votre recherche';
 				}
 				else{
 					$resultats = $result->feed->movie;
 				}
-				// On stock nos paramètres dans une variables
-				$params = [
-						'resultats' => $resultats,
-						'err' => $error, 
-						];
 			}
+        }
+        // On stock nos paramètres dans une variable
+        $params = [
+                'resultats' => $resultats,
+                'err' => $err, 
+                ];
         
 		$this->show('back/association-movie-wine',$params);
 	}
