@@ -10,6 +10,7 @@
 		['GET|POST', '/profil-utilisateur', 'Users#userProfil', 'user-profil', 'Profil utilisateur', 'back', 2], // Profil de l'utilisateur
 		['GET|POST', '/desactiver-compte', 'Users#disableAccount', 'disable-account', 'Désactiver le compte', 'back', 2], // Desactiver un compte
 		['GET|POST', '/modification-profil', 'Users#updateProfil', 'update-profil', 'Modifier mon profil', 'back', 2], // Modif profil de l'utilisateur
+
 		['GET|POST', '/ma-cave/[i:showPage]?', 'Users#cave', 'cave', 'Ma cave', 'back', 2], // liste des choix de l'utilisateur(cave)
 		['GET|POST', '/association-film-vin', 'Admin#associationMovieWine', 'association-movie-wine', 'Associer un film et un vin', 'back', 2], // association 1 film et 1 vin
 		['GET|POST', '/ajout-fiche-vin', 'Admin#addWine', 'add-wine', 'Rajouter un vin', 'back', 2], // creation fiche vin

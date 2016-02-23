@@ -14,7 +14,7 @@
                             <div class="col-md-10 bouteille-cave">
                                 <div class="col-md-4">
                                     <h4><?= (isset($value['infosFilm']['movie']['title'])) ? $value['infosFilm']['movie']['title'] : $value['infosFilm']['movie']['originalTitle']?></h4>
-                                    <p><?= (isset($value['infosFilm']['movie']['poster']['href'])) ? '<img height="300px" src="'.$value['infosFilm']['movie']['poster']['href'].'" />' : '' ?></p>
+                                    <p><?= (isset($value['infosFilm']['movie']['poster']['href'])) ? '<img height="220px" src="'.$value['infosFilm']['movie']['poster']['href'].'" />' : '' ?></p>
                                 </div>
 
                                 <div class="col-md-4">
@@ -22,9 +22,6 @@
                                     <h5><?=ucfirst($value['appellation']) ?></h5>
                                     
                                     <!-- MODAL POUR CHOISIR CETTE ASSOCIATION -->
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal<?=$value['id'] ?>">Evaluer cette association</button>
-
                                     <!-- Modal -->
                                     <div class="modal fade" id="myModal<?=$value['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                         <div class="modal-dialog" role="document">
@@ -81,6 +78,8 @@
                                     <h4>Commentaire</h4>
                                     <quote><?=ucfirst($value['comment']) ?></quote>
                                     <h3>Note de l'association : <?=ucfirst($value['note']) ?></h3>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#myModal<?=$value['id'] ?>">Evaluer cette association</button>
                                 </div>
                             </div>
                             <div class="col-md-1"></div>

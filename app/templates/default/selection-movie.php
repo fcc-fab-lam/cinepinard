@@ -10,6 +10,12 @@
 	}
 	else{
 ?>  
+    <div class="row">
+        <div class="col-md-1"></div>
+        <h1 class="col-md-10 profil-title">Notre conseil pour ce film :</h1>
+        <div class="col-md-1"></div>
+    </div>
+
     <div class="row container-film">
         <div class="col-md-1"></div>
         <div class="col-md-10 resultat-film">
@@ -34,19 +40,18 @@
 ?>
     <div class="col-md-9 reco-vin">
 	<!-- CONSEIL VIN POUR FILM SELECTIONE -->
-	<h1 class="reco-title">Notre conseil pour ce film :</h1>
 
 	<!-- NOM DU VIN -->
-	<h4><?= (!empty($propositionVin[0]['name'])) ? $propositionVin[0]['name'] : 'Nom inconnu' ?></h4>
+	<h4 class="titre-vin"><?= (!empty($propositionVin[0]['name'])) ? $propositionVin[0]['name'] : 'Nom inconnu' ?></h4>
 
 	<!-- APPELLATION -->
-	<p>Appellation : <?= (!empty($propositionVin[0]['appellation'])) ? $propositionVin[0]['appellation'] : 'Inconnue' ?></p>
+	<p><span class="bold">Appellation : </span><?= (!empty($propositionVin[0]['appellation'])) ? $propositionVin[0]['appellation'] : 'Inconnue' ?></p>
 
 	<!-- PROVENANCE -->
-	<p>Provenance : <?= (!empty($propositionVin[0]['country'])) ? $propositionVin[0]['country'] : 'Inconnue' ?></p>
+	<p><span class="bold">Provenance : </span><?= (!empty($propositionVin[0]['country'])) ? $propositionVin[0]['country'] : 'Inconnue' ?></p>
 
 	<!-- DESCRIPTION -->
-	<p>Description : <?= (!empty($propositionVin[0]['description'])) ? $propositionVin[0]['description'] : 'Pas de description pour cette recommandation' ?></p>
+	<p><span class="bold">Description : </span><?= (!empty($propositionVin[0]['description'])) ? $propositionVin[0]['description'] : 'Pas de description pour cette recommandation' ?></p>
 
 	<!-- IMAGE -->
 	<p><?= (!empty($propositionVin[0]['image'])) ? '<img height="300px" src="'.$propositionVin[0]['image'].'" />' : '' ?></p>

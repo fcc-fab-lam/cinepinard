@@ -1,10 +1,24 @@
 @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans);
+@import url(https://fonts.googleapis.com/css?family=Lora:400,700italic);
 
 /* INITIALISATION */
+html, body{
+	font-size: 15px;
+	color: black;
+}
+
 .container-principal{
 	background-image: url('../../img/background.jpg');
 	background-size: cover;
 	min-height: calc(100vh - 60px);
+}
+
+.titre-vin{
+	font-family: 'Lora', cursive;
+	font-size: 22px; 
+	font-weight: 700;
+	font-style: italic;
+	margin-bottom: 15px;
 }
 
 /* CheckBoxes */
@@ -54,6 +68,7 @@ header{
 	background-color: #BD0A41;
 	font-family: 'Alegreya Sans', serif;
 	color: white;
+	font-size: 18px;
 }
 
 .connexion{
@@ -85,9 +100,13 @@ header{
 	font-weight: bold;
 }
 
+header .login label{
+	font-weight: normal;
+}
+
 header .login input{
 	margin: 9px;
-	padding: 3px;
+	padding: 3px 8px;
 	border: 0;
 	background-color: rgba(255, 255, 255, 0.5);
 }
@@ -172,17 +191,19 @@ label input[type="checkbox"]{
 footer{
 	background-color: black;
 	height: 60px;
+	color: white;
+	text-align: center;
+	line-height: 60px;
+	font-family: 'Alegreya Sans', serif;
+	font-size: 20px;
 }
 
 /* RESULTATS RECHERCHE */
-.container-film{
-	margin-top: 20px;
-}
 
 .resultat-film{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 20px;
-	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .image-res-seach{
@@ -200,10 +221,6 @@ footer{
 .descriptif-res-search{
 	display: inline-block;
 	vertical-align: top;
-}
-
-.reco-title{
-	margin-top: 0;
 }
 
 .reco-vin{
@@ -288,6 +305,8 @@ footer{
 .profil-utilisateur{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 20px;
+	margin-bottom: 20px;
+	color: black;
 }
 
 .profil-title{
@@ -297,15 +316,29 @@ footer{
 	margin: 40px auto;
 }
 
+.photo-de-profil{
+	margin: 20px 0px;
+	height: 260px;
+	width: 260px;
+	overflow: hidden;
+}
+
+.photo-de-profil img{
+	height: 340px;
+	text-align: center;
+}
+
+.bouton-profil{
+	width: 200px;
+}
+
 /* DESACTIVER COMPTE */
 
 .disable-container{
-	margin-top: 120px;
+	margin-top: 40px;
 }
 
 .disable{
-	width: 40%;
-	margin: 0 auto;
 	text-align: center;
 	padding: 40px;
 	color: black;
@@ -320,4 +353,5 @@ footer{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 20px;
 	margin-bottom: 20px;
+	color: black;
 }
