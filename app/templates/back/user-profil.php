@@ -5,8 +5,8 @@
 <div class="container-fluid main-user-profil">
 	<h1 class="col-md-offset-1 profil-title">Votre profil</h1>
 	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="profil-utilisateur col-md-10">
+		<div class="col-md-1 col-sm-2"></div>
+		<div class="profil-utilisateur col-md-10 col-sm-8">
 			<div class="col-md-4">
 				<div class="photo-de-profil img-circle"><img src="<?php echo $userInfos['photo'];?>" alt="avatar" /></div>
 			</div>
@@ -38,7 +38,7 @@
 				<p class=""><?php echo $userInfos['delivery_address'].'<br>'.$userInfos['delivery_postcode'].' '.ucfirst($userInfos['delivery_town']).' - '.strtoupper($userInfos['delivery_country']);?></p>
 			</div>
 		</div>
-		<div class="col-md-1"></div>
+		<div class="col-md-1 col-sm-2"></div>
 	</div>
 </div>
 

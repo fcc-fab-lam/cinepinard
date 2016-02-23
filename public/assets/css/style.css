@@ -182,7 +182,7 @@ footer{
 .resultat-film{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 20px;
-	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .image-res-seach{
@@ -288,7 +288,7 @@ footer{
 .profil-utilisateur{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 20px;
-	display: inline-block;
+	margin-bottom: 20px;
 }
 
 .profil-title{
@@ -317,12 +317,10 @@ footer{
 /* DESACTIVER COMPTE */
 
 .disable-container{
-	margin-top: 120px;
+	margin-top: 40px;
 }
 
 .disable{
-	width: 40%;
-	margin: 0 auto;
 	text-align: center;
 	padding: 40px;
 	color: black;
