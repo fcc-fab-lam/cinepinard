@@ -9,9 +9,10 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
-        <header class="container-fluid">
-            <nav>
-                <ul class="list-inline">
+        <header class="container-fluid header-back">
+        <div class="row">
+            <nav class="col-lg-8 col-md-12">
+                <ul class="list-inline menu-back">
                     <li><a href="<?=$this->url('home') ?>">Accueil</a></li>
 <?php   require('../app/routes.php'); // on requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes 
         foreach($w_routes as $value) : // on boucle sur le tableau des routes 
@@ -27,12 +28,13 @@
         endforeach; ?>
                 </ul>
             </nav>
-                    <div class="login">
-                        <div class="islogin">
-                            Bonjour <span class="bold"><?=$w_user['nickname'] ?></span>
-                            <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
-                        </div>
-                    </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="islogin login-back">
+                    Bonjour <span class="bold"><?=$w_user['nickname'] ?></span>
+                    <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
+                </div>
+            </div>
+        </div>
         </header>
 
 		<main>

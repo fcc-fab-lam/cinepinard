@@ -66,7 +66,7 @@
 				</div>
 	 			
 	 			<div class="checkbox majeur">
-					<div class="col-sm-offset-3 col-sm-9"><label class="control-label"><input type="checkbox" id="majeur" name="majeur" />Je confirme être majeur</label></div>
+					<div class="col-sm-offset-3 col-sm-9"><label class="control-label"><input type="checkbox" id="majeur" name="majeur" /><span></span>Je confirme être majeur</label></div>
 				</div>
 
 				<br/>
