@@ -29,13 +29,14 @@ class UsersPreferencesManager extends \W\Manager\Manager {
 	 * @return   array les id des nouvelles preferences boissons de l'utilisateur
 	 */
 
-	public function setUsersPreferences($uPrefs, $userId){
+	public function deleteUsersPreferences($userId){
 		$sql = "DELETE FROM users_preferences WHERE user_id = :id";
 		$sth = $this->dbh->prepare($sql);
 		$sth->bindValue(":id", $userId);
-		$sth->execute();
-
-
+		return $sth->execute();
+	}
+    
+    public function setUsersPreferences($uPrefs, $userId){
 		// insere les nouvelles preferences de l'utilisateur
 		$this->setTable('users_preferences');
 		foreach ($uPrefs as $value) {
@@ -56,4 +57,20 @@ class UsersPreferencesManager extends \W\Manager\Manager {
 		$req3->execute();
 		return $req3->fetchAll();
 	}
+    
+    public function existAssoInCave($idFilm, $idVin, $idUser){
+        $sql = 'SELECT * FROM users_notes_comments WHERE user_id = :userId AND movie_id = :movieId AND wine_id = :wineId';
+		$req = $this->dbh->prepare($sql);
+		$req->bindValue(':userId', $idUser);
+		$req->bindValue(':movieId', $idFilm);
+		$req->bindValue(':wineId', $idVin);
+		$req->execute();
+		$asso = $req->fetch();
+        if(empty($asso)){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 }

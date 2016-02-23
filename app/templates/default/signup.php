@@ -58,11 +58,10 @@
 				<div class="form-group">
 					<label class="control-label col-sm-3">Préférences :</label>
 					<div class="col-sm-9 preferences-signup">
-						<label><input type="checkbox" id="preferences1" name="preferences1" />Vin blanc</label>
-						<label><input type="checkbox" id="preferences2" name="preferences2" />Vin rouge</label>
-						<label><input type="checkbox" id="preferences3" name="preferences3" />Vin rosé</label>
-						<label><input type="checkbox" id="preferences4" name="preferences4" />Bière</label>
-						<label><input type="checkbox" id="preferences5" name="preferences5" />Autre</label>
+				<?php foreach($categories as $value):
+	            ?>
+					<label for="<?=$value['id']; ?>"><input type="checkbox" id="<?=$value['id']; ?>" name="preferences[]" value="<?=$value['id']; ?>" /><span></span><?= ucfirst($value['name']); ?></label>
+				<?php endforeach; ?>
 					</div>
 				</div>
 	 			

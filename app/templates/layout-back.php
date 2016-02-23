@@ -13,21 +13,26 @@
             <nav>
                 <ul class="list-inline">
                     <li><a href="<?=$this->url('home') ?>">Accueil</a></li>
-        <?php require('../app/routes.php'); // on requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes ?>
-        <?php foreach($w_routes as $value) : // on boucle sur le tableau des routes ?>
-            <?php if($value['5'] == 'back') : // si la route est prévue pour le back ?>
-                <?php if($value['6'] == 2) : // si la route est prevu pour tous les utilisateurs ?>
-                    <li><a href="<?=$this->url($value['3']) ?>"><?=$value['4'] ?></a></li>
-                <?php else : ?>
-                    <?php if($value['6'] == 1 && $w_user['role_id'] == 1) : // si la route est prévue pour les administrateurs  ?>
-                    <li><a href="<?=$this->url($value['3']) ?>"><?=$value['4'] ?></a></li>
-                    <?php endif; ?>
-                <?php endif; ?>
-            <?php endif; ?>
-        <?php endforeach; ?>
+<?php   require('../app/routes.php'); // on requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes 
+        foreach($w_routes as $value) : // on boucle sur le tableau des routes 
+            if($value['5'] == 'back') : // si la route est prévue pour le back 
+                if($value['6'] == 2) : // si la route est prevu pour tous les utilisateurs ?>
+                    <li><a href="<?=$this->url($value['3']) ?>"<?=($value['3'] == $_SERVER['W_ROUTE_NAME']) ? ' class="active"' : '' ?>><?=$value['4'] ?></a></li>
+<?php           else : 
+                    if($value['6'] == 1 && $w_user['role_id'] == 1) : // si la route est prévue pour les administrateurs  ?>
+                    <li><a href="<?=$this->url($value['3']) ?>"<?=($value['3'] == $_SERVER['W_ROUTE_NAME']) ? ' class="active"' : '' ?>><?=$value['4'] ?></a></li>
+<?php               endif; 
+                endif;
+            endif; 
+        endforeach; ?>
                 </ul>
             </nav>
-                    Bonjour <?=$w_user['nickname'] ?>
+                    <div class="login">
+                        <div class="islogin">
+                            Bonjour <span class="bold"><?=$w_user['nickname'] ?></span>
+                            <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
+                        </div>
+                    </div>
         </header>
 
 		<main>

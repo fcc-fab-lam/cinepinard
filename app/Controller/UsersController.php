@@ -125,16 +125,25 @@ class UsersController extends Controller
 					}
 					
 					$formValid = true;
+                    $userInfos = $authentificationManager->getLoggedUser();
 					$userPreferences = new UsersPreferencesManager();
-					$userPreferences->setUsersPreferences($preferences, $_SESSION['user']['id']);
-                    $userPrefs = $userPreferences->getUsersPreferences($_SESSION['user']['id']);
+                    
+					$userPreferences->deleteUsersPreferences($userInfos['id']);
+					$userPreferences->setUsersPreferences($preferences, $userInfos['id']);
+                    
+                    $userPrefs = $userPreferences->getUsersPreferences($userInfos['id']);
                     $authentificationManager->refreshUser();
                     $_SESSION['userPrefs'] = $userPrefs;
 					$this->redirectToRoute('user-profil');
 				}
 			}
 		
-			$params = ['showErr' => $showErr, 'err' => $err, 'formValid' => $formValid, 'post' => $post];
+			$params = [
+                'showErr' => $showErr,
+                'err' => $err,
+                'formValid' => $formValid,
+                'post' => $post
+                ];
 		}
 			
 		// On instancie nos classes
@@ -202,55 +211,71 @@ class UsersController extends Controller
 		$authentificationManager = new AuthentificationManager();
 		$userInfos = $authentificationManager->getLoggedUser();
         $userManager = new UserManager();
-        $get = array();
         $err = array();
+        $insertValues = array();
+        
+        if(empty($userInfos)){ // on verifie si l'utilisateur est connecté
+            $this->redirectToRoute('home');
+        }
+        if(isset($idFilm)){
+            $idFilm = trim(strip_tags($idFilm));
+        }
+        if(isset($idVin)){
+            $idVin = trim(strip_tags($idVin));
+        }
 
-            if(empty($idFilm)){ // on verifie si idFilm est vide
-                $err[] = 'L\'id du film ne peut être vide.';
+        if(empty($idFilm)){ // on verifie si idFilm est vide
+            $err[] = 'L\'id du film ne peut être vide.';
+        }
+        elseif(!is_numeric($idFilm)){ // on verifie si idFilm est un nombre
+            $err[] = 'L\'id du film doit être un nombre';
+        }
+        else{ // on verifie si idFilm correspond bien à un film
+            $alloCine = new AlloCine();
+            $filmInfos = json_decode($alloCine->get($idFilm), true);
+            if(isset($filmInfos['error'])){
+                $err[] = 'Aucun film correspondant';
             }
-            elseif(!is_numeric($idFilm)){ // on verifie si idFilm est un nombre
-                $err[] = 'L\'id du film doit être un nombre';
+        }        
+        if(empty($idVin)){ // on verifie si idVin est vide
+            $err[] = 'L\'id du vin ne peut être vide.';
+        }
+        elseif(!is_numeric($idVin)){ // on verfie si idVin est un nombre
+            $err[] = 'L\'id du vin doit être un nombre';
+        }
+        else{ // on verifie si idVin correspond bien à un vin
+            $userManager->setTable('wines');
+            $vinInfos = $userManager->find($idVin);
+            if(empty($vinInfos)){
+                $err[] = 'Aucun vin correspondant';
             }
-            else{ // on verifie si idFilm correspond bien à un film
-                $alloCine = new AlloCine();
-                $filmInfos = json_decode($alloCine->get($idFilm), true);
-                if(isset($filmInfos['error'])){
-					$err[] = 'Aucun film correspondant';
-				}
-            }
-            if(empty($idVin)){ // on verifie si idVin est vide
-                $err[] = 'L\'id du vin ne peut être vide.';
-            }
-            elseif(!is_numeric($idVin)){ // on verfie si idVin est un nombre
-                $err[] = 'L\'id du vin doit être un nombre';
-            }
-            else{ // on verifie si idVin correspond bien à un vin
-                $userManager->setTable('wines');
-                $vinInfos = $userManager->find($idVin);
-                if(empty($vinInfos)){
-                    $err[] = 'Aucun vin correspondant';
-                }
-            }
-            if(empty($userInfos)){ // on verifie si l'utilisateur est connecté
-                $this->redirectToRoute('home');
-            }
-            if(count($err) > 0){ // on verifie s'il y a des erreurs
-                $params = [
-                    'err' => $err,
-                ];
-            }
-            else{
-                $insertValues = [
-                    'movie_id' => $idFilm,
-                    'wine_id' => $idVin,
-                    'user_id' => $userInfos['id'],
-                ];
-                $params = [
-                    'insertValues' => $insertValues,
-                ];
-                //$userManager->setTable('users_notes_comments');
-                //$userManager->insert($insertInfos);                
-            }
+        }
+        if($userCave->existAssoInCave($idFilm, $idVin, $userInfos['id'])){
+            $err[] = 'Cette association existe déjà dans votre cave';
+        }
+        if(count($err) > 0){ // on verifie s'il y a des erreurs
+            $params = [
+                'err' => $err,
+                'filmInfos' => $filmInfos,
+                'vinInfos' => $vinInfos,
+            ];
+        }
+        else{
+            $insertValues = [
+                'movie_id' => $idFilm,
+                'wine_id' => $idVin,
+                'user_id' => $userInfos['id'],
+            ];
+            $params = [
+                'insertValues' => $insertValues,
+                'filmInfos' => $filmInfos,
+                'vinInfos' => $vinInfos,
+            ];
+            $userManager->setTable('users_notes_comments');
+            $userManager->insert($insertValues);
+            $this->redirectToRoute('cave');
+
+        }
 
 		$this->show('back/add-to-cave', $params);
         
