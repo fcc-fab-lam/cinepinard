@@ -6,6 +6,29 @@
 <!-- DEBUT RECHERCHE -->
 <div class="recherche">
 	<div class="container">
+    <?php foreach($resultats as $value): ?>
+        <div class="row resultats">
+            <div class="image-res-seach">
+            <!-- IMAGE -->
+            <p><?= (isset($value->poster->href)) ? '<a href="selection-film?id=<?=$value->code.$userPrefs ?>"><img height="100px" src="'.$value->poster->href.'" /></a>' : '' ?></p>
+            </div>
+            <div class="descriptif-res-search">
+                <!-- TITRE ORIGINAL OU FRANCAIS -->
+                <h4><?= (isset($value->title)) ? $value->title : $value->originalTitle ?></h4>
+
+                <!-- REALISATEUR -->
+                <p>Réalisateur : <?= (isset($value->castingShort->directors)) ? $value->castingShort->directors : 'Inconnu' ?></p>
+
+                <!-- ACTEURS -->
+                <p>Acteurs : <?= (isset($value->castingShort->actors)) ? $value->castingShort->actors : 'Inconnu' ?></p>
+
+                <!-- ANNEE DE PRODUCTION -->
+                <p>Année : <?= (isset($value->productionYear)) ? $value->productionYear : 'Inconnu' ?></p>
+                <!-- Call to action choix du film -->
+                <a href="#" class="btn btn-default">C'est ce film !</a>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
     <h1>Association Film & Vin</h1>
     <h2>Rechercher le film : </h2>
