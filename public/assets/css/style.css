@@ -267,5 +267,24 @@ footer{
 	margin: 40px auto;
 }
 
-.btn-profil-modif{
+/* DESACTIVER COMPTE */
+
+.disable-container{
+	background-image: url('../../img/background.jpg');
+	background-size: cover;
+	opacity: 0.7;
+	padding: 40px;
+	height: calc(100vh - 215px);
 }
+
+.disable{
+	width: 40%;
+	margin: 0 auto;
+	text-align: center;
+	padding: 40px;
+	color: black;
+	background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* MODIFIER LE COMPTE */
+
