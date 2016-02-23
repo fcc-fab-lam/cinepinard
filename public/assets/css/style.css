@@ -1,10 +1,24 @@
 @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans);
+@import url(https://fonts.googleapis.com/css?family=Lora:400,700italic);
 
 /* INITIALISATION */
+html, body{
+	font-size: 15px;
+	color: black;
+}
+
 .container-principal{
 	background-image: url('../../img/background.jpg');
 	background-size: cover;
 	min-height: calc(100vh - 60px);
+}
+
+.titre-vin{
+	font-family: 'Lora', cursive;
+	font-size: 22px; 
+	font-weight: 700;
+	font-style: italic;
+	margin-bottom: 15px;
 }
 
 /* CheckBoxes */
@@ -185,9 +199,6 @@ footer{
 }
 
 /* RESULTATS RECHERCHE */
-.container-film{
-	margin-top: 20px;
-}
 
 .resultat-film{
 	background-color: rgba(255, 255, 255, 0.7);
@@ -210,10 +221,6 @@ footer{
 .descriptif-res-search{
 	display: inline-block;
 	vertical-align: top;
-}
-
-.reco-title{
-	margin-top: 0;
 }
 
 .reco-vin{
@@ -299,6 +306,7 @@ footer{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 20px;
 	margin-bottom: 20px;
+	color: black;
 }
 
 .profil-title{
@@ -345,4 +353,5 @@ footer{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 20px;
 	margin-bottom: 20px;
+	color: black;
 }
