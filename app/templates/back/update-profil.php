@@ -7,9 +7,12 @@
 	<h1 class="col-md-offset-1 profil-title">Modifier votre profil</h1>
 	<div class="row">
 	<?php 
-		foreach ($userPrefs as $value) {
-			$userCat[] = $value['categorie_id'];
-		}
+        $userCat = array();
+        if(!empty($userPrefs)){
+            foreach ($userPrefs as $value) {
+                $userCat[] = $value['categorie_id'];
+            }
+        }
 	?>
 		<div class="col-md-1"></div>
 		<form role="form" class="col-md-10 form-horizontal profil-utilisateur" method="post" action="" enctype="multipart/form-data">
