@@ -2,7 +2,6 @@
 
 <?php $this->start('main_content') ?>
 
-<div class="background"></div>
 <!-- DEBUT RECHERCHE -->
 <div class="recherche">
 	<div class="container-fluid">

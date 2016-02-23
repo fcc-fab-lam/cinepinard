@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="<?= $this->assetUrl('css/style.css') ?>">
 </head>
 <body>
+
+<?php if($title == 'Accueil') : ?>
+    <div class="container-unique">
+<?php else : ?>
     <div class="container-principal">
+<?php endif; ?>
         <!-- DEBUT CONNEXION / LOG IN -->
         <div class="container-fluid">
             <header class="row">
@@ -66,7 +71,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 		<!-- BOOTSTRAP CDN -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
 <!-- lance le script add-wine-genre-->
 		<?= $this->section('scripts') ?>
 </body>
