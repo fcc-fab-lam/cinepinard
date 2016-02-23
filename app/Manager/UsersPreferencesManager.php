@@ -52,8 +52,7 @@ class UsersPreferencesManager extends \W\Manager\Manager {
 	 */
 	public function getUsersCave($id, $startPage = null, $endPage = null){
 
-		$sql3 = 'SELECT unc.id AS assoId, unc.movie_id, unc.wine_id, unc.comment, unc.note, wi.name, wi.appellation, wi.description FROM users_notes_comments AS unc LEFT JOIN wines AS wi ON (unc.wine_id = wi.id) WHERE unc.user_id = :userId';
-
+		$sql3 = 'SELECT unc.id AS assoId, unc.movie_id, unc.wine_id, unc.comment, unc.note, unc.moderation, wi.name, wi.appellation, wi.description FROM users_notes_comments AS unc LEFT JOIN wines AS wi ON (unc.wine_id = wi.id) WHERE unc.user_id = :userId';
 
 		if(!empty($startPage) || !empty($endPage) && is_int($startPage) && is_int($endPage)){
 			$sql3.= ' LIMIT :start, :end';

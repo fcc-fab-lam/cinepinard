@@ -27,7 +27,7 @@
                         <li><a href="<?=$this->url('signup') ?>"<?=($_SERVER['W_ROUTE_NAME'] == 'signup') ? ' class="active"' : '' ?>>Inscription</a></li>
 <?php       endif;
             if(!empty($w_user)) : // si l'utilisateur est connecté on affiche un lien vers le back ?>
-                        <li><a href="<?=$this->url('user-profil') ?>">Gérer mon profil</a></li>
+                        <li><a href="<?=$this->url('user-profil') ?>">Mon compte</a></li>
 <?php       endif; ?>
                     </ul>
                 </nav>

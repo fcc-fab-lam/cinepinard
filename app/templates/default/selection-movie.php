@@ -2,12 +2,21 @@
 
 <?php $this->start('main_content') ?>
 
+<div class="container-fluid">
+
 <?php 
 	if(isset($err)){
 		echo 'erreur';
 	}
 	else{
-?>
+?>  
+    <div class="row container-film">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 resultat-film">
+
+        <div class="col-md-3">
+        <!-- AFFICHE -->
+        <p><?= (isset($filmInfos['movie']['poster']['href'])) ? '<img height="240px" src="'.$filmInfos['movie']['poster']['href'].'" />' : '' ?></p>
 		<!-- TITRE ORIGINAL OU FRANCAIS -->
 		<h4><?= (isset($filmInfos['movie']['title'])) ? $filmInfos['movie']['title'] : $filmInfos['movie']['originalTitle'] ?></h4>
 
@@ -19,14 +28,13 @@
 
 		<!-- ANNEE DE PRODUCTION -->
 		<p>Année : <?= (isset($filmInfos['movie']['productionYear'])) ? $filmInfos['movie']['productionYear'] : 'Inconnu' ?></p>
-
-		<!-- AFFICHE -->
-		<p><?= (isset($filmInfos['movie']['poster']['href'])) ? '<img height="300px" src="'.$filmInfos['movie']['poster']['href'].'" />' : '' ?></p>
+        </div>
 <?php
 	}
 ?>
+    <div class="col-md-9 reco-vin">
 	<!-- CONSEIL VIN POUR FILM SELECTIONE -->
-	<h1>Notre conseil pour ce film :</h1>
+	<h1 class="reco-title">Notre conseil pour ce film :</h1>
 
 	<!-- NOM DU VIN -->
 	<h4><?= (!empty($propositionVin[0]['name'])) ? $propositionVin[0]['name'] : 'Nom inconnu' ?></h4>
@@ -45,7 +53,7 @@
     
     <!-- MODAL POUR CHOISIR CETTE ASSOCIATION -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal1">Choisir ce vin</button>
+    <button type="button" class="btn btn-primary btn-md choisir-ce-vin" data-toggle="modal" data-target="#myModal1">Choisir ce vin</button>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -111,7 +119,7 @@
     
     <!-- MODAL POUR CHOISIR CETTE ASSOCIATION -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">Choisir ce vin</button>
+    <button type="button" class="btn btn-primary btn-md choisir-ce-vin" data-toggle="modal" data-target="#myModal2">Choisir ce vin</button>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -232,5 +240,15 @@
 	<p><?= (!empty($usersProposition[0]['comment'])) ? $usersProposition[0]['comment'] : '' ?></p>
 
 	<?php endif; ?>
+   <!-- FIN DU COL-MD-9 SECONDAIRE -->
+    </div>
+    <!-- FIN DU COL-MD-10 PRINCIPAL -->
+    </div>
+
+    <div class="col-md-1"></div>
+    <!-- FIN DU ROW -->
+    </div>
+<!-- FIN DU CONTAINER FLUID -->
+</div>
 
 <?php $this->stop('main_content') ?>
