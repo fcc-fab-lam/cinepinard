@@ -32,7 +32,7 @@
 					<!-- ANNEE DE PRODUCTION -->
 					<p>Année : <?= (isset($value->productionYear)) ? $value->productionYear : 'Inconnu' ?></p>
 					<!-- Call to action choix du film -->
-					<a href="selection-film?id=<?=$value->code.$userPrefs ?>">Choisir ce film</a>
+					<a href="selection-film?id=<?=$value->code.$userPrefs ?>" class="btn btn-default">Je bois quoi avec ce film ?</a>
 				</div>
 			</div>
 		<?php endforeach; 

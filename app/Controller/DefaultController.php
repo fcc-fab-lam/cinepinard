@@ -19,6 +19,7 @@ class DefaultController extends Controller
 		$authentificationManager = new AuthentificationManager();
 		// On instancie nos variables
 		$post = array();
+        $userPrefs = array();
 		$err = array();
 		$formValid = false;
 		$showErr = false;
@@ -26,6 +27,14 @@ class DefaultController extends Controller
 		$mimeTypeAllowed = array('image/jpg', 'image/jpeg', 'image/gif', 'image/png'); // Controle l'extension de l'image
 			// On nettoie $_POST
 		if(!empty($_POST)){
+			// On nettoie $_POST['preferences'] et on le passe dans une variable propre
+			if(isset($_POST['preferences'])){
+				foreach($_POST['preferences'] as $value){
+					$userPrefs[] = trim(strip_tags($value));
+				}
+				// On supprime la variable d'origine
+				unset($_POST['preferences']);
+			}
 			foreach($_POST as $key => $value){
 				$post[$key] = trim(strip_tags($value));
 			}
@@ -79,19 +88,28 @@ class DefaultController extends Controller
 			if(!isset($post['majeur'])){
 				$err[] = 'Vous devez être majeur pour vous inscrire';
 			}
-		// On regarde s'il y a des erreurs
+            // on verifie les preferences utilisateur
+			if(isset($userPrefs)){
+				foreach($userPrefs as $value){
+					if(empty($value) || !is_numeric($value)){
+						$listErr[] = 'Vous devez renseigner des préférences valides';
+					}
+				}
+			}
+            // On regarde s'il y a des erreurs
 			if(count($err)>0){
 				$showErr = true;
 			}
 			// S'il n'y a pas d'erreur on enregistre en BDD
 			else{
-				// On supprime les variables majeur & password2 dont on a pas besoin
+				// On supprime les variables majeur & password2 dont on n'a pas besoin
 				unset($post['password2']);
 				unset($post['majeur']);
 				// On hash le password
 				$post['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
 
 				$newUser = $userManager->insert($post);
+                
 
 				$imgExtension = explode('/', $fileMimeType)[1];
 				// On récupère la classe qui permet d'utiliser la fonction
@@ -100,17 +118,31 @@ class DefaultController extends Controller
 				if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
 					$userManager->update(["photo" => $imgPath], $newUser["id"]);
 				}
+                // on insere les preferences utilisateur si il y en a
+                if(!empty($userPrefs)){
+                    $insertPrefs = new UsersPreferences();
+                    $insertPrefs->setUsersPreferences($userPrefs, $newUser['id']);
+                    $_SESSION['userPrefs'] = $userPrefs;                   
+                }
+                
 				$user = $userManager->find($signIn);
 				$authentificationManager->logUserIn($user);
+                
 				$formValid = true;
 			}
 		}
+        
+		$cat = new WinesCategories();
+		$categories = $cat->getCategories();
+
 		$params = [
             'showErr' => $showErr,
             'err' => $err,
             'formValid' => $formValid,
             'post' => $post,
+			'categories' => $categories,
         ];
+        
 		$this->show('default/signup', $params);
 	}
     
@@ -125,8 +157,11 @@ class DefaultController extends Controller
         $userPrefs = array();
 
 		if(!empty($_POST)){
+            foreach($_POST as $key => $value){
+                $post[$key] = trim(strip_tags($value));
+            }
 			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
-			$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
+			$signIn = $authentificationManager->isValidLoginInfo($post['email'], $post['password']);
 			
 			if($signIn == 0){
 				$err[] = 'L\'adresse email ou le mot de passe est incorrect';
@@ -155,7 +190,7 @@ class DefaultController extends Controller
 				'userPrefs' => $userPrefs,
 			];
             
-			$this->redirectToRoute('home', $params);
+			$this->redirectToRoute($post['currentPage'], $params);
 		}
     }
     
@@ -172,43 +207,11 @@ class DefaultController extends Controller
 	// TRAITEMENT DU FORMULAIRE DE CONNEXION
 	public function home()
 	{
-		// On instancie nos variables
-		//$err = array();
-		//$formValid = false;
-		//$showErr = false;
-		//$userManager = new UserManager();
-		//$authentificationManager = new AuthentificationManager();
-		$userPrefs = array();
-
-		/*if(!empty($_POST)){
-			// On verifie les champs Email & Password à l'aide de la fonction du AuthentificationManager
-			$signIn = $authentificationManager->isValidLoginInfo($_POST['email'], $_POST['password']);
-			if($signIn == 0){
-				$err[] = 'L\'adresse email ou le mot de passe est incorrect';
-			}
-			// Si email et password correct on enregistre en session les données de l'utilisateur
-			else{
-				$user = $userManager->find($signIn);
-				$authentificationManager->logUserIn($user);
-				$userInfos = $authentificationManager->getLoggedUser();
-				$pref = new UsersPreferences();
-				$userPrefs = $pref->getUsersPreferences($userInfos['id']);
-				$formValid = true;
-			}
-			// On regarde s'il y a des erreurs
-			if(count($err)>0){
-				$showErr = true;
-			}
-		}*/
 		$cat = new WinesCategories();
 		$categories = $cat->getCategories();
 
 		$params = [
-			//'showErr' => $showErr,
-			//'err' => $err,
-			//'formValid' => $formValid,
 			'categories' => $categories,
-			'userPrefs' => $userPrefs,
 		];
 		$this->show('default/home', $params);
 	}
