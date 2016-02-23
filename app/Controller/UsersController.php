@@ -171,6 +171,65 @@ class UsersController extends Controller
 	// liste des choix de l'utilisateur(cave)
 	public function cave()
 	{
+		// Ajout Commentaires
+		$post = array();
+        $err = array();
+        $formValid = false;
+        $showErr = false;
+		$userCave = new UsersPreferencesManager();
+		$authentificationManager = new AuthentificationManager();
+		$table = new UserManager();
+		$userInfos = $authentificationManager->getLoggedUser();
+		$table->setTable('users_notes_comments');
+
+		if(!empty($_POST)){
+			foreach($_POST as $key => $value){
+				$post[$key] = trim(strip_tags($value));
+			}
+			if(!is_numeric($post['note'])){
+				$err[] = 'La note doit être un nombre.';
+			}
+			if(!is_numeric($post['idAsso'])){
+				$err[] = 'Merci de jouer au malin !!!';
+			}
+			else{
+				$table->setTable('users_notes_comments');		
+				$recupComment = $table->find($post['idAsso']);
+
+		
+				// on verifie que le GET correspond en bdd a une assoc de  l'utilisateur	
+				if (empty($recupComment)) {
+					$err[] = 'cette association n\'est pas enregistrée';
+				}
+				else{
+					// on verifie que l'utilisateur connecte est bien celui du commentaire recupere
+					if ($userInfos['id'] != $recupComment['user_id']) {
+						$err[] = 'Vous n\'avez pas les droits sur cette association';
+					}
+				}
+			}
+			if (count($err) > 0) {
+				$params = [
+					'err' => $err,
+					'post' => $post,
+					];
+
+			}
+			else{
+				$updateValues = [
+						'comment' => $post['comment'],
+						'note' => $post['note'],
+						];
+				$table->setTable('users_notes_comments');
+				$vinInfos = $table->update($updateValues, $post['idAsso']);
+
+				$this->redirectToRoute('cave');
+			}
+		}
+
+
+
+
         // on initialise nos variables et nos objets
 		$userCave = new UsersPreferencesManager();
 		$authentificationManager = new AuthentificationManager();
