@@ -172,6 +172,12 @@ label input[type="checkbox"]{
 footer{
 	background-color: black;
 	height: 60px;
+	color: white;
+	text-align: center;
+	line-height: 60px;
+	font-family: 'Alegreya Sans', serif;
+	font-weight: bold;
+	font-size: 20px;
 }
 
 /* RESULTATS RECHERCHE */
