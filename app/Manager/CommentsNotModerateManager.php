@@ -19,7 +19,7 @@ class CommentsNotModerateManager extends \W\Manager\Manager {
 	 * @return array la liste des catégories de boissons et leurs id
 	 */
 	public function getCommentsNotModerate($startPage = null, $endPage = null){
-		$sql = 'SELECT unc.id AS idAsso, unc.movie_id, unc.wine_id, unc.note, unc.comment, unc.user_id, unc.moderation, u.id AS idUser, u.nickname, u.email, u.photo, w.id AS idWine, w.name, w.appellation, w.country, w.image FROM '.$this->table.' AS unc LEFT JOIN users AS u ON (u.id = unc.user_id) LEFT JOIN wines AS w ON (w.id = unc.wine_id) WHERE unc.moderation = 0 OR unc.moderation = 2';
+		$sql = 'SELECT unc.id AS idAsso, unc.movie_id, unc.wine_id, unc.note, unc.comment, unc.user_id, unc.moderation, u.id AS idUser, u.nickname, u.email, u.photo, w.id AS idWine, w.name, w.appellation, w.country, w.image FROM '.$this->table.' AS unc LEFT JOIN users AS u ON (u.id = unc.user_id) LEFT JOIN wines AS w ON (w.id = unc.wine_id) WHERE unc.moderation = 0';
 		
 		if(!empty($startPage) || !empty($endPage) && is_int($startPage) && is_int($endPage)){
 			$sql.= ' LIMIT :start, :end';

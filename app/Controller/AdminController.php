@@ -290,7 +290,7 @@ class AdminController extends Controller
 			$idAsso = $_POST['idAsso'];
 			$post = array_values(array_flip($_POST));
 			$reponse = trim(strip_tags($post[1]));
-			$updateValue = ['moderation' => $reponse];
+			$updateValue['moderation'] = $reponse;
 		}
 		switch ($reponse) {
 			case '1':
@@ -301,7 +301,8 @@ class AdminController extends Controller
 				$notModeratedComments->updateCommentsModeration($updateValue, $idAsso);
 				break;
 			case '3':
-				$notModeratedComments->deleteCommentsModeration($idAsso);
+				$updateValue['comment'] = '';
+				$notModeratedComments->updateCommentsModeration($updateValue, $idAsso);
 				break;
 			
 			default:
