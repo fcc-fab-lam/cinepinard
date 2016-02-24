@@ -14,21 +14,8 @@ html, body{
 	background-size: cover;
 }
 
-@keyframes animatedBackground {
-	from { background-position: 0 0; }
-	to { background-position: 100% 0; }
-}
-
 .container-unique{
-	min-height: calc(100vh - 60px);
 
-	background-image: 
-		url('../../img/background.jpg'),
-		url('../../img/bg1.jpg'), 
-		url('../../img/bg2.jpg'), 
-		url('../../img/bg3.jpg');
-
-	background-size: cover;
 }
 
 .titre-vin{

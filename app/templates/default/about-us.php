@@ -2,11 +2,18 @@
 
 <?php $this->start('main_content') ?>
 
-<h1>Qui sommes-nous ?</h1>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<h1 class="col-sm-8 profil-title">Qui sommes-nous ?</h1>
+		<div class="col-sm-2"></div>
+	</div>
 
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8 profil-utilisateur">
 
-Mesdames,Mesdemosielles, Messieurs,
-
+Mesdames, Mesdemoiselles, Messieurs,
 
 <p>Passionnés de cinéma, amoureux des vins, nous avons décidé de tisser une toile entre deux mondes où le plaisir est le maître-mot. Un film pour un vin.
 La rencontre de ces deux mondes peut paraître fortuite ou même hasardeuse, mais c'est une évidence. C'est tout d'abord pour nous une aventure ludique où nos palais parlent à nos yeux.
@@ -19,7 +26,11 @@ Vous êtes officiellement invités aux noces de Bacchus et de Muse Cinéma.
 
 Bienvenue sur  WineScreen ! 
 
- Emilie, Fabien, Paulin et Bertrand.
+Emilie, Fabien, Paulin et Bertrand.
 
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+</div>
 
 <?php $this->stop('main_content') ?>
