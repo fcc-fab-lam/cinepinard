@@ -2,7 +2,7 @@
 
 <?php $this->start('main_content') ?>
 
-			<p id="start">il y a bien longtemps,<br/> dans une cave lointaine très lointaine...</p>
+			<p id="start">Il y a bien longtemps,<br/> dans une cave lointaine, très lointaine...</p>
 			<div id="titles"><div id="titlecontent">
 
 				<p>Mesdames, Messieurs,</p>
