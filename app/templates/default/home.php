@@ -2,19 +2,7 @@
 
 <?php $this->start('main_content') ?>
 
-<div class="flexslider">
-  <ul class="slides">
-    <li>
-       <img class="top" src="../../cinepinard/public/img/bg1.jpg" />
-    </li>
-    <li>
-      <img class="middle" src="../../cinepinard/public/img/bg2.jpg" />
-    </li>
-    <li>
-      <img class="bottom" src="../../cinepinard/public/img/bg3.jpg" />
-    </li>
-  </ul>
-</div>
+<div class="background"></div>
 <!-- DEBUT RECHERCHE -->
 <div class="recherche">
 	<div class="container-fluid">
@@ -54,6 +42,5 @@
 		<?php endif; ?>
 	</div>
 </div>
-
 <!-- FIN RECHERCHE -->
 <?php $this->stop('main_content') ?>

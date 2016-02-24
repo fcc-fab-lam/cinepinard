@@ -1,30 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="UTF-8">
-	<title><?= $this->e($title) ?></title>
-	<!-- BOOTSTRAP CDN -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title><?= $this->e($title) ?></title>
+    <!-- BOOTSTRAP CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="<?= $this->assetUrl('css/style.css') ?>">
-    <!-- FLEXSLIDER -->
-    <link rel="stylesheet" href="<?= $this->assetUrl('css/flexslider.css') ?>" type="text/css">
-    <!-- Place in the <head>, after the three links -->
-    <script type="text/javascript" charset="utf-8">
-        $(window).load(function() {
-            $('.flexslider').flexslider();
-        });
-    </script>
 </head>
-<body style="background-color:black;">
-
-<?php if($title == 'Accueil') : ?>
-    <div class="container-unique">
-<?php elseif($title == 'A propos') : ?>
-    <div class="container-apropos">
-<?php else : ?>
+<body>
     <div class="container-principal">
-<?php endif; ?>
         <!-- DEBUT CONNEXION / LOG IN -->
         <div class="container-fluid">
             <header class="row">
@@ -70,20 +55,20 @@
             </header>
         </div>
         <!-- FIN CONNEXION / LOG IN -->
-		<main>
-			<?= $this->section('main_content') ?>
-		</main>
+        <main>
+            <?= $this->section('main_content') ?>
+        </main>
     <!-- FIN DU CONTAINER PRINCIPAL -->
     </div>
-		<footer>ScreenWine &copy; <?php echo date('Y'); ?></footer>
+        <footer>WineScreen &copy; <?php echo date('Y'); ?></footer>
 
-		<!-- JQUERY CDN -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-		<!-- BOOTSTRAP CDN -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <!-- FLEXSLIDER -->
-        <script src="jquery.flexslider.js"></script>
+        <!-- JQUERY CDN -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <!-- BOOTSTRAP CDN -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 <!-- lance le script add-wine-genre-->
-		<?= $this->section('scripts') ?>
+        <?= $this->section('scripts') ?>
 </body>
 </html>
+
