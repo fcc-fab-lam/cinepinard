@@ -372,6 +372,7 @@ class DefaultController extends Controller
 		// On instancie nos variables
 		$err = array();
 		$showErr = false;
+		$tokenCreate = false;
 		$formValid = false;
 
 		if(!empty($_POST)){
@@ -390,13 +391,57 @@ class DefaultController extends Controller
 			else{
 				// Si elle existe on lance la récupération
 				if($userManager->emailExists($post)){
-					
+					// On récupère l'ID de l'user
+					$userId = $userManager->getUserByUsernameOrEmail($post)['id'];
+					// On créé un token
+					$token = md5(uniqid());
+					// On l'insère dans la BDD
+					$newToken = $userManager->update(['token' => $token], $userId);
+
+					$tokenCreate = true;
 				}
 				// Sinon on affiche un message d'erreur
 				else{
 					$err[] = 'Oups, il semblerait que l\'adresse email renseignée n\'existe pas dans notre base';
 				}
 			}
+		}
+
+		// Si le $token a été correctement créé et inséré en BDD on l'envoi à l'utilisateur par email
+		if($tokenCreate){
+
+			$message = 'Cliquez sur ce lien pour réinitialiser votre mot de passe : <a href="http://localhost/cinepinard/initpwd.php?token='.$token.'">réinitialisation</a>';
+
+            $app = getApp();
+            
+            $mail = new \PHPMailer; 
+            $mail->isSMTP(); // Set mailer to use SMTP
+            $mail->Host = 'smtp.mailgun.org'; // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true; // Enable SMTP authentication
+             $mail->Username = $app->getConfig("phpmailer_user");           
+             // SMTP username
+            $mail->Password = $app->getConfig("phpmailer_pass");
+            // SMTP password
+            $mail->SMTPSecure = 'tls';
+            // Enable TLS encryption, ssl also accepted
+            $mail->Port = $app->getConfig('phpmailer_port');
+            // TCP port to connect to
+
+            $mail->setFrom('no-reply@winescreen.com', 'WineScreen');
+            $mail->addAddress($post); // Name is optional
+
+            $mail->isHTML(true); // Set email format to HTML
+
+            $mail->Subject = 'Réinitialisation de mot de passe';
+            $mail->Body    = $message;
+            $mail->AltBody = $message;
+
+            if(!$mail->send()) {
+                $err[] = 'Le mail n\'a pas été envoyé';
+                $err[] = 'Mailer Error: ' . $mail->ErrorInfo;
+            } else {
+                $formValid = true;
+            }
 		}
 
 		if(count($err)){

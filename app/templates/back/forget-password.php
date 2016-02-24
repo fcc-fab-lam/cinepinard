@@ -23,10 +23,16 @@
 
 				<?php
 					if($showErr){
-						echo '<div class="row showErr">';
+						echo '<div class="showErr">';
 						echo implode('<br/>', $err);
 						echo '<div>';
 
+					}
+
+					if($formValid){
+						echo '<div class="formValid">';
+						echo 'Un mail vient de vous être envoyé !';
+						echo '<div>';
 					}
 				?>
 
