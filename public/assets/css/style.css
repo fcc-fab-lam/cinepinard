@@ -477,3 +477,19 @@ p#start {
 .espace{
 	height: 400px
 }
+
+/* EMAIL FORGET */
+
+.recup-mdp{
+	width: 60%;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.showErr{
+	height: 50px;
+	line-height: 50px;
+	color: red;
+	margin-left: 15px;
+}

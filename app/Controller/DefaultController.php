@@ -362,11 +362,56 @@ class DefaultController extends Controller
 		$this->show('default/selection-movie', $params);
 	
 	}
-	
+
 
 	// Récupération de mot de passe
 	public function forgetPassword(){
-		$this->show('back/forget-password');
+
+		$userManager = new UserManager();
+
+		// On instancie nos variables
+		$err = array();
+		$showErr = false;
+		$formValid = false;
+
+		if(!empty($_POST)){
+			// On nettoit $_POST
+			$post = trim(strip_tags($_POST['email']));
+
+			// On verifie que c'est bien une adresse email
+			if(empty($post)){
+				$err[] = 'Vous devez renseigner une adresse email';
+			}
+			elseif(!filter_var($post, FILTER_VALIDATE_EMAIL)){
+				$err[] = 'L\'adresse email renseignée n\'est pas valide';
+			}
+
+			// Si c'est bien un email on verifie qu'elle existe en BDD
+			else{
+				// Si elle existe on lance la récupération
+				if($userManager->emailExists($post)){
+					
+				}
+				// Sinon on affiche un message d'erreur
+				else{
+					$err[] = 'Oups, il semblerait que l\'adresse email renseignée n\'existe pas dans notre base';
+				}
+			}
+		}
+
+		if(count($err)){
+			$showErr = true;
+		}
+
+		// On stock nos paramètres dans une variables
+		$params = [
+			'showErr' => $showErr,
+			'err' => $err,
+			'formValid' => $formValid,
+		];
+
+		// On envoie à la vue
+		$this->show('back/forget-password', $params);
 	}
 
     
