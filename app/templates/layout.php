@@ -16,10 +16,12 @@
         });
     </script>
 </head>
-<body>
+<body style="background-color:black;">
 
 <?php if($title == 'Accueil') : ?>
     <div class="container-unique">
+<?php elseif($title == 'A propos') : ?>
+    <div class="container-apropos">
 <?php else : ?>
     <div class="container-principal">
 <?php endif; ?>
