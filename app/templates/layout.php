@@ -42,6 +42,7 @@
                             <input type="submit" value="connexion" />
                             <input type="hidden" value="<?=$_SERVER['W_ROUTE_NAME'] ?>" name="currentPage">
                         </form>
+                        <div><a href="<?=$this->url('forget-password') ?>">Mot de passe oublié ?</a></div>
                     </div>
 <?php       else : ?>
                     <div class="login">

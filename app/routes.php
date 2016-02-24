@@ -19,5 +19,6 @@
 		['GET|POST', '/liste-associations-non-moderees', 'Admin#listNotModeratedAssociations', 'list-not-moderated-associations', 'Modérer les associations film/vin', 'back', 1], // Liste des associations non-modérées 
 		['GET|POST', '/liste-commentaires-non-moderees/[i:showPage]?', 'Admin#listNotModeratedComments', 'list-not-moderated-comments', 'Modérer les commentaires', 'back', 1], // Liste des commentaires non-moderés 
 		['GET|POST', '/login', 'Default#login', 'login', 'Connexion', '', 2], // Connexion
-		['GET|POST', '/logout', 'Default#logout', 'logout', 'Déconnexion', '', 2], // Déconnexion 		
+		['GET|POST', '/logout', 'Default#logout', 'logout', 'Déconnexion', '', 2], // Déconnexion
+		['GET|POST', '/mot-de-passe-oublie', 'Default#forgetPassword', 'forget-password', 'Mot de passe oublié', '', 2], // Mot de passe oublié 	
 	);

@@ -442,8 +442,6 @@ p#start {
 	transform-origin: 50% 100%;
 	transform: perspective(300px) rotateX(25deg);
 
-	margin-bottom: 250px;
-
 	-webkit-animation: background 2s ease-out;
     -moz-animation: background 2s ease-out;
     -ms-animation: background 2s ease-out;
@@ -463,15 +461,19 @@ p#start {
 	pointer-events: none;
 }
 
+@keyframes scroll {
+	0% { top: 100%; }
+	100% { top: -240%; }
+}
+
 #titlecontent
 {
 	position: absolute;
 	top: 100%;
 
-	animation: scroll 50s linear 2s infinite;
+	animation: scroll 55s linear 2s infinite;
 }
 
-@keyframes scroll {
-	0% { top: 100%; }
-	100% { top: -170%; }
+.espace{
+	height: 400px
 }

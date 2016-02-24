@@ -362,5 +362,12 @@ class DefaultController extends Controller
 		$this->show('default/selection-movie', $params);
 	
 	}
+	
+
+	// Récupération de mot de passe
+	public function forgetPassword(){
+		$this->show('back/forget-password');
+	}
+
     
 }
