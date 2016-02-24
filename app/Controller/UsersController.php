@@ -264,6 +264,8 @@ class UsersController extends Controller
                     'description' => $value['description'], // table wine
                     'comment' => $value['comment'], // table user_note_comment
                     'note' => $value['note'], // table user_note_comment
+                    'moderation' => $value['moderation'], // table user_note_comment
+
            		];
             }
         }

@@ -75,7 +75,25 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <h4>Commentaire</h4>
+                                    <?php 
+                                    switch($value['moderation']){
+                                        case '0':
+                                            echo '<h4><span class="label label-info">Commentaire non-modéré</span></h4>';
+                                            break;                                        
+                                        case '1':
+                                            echo '<h4><span class="label label-success">Commentaire validé</span></h4>';
+                                            break;
+                                        case '2':
+                                            echo '<h4><span class="label label-warning">Commentaire refusé</span></h4>';
+                                            break;
+                                        case '3':
+                                            echo '<h4><span class="label label-danger">Commentaire supprimé</span></h4>';
+                                            break;
+                                        
+                                        default:
+                                            break;
+                                    }
+                                    ?> 
                                     <quote><?=ucfirst($value['comment']) ?></quote>
                                     <h3>Note de l'association : <?=ucfirst($value['note']) ?></h3>
                                     <!-- Button trigger modal -->
