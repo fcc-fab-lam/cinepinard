@@ -44,18 +44,21 @@ class WinesCategoriesManager extends \W\Manager\Manager {
 	 * @return array la liste des id des genres de boissons
 	 */
 	public function getWinesProposition($genresVins, $userPref){
-		$sql = "SELECT * FROM wines WHERE moderation = 1 AND genre_id IN ";
-		$listeIdGenresVins = '(';
+		$sql = "SELECT * FROM wines WHERE moderation = 1 AND genre_id = :idGenre";
+		/*$listeIdGenresVins = '(';*/
 		for($i=0;$i < count($genresVins);$i++){
-			if($i!= count($genresVins) - 1){
-				$listeIdGenresVins .= $genresVins[$i]['id_wines_genre'].', ';
+			//if($i!= count($genresVins) - 1){
+				$listeIdGenresVins[] = $genresVins[$i]['id_wines_genre'];
 			}
-			else{
+			/*else{
 				$listeIdGenresVins .= $genresVins[$i]['id_wines_genre'];
 			}
 		}
-		$listeIdGenresVins .= ')';
-		$sql .= $listeIdGenresVins;
+		/*$listeIdGenresVins .= ')';
+		$sql .= $listeIdGenresVins;*/
+        $listeIdGenresVins = array_count_values($listeIdGenresVins);
+        arsort($listeIdGenresVins);
+        
 		if(!empty($userPref)){
 			$listeUserPref = '(';
 			for($i=0;$i < count($userPref);$i++){
@@ -70,10 +73,18 @@ class WinesCategoriesManager extends \W\Manager\Manager {
 			$sql .= ' AND categorie_id IN '.$listeUserPref;
 		}
 		$sql .= ' ORDER BY RAND() LIMIT 0, 1';
-		$sth = $this->dbh->prepare($sql);
-		$sth->execute();
-
-		return $sth->fetchAll();
+        
+        foreach($listeIdGenresVins as $key => $value){
+            $sth = $this->dbh->prepare($sql);
+            $sth->bindValue(':idGenre', $key);
+            $sth->execute();
+            $return = $sth->fetchAll();
+            
+            if(!empty($return)){                
+                return $return;
+                continue;
+            }
+        }
 	}
 
 	public function getPerfectMatch($genresVins, $userPref, $idMovie){

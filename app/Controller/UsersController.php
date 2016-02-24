@@ -243,8 +243,12 @@ class UsersController extends Controller
 	        	$currentPage = $nbTotalPages;
 	        }
         }
-
+        
         $startPage = ($currentPage - 1) * $this->itemsPerPage;
+        
+        if($startPage < 0){
+            $startPage = 0;
+        }
 
 		$userSelection = $userCave->getUsersCave($userInfos['id'], $startPage, $this->itemsPerPage);
 		
