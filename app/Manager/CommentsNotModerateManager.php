@@ -48,5 +48,12 @@ class CommentsNotModerateManager extends \W\Manager\Manager {
 		return $result['total'];
 	}
 
+	public function updateCommentsModeration($updateValue, $id){
+		$this->update($updateValue, $id);
+		return;
+	}
 
+	public function deleteCommentsModeration($id){
+		return $this->delete($id);
+	}
 }

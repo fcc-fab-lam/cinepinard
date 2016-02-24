@@ -18,7 +18,7 @@ use \Manager\AlloCineManager as AlloCine;
 
 class AdminController extends Controller
 {
-	private $itemsPerPage = 2;
+	private $itemsPerPage = 20;
 
 	//  autorisation exclusive à l'admin.
 	public function __construct() {
@@ -284,6 +284,30 @@ class AdminController extends Controller
 	public function listNotModeratedComments($showPage = 1)
 	{	
 		$notModeratedComments = new CommentsNotModerateManager();
+		$post = [];
+		$reponse = '';
+		if (!empty($_POST)) {
+			$idAsso = $_POST['idAsso'];
+			$post = array_values(array_flip($_POST));
+			$reponse = trim(strip_tags($post[1]));
+			$updateValue = ['moderation' => $reponse];
+		}
+		switch ($reponse) {
+			case '1':
+				$notModeratedComments->updateCommentsModeration($updateValue, $idAsso);
+
+				break;
+			case '2':
+				$notModeratedComments->updateCommentsModeration($updateValue, $idAsso);
+				break;
+			case '3':
+				$notModeratedComments->deleteCommentsModeration($idAsso);
+				break;
+			
+			default:
+				break;
+		}
+
 
 
 		// On récupère le nombre des vins de l'utilisateur
@@ -331,6 +355,7 @@ class AdminController extends Controller
 			'err' 		=> $err,
 			'nbTotalPages' => $nbTotalPages,
 			'currentPage'  => $currentPage,
+			'post' => $post,
 		];
 
 
