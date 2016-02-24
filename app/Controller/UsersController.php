@@ -16,7 +16,8 @@ class UsersController extends Controller
 
 	private $itemsPerPage = 2;
 
-	public function __construct() {
+	public function __construct()
+    {
 		$this->allowTo(['1','2']);
 	}
 
@@ -281,7 +282,7 @@ class UsersController extends Controller
 	}
 
     
-        /**
+    /**
      * Page d'ajout à la cave de l'association film/vin 
     */
     public function addToCave($idFilm, $idVin)

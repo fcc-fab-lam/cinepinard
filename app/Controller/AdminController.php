@@ -21,7 +21,8 @@ class AdminController extends Controller
 	private $itemsPerPage = 20;
 
 	//  autorisation exclusive à l'admin.
-	public function __construct() {
+	public function __construct()
+    {
 		//$this->allowTo(['1']);
 
 	}
