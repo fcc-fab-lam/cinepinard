@@ -58,19 +58,6 @@
 				  </div>
 				</div>
 
-				<!-- Select genre du vin -->
-				<div class="form-group">
-				  <label class="col-md-4 col-lg-4 control-label" for="genre_id">Choisissez un genre : </label>
-				  <div class="col-md-8 col-lg-8">
-				    <select id="genre_id" name="genre_id" class="form-control">
-				    	<option value="">Choisir un genre de vin</option>
-					<?php foreach ($listeGenreVin as $key => $value) : ?>
-						<option value="<?php echo $value['id'] ?>"><?php echo ucfirst($value['name']) ?></option>
-					<?php endforeach; ?>
-				    </select>
-				  </div>
-				</div>
-
 				<!-- Select categorie du vin -->
 				<div class="form-group">
 				  <label class="col-md-4 col-lg-4 control-label" for="categorie_id">Choisissez une catégorie: </label>
@@ -78,6 +65,19 @@
 				    <select id="categorie_id" name="categorie_id" class="form-control">
 				    	<option value="">Choisir une catégorie de vin</option>
 					<?php foreach ($categories as $key => $value) : ?>
+						<option value="<?php echo $value['id'] ?>"><?php echo ucfirst($value['name']) ?></option>
+					<?php endforeach; ?>
+				    </select>
+				  </div>
+				</div>
+
+				<!-- Select genre du vin -->
+				<div class="form-group">
+				  <label class="col-md-4 col-lg-4 control-label" for="genre_id">Choisissez un genre : </label>
+				  <div class="col-md-8 col-lg-8">
+				    <select id="genre_id" name="genre_id" class="form-control">
+				    	<option value="">Choisir un genre de vin</option>
+					<?php foreach ($listeGenreVin as $key => $value) : ?>
 						<option value="<?php echo $value['id'] ?>"><?php echo ucfirst($value['name']) ?></option>
 					<?php endforeach; ?>
 				    </select>
@@ -112,3 +112,9 @@
 </div>
 
 <?php $this->stop('main_content') ?>
+
+<?php $this->start('scripts') ?>
+<script src="../../../public/assets/js/jquery.chained.js"></script>
+<script></script>
+<?php $this->stop('scripts') ?>
+
