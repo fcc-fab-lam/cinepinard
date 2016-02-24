@@ -9,7 +9,18 @@
     <link rel="stylesheet" href="<?= $this->assetUrl('css/style.css') ?>">
 </head>
 <body>
-    <div class="container-principal">
+    <?php
+    if($title == 'Accueil'){
+    ?>
+        <div class="container-accueil">
+    <?php
+    }
+    else{
+    ?>
+        <div class="container-principal">
+    <?php
+    }
+    ?>
         <!-- DEBUT CONNEXION / LOG IN -->
         <div class="container-fluid">
             <header class="row">

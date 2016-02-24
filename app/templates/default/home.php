@@ -2,7 +2,23 @@
 
 <?php $this->start('main_content') ?>
 
-<div class="background"></div>
+	            <div id="carousel-homepage" class="carousel slide" data-ride="carousel">
+	                <div class="carousel-inner" role="listbox">
+	                    <div class="item active">
+	                        <img src="assets/img/sl1.jpg" class="img-responsive" alt="">
+	                    </div>
+	                    <div class="item">
+	                        <img src="assets/img/sl2.jpg" class="img-responsive" alt="">
+	                    </div>
+	                    <div class="item">
+	                        <img src="assets/img/sl3.jpg" class="img-responsive" alt="">
+	                    </div>
+	                    <div class="item">
+	                        <img src="assets/img/sl4.jpg" class="img-responsive" alt="">
+	                    </div>
+	                </div>
+            	</div>
+
 <!-- DEBUT RECHERCHE -->
 <div class="recherche">
 	<div class="container-fluid">
@@ -44,3 +60,34 @@
 </div>
 <!-- FIN RECHERCHE -->
 <?php $this->stop('main_content') ?>
+
+<?php $this->start('scripts') ?>
+    <script>
+    function calcSlider() {
+    	$slider = $('#carousel-homepage');
+
+    	// height du slider = viewport height - header height  - footer height
+    	sliderH = $(window).height() - $('header').height() - $('.recherche').height();
+    	$slider.height(sliderH);
+
+    /*	$('#carousel-homepage img').each(function() {
+	    	if ($slider.width()/sliderH >= $(this).width()/$(this).height()) {
+	    		$(this).width($slider.width())
+	    		$(this).css('height', 'auto')
+	    	}
+			else {
+				 $(this).height(sliderH)
+	    		$(this).css('width', 'auto')
+			}
+    	})*/
+    }
+    $(window).on('resize', calcSlider);
+    $(function() {
+    	calcSlider();
+	    $('.carousel').carousel({
+	      interval: 2000
+	    })
+    })
+    </script>
+<?php $this->stop('scripts') ?>
+
