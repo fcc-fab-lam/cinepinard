@@ -110,14 +110,15 @@ class DefaultController extends Controller
 
 				$newUser = $userManager->insert($post);
                 
-
-				$imgExtension = explode('/', $fileMimeType)[1];
-				// On récupère la classe qui permet d'utiliser la fonction
-				$app = getApp();
-				$imgPath = $app->getBasePath().'/uploads/'.$newUser["id"].'.'.$imgExtension;
-				if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
-					$userManager->update(["photo" => $imgPath], $newUser["id"]);
-				}
+                if(isset($fileMimeType)){                    
+				    $imgExtension = explode('/', $fileMimeType)[1];
+                    // On récupère la classe qui permet d'utiliser la fonction
+                    $app = getApp();
+                    $imgPath = $app->getBasePath().'/uploads/'.$newUser["id"].'.'.$imgExtension;
+                    if(move_uploaded_file($_FILES['photo']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$imgPath)){
+                        $userManager->update(["photo" => $imgPath], $newUser["id"]);
+                    }
+                }
                 // on insere les preferences utilisateur si il y en a
                 if(!empty($userPrefs)){
                     $insertPrefs = new UsersPreferences();
@@ -125,10 +126,11 @@ class DefaultController extends Controller
                     $_SESSION['userPrefs'] = $userPrefs;                   
                 }
                 
-				$user = $userManager->find($signIn);
+				$user = $userManager->find($newUser['id']);
 				$authentificationManager->logUserIn($user);
                 
 				$formValid = true;
+                $this->redirectToRoute('home');
 			}
 		}
         

@@ -180,11 +180,12 @@ class AdminController extends Controller
 	// je cree mes variables
 		$post = array();
 		$err = array();
-		$inputValue=false;
+        $movies_genre = array();
 		$formValid = false;
 		$showErr = false;
 		$genreVinManager = new WinesGenresManager ;
-		$listGenreVin = $genreVinManager->findAll();
+		$cat = new WinesCategoriesManager();
+		$categories = $cat->getCategories();
 		$filmGenreManager = new FilmGenreManager;//permet d'afficher la liste  pre-existante des genre de film.
 		$listGenreFilm = $filmGenreManager->findAll();
 
@@ -201,7 +202,7 @@ class AdminController extends Controller
 						if(!is_numeric($value)) {
 							$mvInvalides = true;
 						}
-					} 
+					}
 					if($mvInvalides) {
 						$err[] = 'tu n\'es pas très urbain petit lapin';
 					}
@@ -220,14 +221,15 @@ class AdminController extends Controller
 			else {
 				// si un genre de vin de ce nom existe déjà en bd,
 				$genresDeMemeNom = $genreVinManager->getGenreByName($post['name']);
-				var_dump(empty($genresDeMemeNom));
 				if(!empty($genresDeMemeNom)) {
 					// erreur
 					$err[] = "Ce genre de vin existe déja";
-					$inputValue = $post['name'];
 
 				}
 			}
+            if(empty($post['id_categorie'])){
+                $err[] = 'Vous devez sélectionner une catégorie de vin';
+            }
 
 			
 					// Si il ya  un erreur
@@ -235,19 +237,19 @@ class AdminController extends Controller
 					$showErr = true;
 				} 
 			
-			else {
-				var_dump($post);
-				var_dump($movies_genre);	
+			else {	
 				// cette fonction permet d'aller dans la BDD et d' y inscrire le nouveau genre tout en nettoyant à l'aide d'un strip tag. 
 				$wineGenre = $genreVinManager->insert($post);
 				$formValid = true;
+                $post = array();
+                $movies_genre = array();
 		
 				$genresAssociationsManager = new genresAssociationsManager ;
 				foreach ($movies_genre as $genre) {
 					$genre = $genresAssociationsManager->insert([
 						"id_movies_genre" => $genre,
 						"id_wines_genre" => $wineGenre['id'],
-						"moderation" => 1
+						"moderation" => 1,
 						]) ;
 				}
 			}
@@ -257,9 +259,10 @@ class AdminController extends Controller
 			'err' => $err, 
 			'showErr' => $showErr, 
 			'formValid' => $formValid, 
-			/*'listGenreVin'=>$listGenreVin,*/
 			'listGenreFilm' =>$listGenreFilm,
-			'inputValue' => $inputValue,
+            'categories' => $categories,
+			'post' => $post,
+            'movies_genre' => $movies_genre,
 		]);
 	}
 

@@ -19,7 +19,7 @@
 	                    $userCat = array();
                         if(isset($_SESSION['userPrefs'])){
                             foreach ($_SESSION['userPrefs'] as $value1) {
-                                $userCat[] = $value1['categorie_id'];
+                                $userCat[] = $value1;
                             };
                         }
 	            ?>

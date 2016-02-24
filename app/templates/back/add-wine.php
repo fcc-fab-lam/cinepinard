@@ -78,7 +78,7 @@
 				    <select id="genre_id" name="genre_id" class="form-control">
 				    	<option value="">Choisir un genre de vin</option>
 					<?php foreach ($listeGenreVin as $key => $value) : ?>
-						<option value="<?php echo $value['id'] ?>"><?php echo ucfirst($value['name']) ?></option>
+						<option value="<?php echo $value['id'] ?>" class="vin<?=$value['id_categorie'] ?>"><?php echo ucfirst($value['name']) ?></option>
 					<?php endforeach; ?>
 				    </select>
 				  </div>
@@ -114,7 +114,9 @@
 <?php $this->stop('main_content') ?>
 
 <?php $this->start('scripts') ?>
-<script src="../../../public/assets/js/jquery.chained.js"></script>
-<script></script>
+<script src="<?=$this->assetUrl('js/jquery.chained.js') ?>"></script>
+<script>
+    $("#genre_id").chained("#categorie_id");
+</script>
 <?php $this->stop('scripts') ?>
 
