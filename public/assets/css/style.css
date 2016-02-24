@@ -14,21 +14,8 @@ html, body{
 	background-size: cover;
 }
 
-@keyframes animatedBackground {
-	from { background-position: 0 0; }
-	to { background-position: 100% 0; }
-}
-
 .container-unique{
-	min-height: calc(100vh - 60px);
 
-	background-image: 
-		url('../../img/background.jpg'),
-		url('../../img/bg1.jpg'), 
-		url('../../img/bg2.jpg'), 
-		url('../../img/bg3.jpg');
-
-	background-size: cover;
 }
 
 .titre-vin{
@@ -385,4 +372,107 @@ footer{
 
 .input-genre-vin{
 	height: 31px;
+}
+
+/* A PROPOS STAR WARS */
+
+@keyframes background{
+	0% {
+	    opacity: 0;
+	}
+	90% {
+	    opacity: 0;
+	}
+	100% {
+	    opacity: 1;
+	}
+}
+
+.container-apropos{
+	min-height: calc(100vh - 60px);
+	background-image : url('../../img/background.jpg');
+
+}
+
+@keyframes intro{
+	0% {
+	    opacity: 1;
+	}
+	90% {
+	    opacity: 1;
+	}
+	100% {
+	    opacity: 0;
+	}
+}
+
+p#start {
+    background-color: black;
+    position: absolute;
+    font-size: 300%;
+    width: 100%;
+    height: calc(100% - 60px);
+    font-weight: 400;
+    padding: 20% 0;
+    text-align: center;
+    color: #4ee;
+    opacity: 0;
+    z-index: 1;
+    -webkit-animation: intro 2s ease-out;
+    -moz-animation: intro 2s ease-out;
+    -ms-animation: intro 2s ease-out;
+    -o-animation: intro 2s ease-out;
+    animation: intro 2s ease-out;
+}
+
+#titles
+{
+	position: absolute;
+	width: 18em;
+	height: 150%;
+	bottom: 0;
+	left: 50%;
+	margin-left: -9em;
+	margin-bottom: 200px;
+	font-size: 350%;
+	font-weight: bold;
+	color: yellow;
+	text-align: justify;
+	overflow: hidden;
+	transform-origin: 50% 100%;
+	transform: perspective(300px) rotateX(25deg);
+
+	margin-bottom: 250px;
+
+	-webkit-animation: background 2s ease-out;
+    -moz-animation: background 2s ease-out;
+    -ms-animation: background 2s ease-out;
+    -o-animation: background 2s ease-out;
+    animation: background 2s ease-out;
+}
+
+#titles:after
+{
+	position: absolute;
+	content: ' ';
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 60%;
+	background-image: linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+	pointer-events: none;
+}
+
+
+#titlecontent
+{
+	position: absolute;
+	top: 100%;
+
+	animation: scroll 50s linear 2s infinite;
+}
+
+@keyframes scroll {
+	0% { top: 100%; }
+	100% { top: -170%; }
 }
