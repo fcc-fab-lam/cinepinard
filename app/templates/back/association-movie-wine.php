@@ -31,13 +31,12 @@
     <?php endforeach; ?>
 
     <h1>Association Film & Vin</h1>
-    
-
 		<form class="row" method="post">
 		    <div class="col-lg-5 col-md-12">
                 <h2 class="col-md-12">Rechercher le film : </h2>			
                 <div class="col-lg-10 col-md-12">
                     <input class="col-lg-12" type="text" placeholder="Ex : Deadpool" name="film">
+                    <input type="hidden" name="idFilm">
                 </div>
                 <div class="col-lg-2"></div>
             </div>
@@ -45,6 +44,8 @@
                 <h2 class="col-md-12">Rechercher le vin : </h2>			
                 <div class="col-lg-10 col-md-12">
                     <input class="col-lg-12" type="text" placeholder="Ex : Saint Julien" name="film">
+                    <input type="hidden" name="idVin">
+
                 </div>
                 <div class="col-lg-2"></div>
             </div>

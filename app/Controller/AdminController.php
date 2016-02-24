@@ -34,13 +34,14 @@ class AdminController extends Controller
         $params = array();
         // On instancie nos variables
 		$err = array();
+		$post = array();
 		$resultats = array();
 		// On appelle la classe Allocine
 		$allocine = new AlloCine();
 		// On vérifie que $_GET n'est pas vide
-		if(!empty($_GET)){
-			// On nettoie $_GET['film']
-			$get['film'] = trim(strip_tags($_GET['film']));
+		if(!empty($_POST)){
+			// On nettoie $_POST['film']
+			$post['film'] = trim(strip_tags($_POST['film']));
 
 			// Si la recherche film est vide, on met une erreur
 			if(empty($get['film'])){
