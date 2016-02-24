@@ -96,8 +96,10 @@
                                     ?> 
                                     <quote><?=ucfirst($value['comment']) ?></quote>
                                     <h3>Note de l'association : <?=ucfirst($value['note']) ?></h3>
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#myModal<?=$value['id'] ?>">Evaluer cette association</button>
+                                    <?php if ($value['moderation'] != 1) : ?>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#myModal<?=$value['id'] ?>">Evaluer cette association</button>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-md-1"></div>
