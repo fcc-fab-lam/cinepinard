@@ -32,27 +32,30 @@
 
     <h1>Association Film & Vin</h1>
 		<form class="row" method="post">
-		    <div class="col-lg-5 col-md-12">
-                <h2 class="col-md-12">Rechercher le film : </h2>			
-                <div class="col-lg-10 col-md-12">
-                    <input class="col-lg-12" type="text" placeholder="Ex : Deadpool" name="film">
-                    <input type="hidden" name="idFilm">
-                </div>
-                <div class="col-lg-2"></div>
+		    
+        <div class="col-lg-5 col-md-12">
+            <h2 class="col-md-12">Rechercher le film : </h2>			
+            <div class="col-lg-10 col-md-12">
+                <input id="film" name="film" class="col-lg-12" type="text" placeholder="Ex : Deadpool">
+                <input type="hidden" name="idFilm">
             </div>
-            <div class="col-lg-5 col-md-12">
-                <h2 class="col-md-12">Rechercher le vin : </h2>			
-                <div class="col-lg-10 col-md-12">
-                    <input class="col-lg-12" type="text" placeholder="Ex : Saint Julien" name="film">
-                    <input type="hidden" name="idVin">
-                </div>
-                <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
+        </div>
+
+        <div class="col-lg-5 col-md-12">
+            <h2 class="col-md-12">Rechercher le vin : </h2>			
+            <div class="col-lg-10 col-md-12">
+                <input id="film" name="vin" class="col-lg-12" type="text" placeholder="Ex : Saint Julien">
+                <input type="hidden" name="idVin">
             </div>
-            <div class="col-lg-2 col-md-12">
-                <h2 class="col-md-12">&nbsp;</h2>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Large modal</button>
-            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="col-lg-2 col-md-12">
+            <h2 class="col-md-12">&nbsp;</h2>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Large modal</button>
+        </div>
 		</form>
+
         <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -106,3 +109,39 @@
 <!-- FIN RECHERCHE -->
 
 <?php $this->stop('main_content') ?>
+
+<?php $this->start('scripts') ?>
+<script src="<?=$this->assetUrl('js/typeahead.bundle.min.js');?>"></script>
+<script>
+$(function(){
+  $('#film').typeahead({
+    highlight: true,
+  },
+  {
+    display: 'originalTitle',
+    source: function(search, syncResults, asyncResults) {
+      $.get('ajax/movies/'+ search, function(data) {
+        asyncResults(data);
+      });
+    }
+  });
+});
+</script>
+
+<!-- // Ca n'a rien a foutre là.. mais flemme -->
+<style>
+.tt-menu { /* conteneur */
+  background: #FFF;
+  color: #333;
+  width: 100%; 
+}
+.tt-menu .tt-suggestion {
+  padding: 5px 10px;
+}
+.tt-menu .tt-suggestion:hover {
+  background: #CCC;
+  cursor: pointer;
+}
+</style>
+
+<?php $this->stop('scripts') ?>

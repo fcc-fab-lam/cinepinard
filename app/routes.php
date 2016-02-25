@@ -18,5 +18,14 @@
 		['GET|POST', '/liste-commentaires-non-moderees/[i:showPage]?', 'Admin#listNotModeratedComments', 'list-not-moderated-comments', 'Modéreration', 'back', 1], // Liste des commentaires non-moderés 
 		['GET|POST', '/login', 'Default#login', 'login', 'Connexion', '', 2], // Connexion
 		['GET|POST', '/logout', 'Default#logout', 'logout', 'Déconnexion', '', 2], // Déconnexion
-		['GET|POST', '/mot-de-passe-oublie', 'Default#forgetPassword', 'forget-password', 'Mot de passe oublié', '', 2], // Mot de passe oublié 	
+		['GET|POST', '/mot-de-passe-oublie', 'Default#forgetPassword', 'forget-password', 'Mot de passe oublié', '', 2], // Mot de passe oublié 
+
+
+		##########
+		#
+		# Je suis pas sur d'avoir capté tout les paramètres supplémentaires.. 
+		# et j'avais la flemme de chercher dans le code :-)
+		#
+		##########
+		['GET', '/ajax/[wines|movies:type]/[:search]', 'Ajax#getJson', 'ajax', '', 'back', 0], // Retourne un JSON des vins ou des films
 	);
