@@ -3,7 +3,7 @@
 <?php $this->start('main_content') ?>
 
 <div class="container-fluid main-user-profil">
-	<h1 class="col-md-offset-1 profil-title">Votre profil</h1>
+	<h1 class="col-md-offset-1 profil-title">Mon profil</h1>
 	<div class="row">
 		<div class="col-md-1 col-sm-2"></div>
 		<div class="profil-utilisateur col-md-10 col-sm-8">
