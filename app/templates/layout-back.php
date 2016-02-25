@@ -14,7 +14,7 @@
         <div class="row">
             <nav class="col-lg-8 col-md-12">
                 <ul class="list-inline menu-back">
-                    <li><a href="<?=$this->url('home') ?>">Accueil</a></li>
+                    <h1 class="brand"><a href="<?=$this->url('home') ?>">Wine Screen</a></h1>
 <?php   require('../app/routes.php'); // on requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes 
         foreach($w_routes as $value) : // on boucle sur le tableau des routes 
             if($value['5'] == 'back') : // si la route est prévue pour le back 

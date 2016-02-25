@@ -88,6 +88,34 @@ header h1{
 
 
 /* Connexion */
+.modal-content{
+	border: 5px solid;
+	border-color: #BD0A41;
+}
+
+.mt-connexion{
+	color: black;
+	text-align: center;
+}
+
+.modal-body{
+	color: black;
+	padding: 15px;
+}
+
+.modal-body label{
+	font-weight: normal;
+}
+
+.mdp-forget a{
+	color: black;
+	font-size: 13px;
+}
+
+.mdp-forget a:hover{
+	color: #BD0A41;
+}
+
 header{
 	background-color: #BD0A41;
 	font-family: 'Alegreya Sans', serif;
@@ -96,8 +124,8 @@ header{
 }
 
 .connexion{
+	padding: 13px 13px 5px 5px;
 	display: inline-block;
-	padding: 5px;
 }
 
 .login{
@@ -124,23 +152,24 @@ header{
 	font-weight: bold;
 }
 
-header .login label{
-	font-weight: normal;
+#btn-modal-login{
+	color: #BD0A41;
+	background-color: white;
+	border: 1px solid white;
 }
 
-header .login input{
-	margin: 9px;
-	padding: 3px 8px;
-	border: 0;
-	background-color: rgba(255, 255, 255, 0.5);
-}
-
-header .login input[type="submit"]{
-	margin: 9px 9px 9px 0px;
-}
-
-header .login input[type="submit"]:hover{
+#btn-modal-login:hover{
 	background-color: rgba(255, 255, 255, 0.8);
+}
+
+#btn-modal-signup{
+	color: white;
+	background-color: #BD0A41;
+	border: 1px solid white;
+}
+
+#btn-modal-signup:hover{
+	background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* BACKGROUND */

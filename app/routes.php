@@ -1,7 +1,7 @@
 <?php
 	
 	$w_routes = array(
-		['GET|POST', '/', 'Default#home', 'home', 'Accueil', 'front', 2], // Vers la page accueil
+		['GET|POST', '/', 'Default#home', 'home', 'Accueil', 'front', 1], // Vers la page accueil
 		['GET|POST', '/inscription', 'Default#signup', 'signup', 'Inscription', '', 2],
 		['GET|POST', '/resultats-recherche', 'Default#searchResults', 'search-results', 'Resultats de la recherche', '', 2], // profil utilsateur
 		['GET|POST', '/a-propos','Default#aboutUs', 'about-us', 'Qui sommes nous ?', 'front', 2], // Qui sommes-nous

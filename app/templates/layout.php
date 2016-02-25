@@ -21,11 +21,12 @@
     <?php
     }
     ?>
-        <!-- DEBUT CONNEXION / LOG IN -->
+        <!-- HEADER -->
         <div class="container-fluid">
             <header class="row">
-                <nav class="col-lg-4 col-md-12 col-sm-12">
-                    <h1 class="brand">Wine Screen</h1>
+                <!-- PARTIE GAUCHE DU HEADER -->
+                <nav class="col-lg-6 col-md-12 col-sm-12">
+                    <h1 class="brand"><a href="<?=$this->url('home') ?>">Wine Screen</a></h1>
                     <ul class="list-inline menu">
 <?php       require('../app/routes.php'); // on recupere requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes
             foreach($w_routes as $value) : // on boucle sur le tableau des routes 
@@ -35,40 +36,83 @@
 <?php               endif;
                 endif;
             endforeach; 
-            if(empty($w_user)) : // si l'utilisateur n'est pas connecté on affiche un lien vers l'inscription ?>
-                        <li><a href="<?=$this->url('signup') ?>"<?=($_SERVER['W_ROUTE_NAME'] == 'signup') ? ' class="active"' : '' ?>>Inscription</a></li>
-<?php       endif;
+
             if(!empty($w_user)) : // si l'utilisateur est connecté on affiche un lien vers le back ?>
                         <li><a href="<?=$this->url('user-profil') ?>">Mon compte</a></li>
 <?php       endif; ?>
                     </ul>
                 </nav>
 
-                <div class="col-lg-8 col-md-12 col-sm-12 connexion">
+                <!-- PARTIE DROITE DU HEADER -->
+                <div class="col-lg-6 col-md-12 col-sm-12 connexion">
+
+            <!-- si l'utilisateur n'est pas connecté on affiche un lien vers l'inscription et la connexion -->
+
 <?php       if(empty($w_user)) : ?>
                     <div class="login">
-                        <form method="post" action="<?=$this->url('login') ?>">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email">
-                            <label for="password">Mot de passe</label>
-                            <input type="password" id="password" name="password">
-                            <input type="submit" value="connexion" />
-                            <input type="hidden" value="<?=$_SERVER['W_ROUTE_NAME'] ?>" name="currentPage">
-<?php               if($_SERVER['W_ROUTE_NAME'] == 'selection-movie') : ?>
-                            <input type="hidden" value="<?=$_GET['id'] ?>" name="idFilm">
-<?php                   if(!empty($this->e($vin1))) : ?>
-                            <input type="hidden" value="<?=$this->e($vin1) ?>" name="idVin1">
-<?php                   endif; ?>
-<?php                   if(!empty($this->e($vin2))) : ?>
-                            <input type="hidden" value="<?=$this->e($vin2) ?>" name="idVin2">
-<?php                   endif; ?>
-<?php                   if(!empty($this->e($vin3))) : ?>
-                            <input type="hidden" value="<?=$this->e($vin3) ?>" name="idVin3">
-<?php                   endif; ?>
-<?php               endif; ?>
-                        </form>
-                        <div><a href="<?=$this->url('forget-password') ?>">Mot de passe oublié ?</a></div>
+                    <!-- CONNEXION -->
+                        <!-- Trigger the modal with a button -->
+                        <button type="button" id="btn-modal-login" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Connexion</button>
+                        <!-- Modal -->
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h2 class="modal-title mt-connexion">Connexion</h2>
+                                    </div>
+
+                                    <div class="modal-body">
+                                    <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-10">
+                                        <form method="post" class="form-horizontal" action="<?=$this->url('login') ?>">
+                                            <div class="form-group">
+                                                <label class="col-sm-5" for="email">Email</label>
+                                                <input class="col-sm-7" type="email" id="email" name="email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5" for="password">Mot de passe</label>
+                                                <input class="col-sm-7" type="password" id="password" name="password">
+                                                <div class="mdp-forget pull-right"><a href="<?=$this->url('forget-password') ?>">Mot de passe oublié ?</a></div>
+                                            </div>
+                                            <!-- Champs cachés -->
+                                            <input type="hidden" value="<?=$_SERVER['W_ROUTE_NAME'] ?>" name="currentPage">
+                                            <?php if($_SERVER['W_ROUTE_NAME'] == 'selection-movie') : ?>
+                                            <input type="hidden" value="<?=$_GET['id'] ?>" name="idFilm">
+                                            <?php if(!empty($this->e($vin1))) : ?>
+                                            <input type="hidden" value="<?=$this->e($vin1) ?>" name="idVin1">
+                                            <?php endif; ?>
+                                            <?php if(!empty($this->e($vin2))) : ?>
+                                            <input type="hidden" value="<?=$this->e($vin2) ?>" name="idVin2">
+                                            <?php endif; ?>
+                                            <?php if(!empty($this->e($vin3))) : ?>
+                                            <input type="hidden" value="<?=$this->e($vin3) ?>" name="idVin3">
+                                            <?php endif; ?>
+                                            <?php endif; ?>
+                                            <div class="modal-footer">
+                                                <input type="submit" class="btn btn-default" value="Connexion" />
+                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                    </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Fin du Modal -->
+
+                        <!-- INSCRIPTION -->
+                        <a href="<?=$this->url('signup') ?>" id="btn-modal-signup" class="btn btn-info btn-md<?=($_SERVER['W_ROUTE_NAME'] == 'signup') ? ' active' : '' ?>">Inscription</a>
                     </div>
+
 <?php       else : ?>
                     <div class="login">
                         <div class="islogin">
