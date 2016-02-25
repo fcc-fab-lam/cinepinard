@@ -340,6 +340,14 @@ footer{
 	float: none;
 }
 
+/* PANNEAU PERFECT MATCH */
+#perfect{
+	color: #9E2B40;
+	font-family: 'Finger Paint', cursive;
+	
+}
+
+
 /* PANNEAU VIN 1 */
 .vin1{
 	background-color: #FFFFFF;
