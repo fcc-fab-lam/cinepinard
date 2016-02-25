@@ -9,11 +9,11 @@
             <div class="col-md-1"></div>
         </div>
 
-        <div class="row">
-            <div class="col-md-1"></div>
-            <?php if(!empty($listNotModeratedComments)) : ?>
-                <?php foreach($listNotModeratedComments as $value) : ?>
-                        <div class="col-md-10 profil-utilisateur" id="asso-<?=$value['id'] ?>">
+        <?php if(!empty($listNotModeratedComments)) : ?>
+            <?php foreach($listNotModeratedComments as $value) : ?>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10 profil-utilisateur" id="asso-<?=$value['id'] ?>">
                             <div class="col-md-4">
                                 <h4><?= (isset($value['infosFilm']['movie']['title'])) ? $value['infosFilm']['movie']['title'] : $value['infosFilm']['movie']['originalTitle']?></h4>
                                 <p><?= (isset($value['infosFilm']['movie']['poster']['href'])) ? '<img height="300px" src="'.$value['infosFilm']['movie']['poster']['href'].'" />' : '' ?></p>
@@ -71,21 +71,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-1"> </div>
-
-
-                                                <!--
-                                                    <div class="col-md-1"> </div>
-                                                    <div class="form-group col-md-10">
-                                                        <label for="comment" class="control-label">Votre commentaire</label>
-                                                        <textarea disabled="disabled" id="comment" name="comment" class="input-md form-control" rows="8"><?php echo $value['comment']; ?></textarea>
-                                                    </div>
-                                                    <div class="col-md-1"> </div>
-                                                    <div class="col-md-4"> </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="note">Note</label>
-                                                        <input type="number" class="form-control" name ="note" id="note" step="1" value="<?php echo $value['note']; ?>" min="0" max="10"/>
-                                                        <input type="hidden" name="idAsso" value="<?php echo $value['id']; ?>"/>
-                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -99,8 +84,7 @@
                                         </form>
                                         </div>
                                     </div>
-                                </div>
-
+                                </div><!-- FIN DU MODAL -->
                             </div>
 
                             <div class="col-md-4">
@@ -108,27 +92,32 @@
                                 <quote><?=ucfirst($value['comment']) ?></quote>
                                 <h3>Note de l'association : <?=ucfirst($value['note']) ?></h3>
                             </div>
-                        </div><!-- FIN DU COL-MD-10 PRINCIPAL -->
-                    <?php endforeach; ?>
+                    </div><!-- FIN DU COL-MD-10 PRINCIPAL -->
+                    <div class="col-md-1"></div>
+                </div><!-- FIN DU ROW -->
 
-                    <?php if($nbTotalPages > 1): ?>
-                        <div class="center-block text-center">
-                            <ul class="pagination">
-                            <?php for($i=1; $i<=$nbTotalPages; $i++):?>
-                                <li<?=($i == $currentPage) ? ' class="active"' : '';?>>
-                                    <a href="<?=$this->url('list-not-moderated-comments', ['showPage'=> $i]);?>"><?=$i;?></a>
-                                </li>
-                            <?php endfor; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
+            <?php endforeach; ?>
 
-                <?php else : ?>
-                <h3>Aucun  !</h3>
+                <?php if($nbTotalPages > 1): ?>
+                    <div class="center-block text-center">
+                        <ul class="pagination">
+                        <?php for($i=1; $i<=$nbTotalPages; $i++):?>
+                            <li<?=($i == $currentPage) ? ' class="active"' : '';?>>
+                                <a href="<?=$this->url('list-not-moderated-comments', ['showPage'=> $i]);?>"><?=$i;?></a>
+                            </li>
+                        <?php endfor; ?>
+                        </ul>
+                    </div>
                 <?php endif; ?>
-            <div class="col-md-1"></div><!-- FIN DU ROW -->
-		</div><!-- FIN DU CONTAINER FLUID -->
-</div>
+
+            <?php else : ?>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h3 class="col-md-10" style="color:white;">Il n'y a aucun commentaire à modérer</h3>
+                <div class="col-md-1"></div>
+            </div>
+        <?php endif; ?>
+</div><!-- FIN DU CONTAINER FLUID -->
 
 
 <?php $this->stop('main_content') ?>
