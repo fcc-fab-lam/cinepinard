@@ -25,6 +25,7 @@
         <div class="container-fluid">
             <header class="row">
                 <nav class="col-lg-4 col-md-12 col-sm-12">
+                    <h1 class="brand">Wine Screen</h1>
                     <ul class="list-inline menu">
 <?php       require('../app/routes.php'); // on recupere requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes
             foreach($w_routes as $value) : // on boucle sur le tableau des routes 
@@ -42,6 +43,7 @@
 <?php       endif; ?>
                     </ul>
                 </nav>
+
                 <div class="col-lg-8 col-md-12 col-sm-12 connexion">
 <?php       if(empty($w_user)) : ?>
                     <div class="login">
