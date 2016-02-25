@@ -195,6 +195,10 @@ class DefaultController extends Controller
                 $this->redirectToRoute('user-profil', $params);
             }
             elseif(isset($post['currentPage'])){
+                if($post['currentPage'] == 'selection-movie'){
+                    header('Location: '.$this->generateUrl('selection-movie').'?id='.$post['idFilm'].'&idVin1='.$post['idVin1'].'&idVin2='.$post['idVin2'].'&idVin3='.$post['idVin3']);
+                    die();
+                }
 			$this->redirectToRoute($post['currentPage'], $params);
             }
             else{
@@ -350,6 +354,9 @@ class DefaultController extends Controller
 					$selec =  array_count_values($genres);
 					$cat = new WinesCategories();
 					$params['categories'] = $cat->getWinesGenres($genres);
+                    if(isset($_GET['idVin1'])){
+                        
+                    }
 					$params['propositionVin'] = $cat->getWinesProposition($params['categories'], $userPrefs);
 					$params['perfectMatch'] = $cat->getPerfectMatch($params['categories'], $userPrefs, $idFilm);
 					$params['usersProposition'] = $cat->getWinesUsersProposition($params['categories'], $userPrefs, $idFilm);

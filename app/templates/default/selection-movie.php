@@ -1,4 +1,13 @@
-<?php $this->layout('layout', ['title' => 'Film Sélectionné']) ?>
+<?php 
+$vin1 = '';
+$vin2 = '';
+$vin3 = '';
+
+if(isset($propositionVin[0]['id'])){ $vin1 = $propositionVin[0]['id'];};
+if(isset($perfectMatch[0]['id'])){ $vin2 = $perfectMatch[0]['id'];};
+if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
+?>
+<?php $this->layout('layout', ['title' => 'Film Sélectionné', 'vin1' => $vin1, 'vin2' => $vin2, 'vin3' => $vin3]) ?>
 
 <?php $this->start('main_content') ?>
 

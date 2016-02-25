@@ -54,6 +54,18 @@
                             <input type="password" id="password" name="password">
                             <input type="submit" value="connexion" />
                             <input type="hidden" value="<?=$_SERVER['W_ROUTE_NAME'] ?>" name="currentPage">
+<?php               if($_SERVER['W_ROUTE_NAME'] == 'selection-movie') : ?>
+                            <input type="hidden" value="<?=$_GET['id'] ?>" name="idFilm">
+<?php                   if(!empty($this->e($vin1))) : ?>
+                            <input type="hidden" value="<?=$this->e($vin1) ?>" name="idVin1">
+<?php                   endif; ?>
+<?php                   if(!empty($this->e($vin2))) : ?>
+                            <input type="hidden" value="<?=$this->e($vin2) ?>" name="idVin2">
+<?php                   endif; ?>
+<?php                   if(!empty($this->e($vin3))) : ?>
+                            <input type="hidden" value="<?=$this->e($vin3) ?>" name="idVin3">
+<?php                   endif; ?>
+<?php               endif; ?>
                         </form>
                         <div><a href="<?=$this->url('forget-password') ?>">Mot de passe oublié ?</a></div>
                     </div>
