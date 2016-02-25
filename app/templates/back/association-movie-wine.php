@@ -45,7 +45,7 @@
                     unset($_SESSION['listErr']);
                 }
                 if(isset($_SESSION['success']) && $_SESSION['success']){
-                    echo 'Perfect Match enregistré avec succés !'
+                    echo 'Perfect Match enregistré avec succés !';
                 }
         ?>
 	</div>
