@@ -290,6 +290,7 @@ class AdminController extends Controller
 	{	
 		$notModeratedComments = new CommentsNotModerateManager();
 		$post = [];
+		$err = array();
 		$reponse = '';
 		if (!empty($_POST)) {
 			$idAsso = $_POST['idAsso'];
@@ -358,7 +359,7 @@ class AdminController extends Controller
         }
 		$params = [
 			'listNotModeratedComments' => $allInfos,
-			'err' 		=> $err,
+			'err' => $err,
 			'nbTotalPages' => $nbTotalPages,
 			'currentPage'  => $currentPage,
 			'post' => $post,
