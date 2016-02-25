@@ -20,13 +20,5 @@
 		['GET|POST', '/logout', 'Default#logout', 'logout', 'Déconnexion', '', 2], // Déconnexion
 		['GET|POST', '/mot-de-passe-oublie', 'Default#forgetPassword', 'forget-password', 'Mot de passe oublié', '', 2], // Mot de passe oublié 
 		['GET|POST', '/nouveau-mot-de-passe', 'Default#initPassword', 'init-password', 'Nouveau mot de passe', '', 2], // Token et reinitialisation MDP
-
-
-		##########
-		#
-		# Je suis pas sur d'avoir capté tout les paramètres supplémentaires.. 
-		# et j'avais la flemme de chercher dans le code :-)
-		#
-		##########
 		['GET', '/ajax/[wines|movies:type]/"[:search]"', 'Ajax#getJson', 'ajax', '', 'back', 0], // Retourne un JSON des vins ou des films
 	);
