@@ -1,7 +1,16 @@
 <?php $this->layout('layout-back', ['title' => 'Ajouter un vin']) ?>
 
 <?php $this->start('main_content') ?>
-
+<?php
+    if($showErr){
+        $name = $post['name'];
+        $appellation = $post['appellation'];
+        $country = $post['country'];
+        $description = $post['description'];
+        $categorie_id = $post['categorie_id'];
+        $genre_id = $post['genre_id'];
+    }
+?>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2 col-sm-2"></div>
@@ -22,7 +31,7 @@
 				<div class="form-group">
 				  <label class="col-md-4 col-lg-4 control-label" for="name">Nom du vin :</label>  
 				  <div class="col-md-8 col-lg-8">
-				  <input id="name" name="name" placeholder="Domaine de Pecoula" class="form-control input-md" type="text">
+				  <input id="name" name="name" placeholder="Domaine de Pecoula" class="form-control input-md" type="text" value="<?= (isset($name)) ? $name : '' ?>">
 				  </div>
 				</div>
 
@@ -30,7 +39,7 @@
 				<div class="form-group">
 				  <label class="col-md-4 col-lg-4 control-label" for="appellation">Appellation :</label>  
 				  <div class="col-md-8 col-lg-8">
-				  <input id="appellation" name="appellation" placeholder="Montbazillac" class="form-control input-md" type="text">
+				  <input id="appellation" name="appellation" placeholder="Montbazillac" class="form-control input-md" type="text" value="<?= (isset($appellation)) ? $appellation : '' ?>">
 				  </div>
 				</div>
 
@@ -38,7 +47,7 @@
 				<div class="form-group">
 				  <label class="col-md-4 col-lg-4 control-label" for="country">Pays d'origine :</label>  
 				  <div class="col-md-8 col-lg-8">
-				  <input id="country" name="country" placeholder="France" class="form-control input-md" type="text">
+				  <input id="country" name="country" placeholder="France" class="form-control input-md" type="text" value="<?= (isset($country)) ? $country : '' ?>">
 				  </div>
 				</div>
 
@@ -46,17 +55,17 @@
 				<div class="form-group">
 				  <label class="col-md-4 col-lg-4 control-label" for="description">Description :</label>
 				  <div class="col-md-8 col-lg-8">                     
-				    <textarea class="form-control" id="description" name="description"></textarea>
+				    <textarea class="form-control" id="description" name="description"><?= (isset($description)) ? $description : '' ?></textarea>
 				  </div>
 				</div>
 
 				<!-- File Button --> 
-				<div class="form-group">
+				<!--<div class="form-group">
 				  <label class="col-md-4 col-lg-4 control-label" for="photo">Telecharger l'image du vin :</label>
 				  <div class="col-md-8 col-lg-8">
 				    <input id="photo" name="photo" class="input-file" type="file">
 				  </div>
-				</div>
+				</div>-->
 
 				<!-- Select categorie du vin -->
 				<div class="form-group">
@@ -65,7 +74,7 @@
 				    <select id="categorie_id" name="categorie_id" class="form-control">
 				    	<option value="">Choisir une catégorie de vin</option>
 					<?php foreach ($categories as $key => $value) : ?>
-						<option value="<?php echo $value['id'] ?>"><?php echo ucfirst($value['name']) ?></option>
+						<option value="<?php echo $value['id'] ?>"<?= (isset($categorie_id) && $categorie_id == $value['id']) ? ' selected="selected"' : '' ?>><?php echo ucfirst($value['name']) ?></option>
 					<?php endforeach; ?>
 				    </select>
 				  </div>
@@ -78,7 +87,7 @@
 				    <select id="genre_id" name="genre_id" class="form-control">
 				    	<option value="">Choisir un genre de vin</option>
 					<?php foreach ($listeGenreVin as $key => $value) : ?>
-						<option value="<?php echo $value['id'] ?>" class="vin-<?=$value['id_categorie'] ?>"><?php echo ucfirst($value['name']) ?></option>
+						<option value="<?php echo $value['id'] ?>" class="vin-<?=$value['id_categorie'] ?>"<?= (isset($genre_id) && $genre_id == $value['id']) ? ' selected="selected"' : '' ?>><?php echo ucfirst($value['name']) ?></option>
 					<?php endforeach; ?>
 				    </select>
 				  </div>

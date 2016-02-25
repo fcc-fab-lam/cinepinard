@@ -108,12 +108,8 @@ class AdminController extends Controller
 		$listGenreVin = $genreVinManager->findAll();
 		$cat = new WinesCategoriesManager();
 		$categories = $cat->getCategories();
-		$params = [
-				'listeGenreVin' => $listGenreVin,
-				'categories' => $categories,
-				];
-	
-				// Mes variables 
+        
+        // Mes variables 
 		$post = array();
         $err = array();
         $formValid = false;
@@ -199,9 +195,15 @@ class AdminController extends Controller
 				$formValid = true;
 			}
 		}
-		$params['err'] = $err;
-		$params['showErr'] = $showErr;
-		$params['formValid'] = $formValid;
+		$params = [
+            'err' => $err,
+            'showErr' => $showErr,
+            'formValid' => $formValid,
+            'post' => $post,
+            'listeGenreVin' => $listGenreVin,
+            'categories' => $categories,
+				
+            ];
 
 		$this->show('back/add-wine',$params);
 	}		

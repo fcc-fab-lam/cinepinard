@@ -39,14 +39,15 @@
                     </div>
                 </div>
 
-        <?php if(isset($_SESSION['listErr'])) : ?>
-            <div class="erreurs">
-                <?php 
-                    echo implode('<br/>', $_SESSION['listErr']);
+        <?php 
+                if(isset($_SESSION['listErr'])) { 
+                    echo '<div class="erreurs">'.implode('<br/>', $_SESSION['listErr']).'</div>';
                     unset($_SESSION['listErr']);
-                ?>
-            </div>
-        <?php endif; ?>
+                }
+                if(isset($_SESSION['success']) && $_SESSION['success']){
+                    echo 'Perfect Match enregistré avec succés !'
+                }
+        ?>
 	</div>
 
 <!-- FIN RECHERCHE -->
