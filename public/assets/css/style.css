@@ -250,6 +250,23 @@ label input[type="checkbox"]{
 	margin-top: 0;
 }
 
+.twitter-typeahead pre,
+.twitter-typeahead .tt-hint {
+  margin-bottom: 2px !important;
+}
+.tt-menu { /* conteneur */
+  background: #FFF;
+  color: #333;
+  width: 100%; 
+}
+.tt-menu .tt-suggestion {
+  padding: 5px 10px;
+}
+.tt-menu .tt-suggestion:hover {
+  background: #CCC;
+  cursor: pointer;
+}
+
 /* FOOTER */
 
 footer{

@@ -15,6 +15,14 @@ class AddWineManager extends \W\Manager\Manager {
 	}
 
 
+	public function search($search){
+        $sql = "SELECT * FROM " . $this->table." WHERE name LIKE :name OR appellation LIKE :name";
+                
+        $sth = $this->dbh->prepare($sql);
+        $sth->bindValue(':name', '%'.$search.'%');
+        $sth->execute();
+        return $sth->fetchAll();
+	}
 
 
 }

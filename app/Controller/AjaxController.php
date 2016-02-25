@@ -17,23 +17,37 @@ class AjaxController extends Controller
 
 		switch ($type) {
 			case 'wines':
-                /*$searchWines = new AddWine;
-                $sql = "SELECT * FROM " . $searchWines->table." WHERE name LIKE :name";
-                
-                $sth = $searchWines->dbh->prepare($sql);
-                $sth->bindValue(':name', '%'.$search.'%');
-                $sth->execute();
-                $json = $sth->fetchAll();*/
+                $wines = new AddWine();
+                $resultsWines = $wines->search($search);
+                if(empty($resultsWines)){
+                	return false;
+                }
+                $json = $resultsWines;
 			break;
 
 			case 'movies':
 				$allocine = new AlloCine();
-				$resultMovies = json_decode($allocine->search($search));
+				$resultsMovies = json_decode($allocine->search($search));
 				
-				if(!$resultMovies->feed->totalResults){
+				if(!$resultsMovies->feed->totalResults){
 					return false;
 				}
-				$json = $resultMovies->feed->movie;
+
+				// On recreer le tableau a cause des correspondances FR / EN
+				$listMovies = [];
+
+				foreach($resultsMovies->feed->movie as $movie){
+					if(isset($movie->title)){
+						$movie->searchTitle = $movie->title.' - ('.$movie->productionYear.')';
+					}
+					else {
+						$movie->searchTitle = $movie->originalTitle.' - ('.$movie->productionYear.')';
+					}
+					$listMovies[] = $movie;
+				}
+
+				$json = $listMovies;
+
 			break;
 
 			default: 

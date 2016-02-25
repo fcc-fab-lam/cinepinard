@@ -2,111 +2,81 @@
 
 <?php $this->start('main_content') ?>
 
-<div class="background">
-<!-- DEBUT RECHERCHE -->
-<div class="recherche">
-	<div class="container-fluid">
-    <?php foreach($resultats as $value): ?>
-        <div class="row resultats">
-            <div class="image-res-seach">
-            <!-- IMAGE -->
-            <p><?= (isset($value->poster->href)) ? '<a href="selection-film?id=<?=$value->code.$userPrefs ?>"><img height="100px" src="'.$value->poster->href.'" /></a>' : '' ?></p>
-            </div>
-            <div class="descriptif-res-search">
-                <!-- TITRE ORIGINAL OU FRANCAIS -->
-                <h4><?= (isset($value->title)) ? $value->title : $value->originalTitle ?></h4>
-
-                <!-- REALISATEUR -->
-                <p>Réalisateur : <?= (isset($value->castingShort->directors)) ? $value->castingShort->directors : 'Inconnu' ?></p>
-
-                <!-- ACTEURS -->
-                <p>Acteurs : <?= (isset($value->castingShort->actors)) ? $value->castingShort->actors : 'Inconnu' ?></p>
-
-                <!-- ANNEE DE PRODUCTION -->
-                <p>Année : <?= (isset($value->productionYear)) ? $value->productionYear : 'Inconnu' ?></p>
-                <!-- Call to action choix du film -->
-                <a href="#" class="btn btn-default">C'est ce film !</a>
-            </div>
-        </div>
-    <?php endforeach; ?>
-
-    <h1>Association Film & Vin</h1>
-		<form class="row" method="post">
-		    
-        <div class="col-lg-5 col-md-12">
-            <h2 class="col-md-12">Rechercher le film : </h2>			
-            <div class="col-lg-10 col-md-12">
-                <input id="film" name="film" class="col-lg-12" type="text" placeholder="Ex : Deadpool">
-                <input type="hidden" name="idFilm">
-            </div>
-            <div class="col-lg-2"></div>
-        </div>
-
-        <div class="col-lg-5 col-md-12">
-            <h2 class="col-md-12">Rechercher le vin : </h2>			
-            <div class="col-lg-10 col-md-12">
-                <input id="vin" name="vin" class="col-lg-12" type="text" placeholder="Ex : Saint Julien">
-                <input type="hidden" name="idVin">
-            </div>
-            <div class="col-lg-2"></div>
-        </div>
-        <div class="col-lg-2 col-md-12">
-            <h2 class="col-md-12">&nbsp;</h2>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Large modal</button>
-        </div>
-		</form>
-
-        <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Modal title</h4>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-md-4">.col-md-4</div>
-                  <div class="col-md-4 col-md-offset-4">.col-md-4 .col-md-offset-4</div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3 col-md-offset-3">.col-md-3 .col-md-offset-3</div>
-                  <div class="col-md-2 col-md-offset-4">.col-md-2 .col-md-offset-4</div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 col-md-offset-3">.col-md-6 .col-md-offset-3</div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-9">
-                    Level 1: .col-sm-9
-                    <div class="row">
-                      <div class="col-xs-8 col-sm-6">
-                        Level 2: .col-xs-8 .col-sm-6
-                      </div>
-                      <div class="col-xs-4 col-sm-6">
-                        Level 2: .col-xs-4 .col-sm-6
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-		<?php if(isset($_SESSION['listErr'])) : ?>
-			<div class="erreurs">
-				<?php 
-					echo implode('<br/>', $_SESSION['listErr']);
-					unset($_SESSION['listErr']);
-				?>
-			</div>
-		<?php endif; ?>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2 col-sm-2"></div>
+		<div class="col-md-8 col-sm-8">
+		<h1 class="profil-title">Association Film & Vin</h1>
+		</div>
+		<div class="col-md-2 col-sm-2"></div>
 	</div>
-</div>
+	<div class="row">
+        <div class="col-md-2 col-sm-2"></div>
+        <div class="col-md-8 col-sm-8">
+            <div class="">
+                <div class="row profil-utilisateur">
+                   <div class="erreur"><?php if(!$success){echo implode('<br>', $err);} ?></div>
+                    <div class="col-lg-5 col-md-12">
+                        <h2 class="col-md-12">Rechercher le film : </h2>			
+                        <div class="col-lg-10 col-md-12">
+                            <input id="film" name="film" class="col-lg-12" type="text" placeholder="Ex : Deadpool">
+                            <input type="hidden" name="idFilm">
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+
+                    <div class="col-lg-5 col-md-12">
+                        <h2 class="col-md-12">Rechercher le vin : </h2>			
+                        <div class="col-lg-10 col-md-12">
+                            <input id="vin" name="vin" class="col-lg-12" type="text" placeholder="Ex : Saint Julien">
+                            <input type="hidden" name="idVin">
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-12">
+                        <h2 class="col-md-12">&nbsp;</h2>
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Associer</button>
+                    </div>
+                </div>
+
+        <?php if(isset($_SESSION['listErr'])) : ?>
+            <div class="erreurs">
+                <?php 
+                    echo implode('<br/>', $_SESSION['listErr']);
+                    unset($_SESSION['listErr']);
+                ?>
+            </div>
+        <?php endif; ?>
+	</div>
+
 <!-- FIN RECHERCHE -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Perfect match ?</h4>
+      </div>
+      <div class="modal-body">
+          <h4>Film sélectionné</h4>
+          <div id="contentFilm" class="clearfix"></div>
+
+          <br>
+          <h4>Vin sélectionné</h4>
+          <div id="contentVin" class="clearfix"></div>
+      </div>
+      <div class="modal-footer">
+        <form method="post">
+          <input type="hidden" name="idFilm" id="idFilm">
+          <input type="hidden" name="idVin" id="idVin">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-success">Valider</button>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <?php $this->stop('main_content') ?>
 
@@ -114,46 +84,70 @@
 <script src="<?=$this->assetUrl('js/typeahead.bundle.min.js');?>"></script>
 <script>
 $(function(){
+  defaultVisuel = 'https://placeholdit.imgix.net/~text?w=150&h=200&bg=111&txtsize=30&txt=Aucun+Visuel';
+  // Films
   $('#film').typeahead({
     highlight: true,
   },
   {
-    display: 'originalTitle',
+    name: 'movies',
+    display: 'searchTitle',
     source: function(search, syncResults, asyncResults) {
-      $.get('ajax/movies/'+ search, function(data) {
+      $.get('ajax/movies/'+ encodeURI(search), function(data) {
         asyncResults(data);
       });
     }
+  }).on('typeahead:select', function(event, select) {
+    $('#idFilm').val(select.code); // input hidden
+    // modal
+    if(select.poster.href){
+      visuel = select.poster.href;
+    }
+    else {
+      visuel = defaultVisuel;
+    }
+
+    var html = '<div class="col-md-3">';
+        html+= '<img src="' + visuel + '" class="img-responsive img-thumbnail">';
+        html+= '</div><div class="col-md-9">';
+        html+= '<p><strong>' + select.searchTitle + '</strong></p>';
+        html+= '<p>Année de production : ' + select.productionYear + '</p>';
+        html+= '</div>';
+
+    $('#contentFilm').html(html);// content film modal
   });
 
+
+  // Vins
   $('#vin').typeahead({
     highlight: true,
   },
   {
+    name: 'wines',
     display: 'name',
     source: function(search, syncResults, asyncResults) {
-      $.get('ajax/wines/'+ search, function(data) {
+      $.get('ajax/wines/'+ encodeURI(search), function(data) {
         asyncResults(data);
       });
     }
+  }).on('typeahead:select', function(event, select) {
+    $('#idVin').val(select.id);  // input hidden
+    // modal
+    if(select.image){
+      visuel = select.image;
+    }
+    else {
+      visuel = defaultVisuel;
+    }
+    var html = '<div class="col-md-3">';
+        html+= '<img src="' + visuel +'" class="img-responsive img-thumbnail">';
+        html+= '</div><div class="col-md-9">';
+        html+= '<p><strong>' + select.name + '</strong></p>';
+        html+= '<p>Appellation : ' + select.appellation + '</p>';
+        html+= '</div>';
+
+    $('#contentVin').html(html);// content vin modal
   });
 });
 </script>
-
-<!-- // Ca n'a rien a foutre là.. mais flemme -->
-<style>
-.tt-menu { /* conteneur */
-  background: #FFF;
-  color: #333;
-  width: 100%; 
-}
-.tt-menu .tt-suggestion {
-  padding: 5px 10px;
-}
-.tt-menu .tt-suggestion:hover {
-  background: #CCC;
-  cursor: pointer;
-}
-</style>
-
 <?php $this->stop('scripts') ?>

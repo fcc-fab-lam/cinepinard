@@ -31,40 +31,71 @@ class AdminController extends Controller
 	// association 1 film et 1 vin
 	public function associationMovieWine()
 	{
-        $params = array();
         // On instancie nos variables
 		$err = array();
 		$post = array();
 		$resultats = array();
+        $params = array();
+        $film = array();
+        $success = false;
+        
 		// On appelle la classe Allocine
 		$allocine = new AlloCine();
-		// On vérifie que $_GET n'est pas vide
+        // On appelle la classe AddWine
+		$addWine = new AddWine();
+
+        $user = $this->getUser();
+        $idUser = $user['id'];
+        
+		// On vérifie que $_POST n'est pas vide
 		if(!empty($_POST)){
-			// On nettoie $_POST['film']
-			$post['film'] = trim(strip_tags($_POST['film']));
+			// On nettoie $_POST
+			foreach($_POST as $key => $value){
+                $post[$key] = trim(strip_tags($value));
+            }
 
 			// Si la recherche film est vide, on met une erreur
-			if(empty($get['film'])){
+			if(empty($post['idFilm'])){
 				$err[] = 'Vous devez renseigner un film';
+			}
+            if(empty($post['idVin'])){
+				$err[] = 'Vous devez renseigner un vin';
 			}
 			// S'il n'y a pas d'erreur jusque là
 			if(count($err) == 0){
-				$result = json_decode($allocine->search($get['film']));
-				$resultats = array();
-				$error = array();
+				$film = json_decode($allocine->get($post['idFilm']), true);
+                $vin = $addWine->find($post['idVin']);
 
-				if($result->feed->totalResults == 0){
-					$err = 'Aucun film ne correspond à votre recherche';
+				if(isset($film['error'])){
+					$err[] = 'Aucun film ne correspond à votre recherche';
 				}
-				else{
-					$resultats = $result->feed->movie;
+                
+                if(empty($vin)){
+					$err[] = 'Aucun vin ne correspond à votre recherche';
 				}
+                
+                if(count($err) == 0){
+                    $insertValues = [
+                            'movie_id' => $post['idFilm'],
+                            'wine_id' => $post['idVin'],
+                            'moderation' => 1,
+                            'perfect_match' => 1,
+                            'user_id' => $idUser,
+                    ];
+                    $userNotes = new UsersNotesCommentsManager();
+                    $userNotes->insert($insertValues);
+                    
+                    $success = true;
+                }
+                
 			}
         }
-        // On stock nos paramètres dans une variable
+        // On stock nos paramètres dans une variable $params
         $params = [
-                'resultats' => $resultats,
-                'err' => $err, 
+                'film' => $film,
+                'err' => $err,
+                'post' => $post,
+                'success' => $success,
                 ];
         
 		$this->show('back/association-movie-wine',$params);
