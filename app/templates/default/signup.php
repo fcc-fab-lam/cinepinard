@@ -83,11 +83,9 @@
 						<input class="btn btn-default" type="submit" value="Je m'inscris !" />
 					</div>
 				</form>
-			</div>
-			<div class="col-md-3"></div>
 			<?php
 				if($showErr){
-					echo '<div class="erreurs">';
+					echo '<div class="showErr">';
 					echo implode('<br/>', $err);
 					echo '</div>';
 				}
@@ -95,6 +93,8 @@
 					echo 'Inscription réussie';
 				}
 			?>
+			</div>
+			<div class="col-md-3"></div>
 		</div>
 	</div>
 </div>
