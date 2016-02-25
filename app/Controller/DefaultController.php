@@ -157,7 +157,6 @@ class DefaultController extends Controller
 		$showErr = false;
 		$userManager = new UserManager();
 		$authentificationManager = new AuthentificationManager();
-        $userPrefs = array();
 
 		if(!empty($_POST)){
             foreach($_POST as $key => $value){
@@ -182,28 +181,23 @@ class DefaultController extends Controller
 			// On regarde s'il y a des erreurs
 			if(count($err)>0){
 				$showErr = true;
+                $_SESSION['err'] = $err;
+                $_SESSION['showErr'] = $showErr;
+                $_SESSION['email'] = $post['email'];
+                $_SESSION['password'] = $post['password'];
 			}
-
-			$cat = new WinesCategories();
-			$categories = $cat->getCategories();
-			$params = [
-				'showErr' => $showErr,
-				'err' => $err,
-				'categories' => $categories,
-				'userPrefs' => $userPrefs,
-			];
             if($userInfos['role_id'] == 1){
-                $this->redirectToRoute('user-profil', $params);
+                $this->redirectToRoute('user-profil');
             }
             elseif(isset($post['currentPage'])){
                 if($post['currentPage'] == 'selection-movie'){
                     header('Location: '.$this->generateUrl('selection-movie').'?id='.$post['idFilm'].'&idVin1='.$post['idVin1'].'&idVin2='.$post['idVin2'].'&idVin3='.$post['idVin3']);
                     die();
                 }
-			$this->redirectToRoute($post['currentPage'], $params);
+			$this->redirectToRoute($post['currentPage']);
             }
             else{
-			$this->redirectToRoute('home', $params);
+			$this->redirectToRoute('home');
             }
 		}
     }

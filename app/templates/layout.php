@@ -34,13 +34,29 @@
 
             <!-- si l'utilisateur n'est pas connecté on affiche un lien vers l'inscription et la connexion -->
 
-<?php       if(empty($w_user)) : ?>
+<?php       if(empty($w_user)) :
+                $showErr = false;
+                $err = array();
+                $email = '';
+                $password = '';
+                
+                if(isset($_SESSION['showErr'])){
+                    $showErr = $_SESSION['showErr'];
+                    $err = $_SESSION['err'];
+                    $email = $_SESSION['email'];
+                    $password = $_SESSION['password'];
+                    unset($_SESSION['showErr']);
+                    unset($_SESSION['err']);
+                    unset($_SESSION['email']);
+                    unset($_SESSION['password']);
+                }
+?>
                     <div class="login">
                     <!-- CONNEXION -->
                         <!-- Trigger the modal with a button -->
-                        <button type="button" id="btn-modal-login" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Connexion</button>
+                        <button type="button" id="btn-modal-login" class="btn btn-info btn-md" data-toggle="modal" data-target="#loginModal">Connexion</button>
                         <!-- Modal -->
-                        <div id="myModal" class="modal fade" role="dialog">
+                        <div id="loginModal" role="dialog" class="modal fade">
                             <div class="modal-dialog">
 
                                 <!-- Modal content-->
@@ -58,13 +74,14 @@
                                         <form method="post" class="form-horizontal" action="<?=$this->url('login') ?>">
                                             <div class="form-group">
                                                 <label class="col-sm-5" for="email">Email</label>
-                                                <input class="col-sm-7" type="email" id="email" name="email">
+                                                <input class="col-sm-7" type="email" id="email" name="email" value="<?=$email ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-5" for="password">Mot de passe</label>
-                                                <input class="col-sm-7" type="password" id="password" name="password">
+                                                <input class="col-sm-7" type="password" id="password" name="password" value="<?=$password ?>">
                                                 <div class="mdp-forget pull-right"><a href="<?=$this->url('forget-password') ?>">Mot de passe oublié ?</a></div>
                                             </div>
+                                            <?php if($showErr){echo '<div class="showErr">'.implode('<br>', $err).'</div>';} ?>
                                             <!-- Champs cachés -->
                                             <input type="hidden" value="<?=$_SERVER['W_ROUTE_NAME'] ?>" name="currentPage">
                                             <?php if($_SERVER['W_ROUTE_NAME'] == 'selection-movie') : ?>
@@ -136,6 +153,13 @@
 
 <!-- lance le script add-wine-genre-->
         <?= $this->section('scripts') ?>
+<?php if($showErr): ?>
+<script>
+    $(function(){
+        $('#loginModal').modal('show');
+    })
+</script>
+<?php endif; ?>
 </body>
 </html>
 
