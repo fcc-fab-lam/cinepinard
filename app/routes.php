@@ -15,7 +15,7 @@
 		['GET|POST', '/association-film-vin', 'Admin#associationMovieWine', 'association-movie-wine', 'Ajouter un Perfect Match', 'back', 2], // association 1 film et 1 vin
 		['GET|POST', '/ajout-fiche-vin', 'Admin#addWine', 'add-wine', 'Ajouter un vin', 'back', 2], // creation fiche vin
 		['GET|POST', '/ajout-genre-vin', 'Admin#addWineGenre', 'add-wine-genre', 'Ajouter un genre de vin', 'back', 1], // Ajout genre de vin
-		['GET|POST', '/liste-commentaires-non-moderees/[i:showPage]?', 'Admin#listNotModeratedComments', 'list-not-moderated-comments', 'Modéreration', 'back', 1], // Liste des commentaires non-moderés 
+		['GET|POST', '/liste-commentaires-non-moderees/[i:showPage]?', 'Admin#listNotModeratedComments', 'list-not-moderated-comments', 'Modération', 'back', 1], // Liste des commentaires non-moderés 
 		['GET|POST', '/login', 'Default#login', 'login', 'Connexion', '', 2], // Connexion
 		['GET|POST', '/logout', 'Default#logout', 'logout', 'Déconnexion', '', 2], // Déconnexion
 		['GET|POST', '/mot-de-passe-oublie', 'Default#forgetPassword', 'forget-password', 'Mot de passe oublié', '', 2], // Mot de passe oublié 
