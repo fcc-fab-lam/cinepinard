@@ -85,7 +85,7 @@ header a:hover{
 }
 
 header h1{
-	font-family: 'finger paint';
+	font-family: 'Finger Paint', cursive;
 	display: inline-block;
 	margin: 10px 10px 0px 10px;
 	padding: 0;
@@ -334,27 +334,95 @@ footer{
 	background-color: rgba(189, 10, 65, 0.7);
 }
 
-.resume{
-	background-color: black;
-	color: #FFFFFF;
-	padding: 20px;
-	height: 100%;
+/* PANNEAUX */
+.col-md-6.table2{
+	display: table-cell;
+	float: none;
 }
 
+/* PANNEAU VIN 1 */
+.vin1{
+	background-color: #FFFFFF;
+	border : solid 10px #9C182F;
+	border-radius: 5px;
+	padding: 20px;
+	position: relative;
+	padding-left: 70px;
+}
+.vin1 img{
+	position: absolute;
+	bottom:-20px;
+	left:-60px;
+}
+
+/* PANNEAU VIN 2 */
+.vin2{
+	background-color: #FFFFFF;
+	border : solid 10px #E5BD4B;
+	border-radius: 5px;
+	padding: 20px;
+	position: relative;
+	padding-left: 70px;
+}
+.vin2 img{
+	position: absolute;
+	bottom:-20px;
+	left:-60px;
+}
+
+/* PANNEAU VIN 3 */
+.vin3{
+	background-color: #FFFFFF;
+	border : solid 10px #FBB086;
+	border-radius: 5px;
+	padding: 20px;
+	position: relative;
+	padding-left: 70px;
+}
+.vin3 img{
+	position: absolute;
+	bottom:-20px;
+	left:-60px;
+}
+
+/* PANNEAU VIN 4 */
 .vin4{
-	background-color: #DECAA4;
+	background-color: #FFFFFF;
+	border : solid 10px #DECAA4;
+	border-radius: 5px;
 	padding: 20px;
 	position: relative;
 	padding-left: 70px;
 }
 .vin4 img{
 	position: absolute;
-	bottom:-10px;
-	left:-55px;
+	bottom:-20px;
+	left:-60px;
 }
-#propo1{
-	background-color: black;
+
+
+/* PANNEAU FILM */
+.descriptif-film h4{
+	font-family: 'Lora', cursive;
+	font-size: 22px; 
+	font-weight: 700;
+	font-style: italic;
+	margin-bottom: 15px;
 }
+
+.descriptif-film{
+	padding: 20px 40px 20px 20px;
+	color: #FFFFFF;
+	text-align: right;
+}
+
+#film{
+	background-color: #333333;
+	border-radius: 5px;
+	border : solid 10px #333333;
+
+}
+
 /* INSCRIPTION */
 
 .form-inscription{
