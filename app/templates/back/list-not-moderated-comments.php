@@ -3,12 +3,17 @@
 <?php $this->start('main_content') ?>
 
 <div class="container-fluid">
-		<div>
-            <?php var_dump($post); ?>
-			<?php if(!empty($listNotModeratedComments)) : ?>
-			<h3>Commentaires en attente de validation</h3>
+		<div class="row">
+            <div class="col-md-1"></div>
+			<h1 class="col-md-10 profil-title">Commentaires en attente de validation</h1>
+            <div class="col-md-1"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <?php if(!empty($listNotModeratedComments)) : ?>
                 <?php foreach($listNotModeratedComments as $value) : ?>
-                        <div class="row" id="asso-<?=$value['id'] ?>">
+                        <div class="col-md-10 profil-utilisateur" id="asso-<?=$value['id'] ?>">
                             <div class="col-md-4">
                                 <h4><?= (isset($value['infosFilm']['movie']['title'])) ? $value['infosFilm']['movie']['title'] : $value['infosFilm']['movie']['originalTitle']?></h4>
                                 <p><?= (isset($value['infosFilm']['movie']['poster']['href'])) ? '<img height="300px" src="'.$value['infosFilm']['movie']['poster']['href'].'" />' : '' ?></p>
@@ -103,8 +108,7 @@
                                 <quote><?=ucfirst($value['comment']) ?></quote>
                                 <h3>Note de l'association : <?=ucfirst($value['note']) ?></h3>
                             </div>
-                        </div>
-                        <hr>
+                        </div><!-- FIN DU COL-MD-10 PRINCIPAL -->
                     <?php endforeach; ?>
 
                     <?php if($nbTotalPages > 1): ?>
@@ -122,7 +126,8 @@
                 <?php else : ?>
                 <h3>Aucun  !</h3>
                 <?php endif; ?>
-		</div>
+            <div class="col-md-1"></div><!-- FIN DU ROW -->
+		</div><!-- FIN DU CONTAINER FLUID -->
 </div>
 
 
