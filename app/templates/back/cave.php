@@ -4,10 +4,12 @@
 
 <div class="container-fluid">
 		<div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h3 class="col-md-10 profil-title">Vos bouteilles à la cave</h3>
+                <div class="col-md-1"></div>
+            </div>
 			<?php if(!empty($userCave)) : ?>
-                <div class="row">
-                    <h3 class="col-md-offset-1 col-md-11 profil-title">Vos bouteilles à la cave</h3>
-                </div>
                 <?php foreach($userCave as $value) : ?>
                         <div class="row" id="asso-<?=$value['id'] ?>">
                             <div class="col-md-1"></div>
@@ -119,7 +121,9 @@
                     <?php endif; ?>
                     
                 <?php else : ?>
-                <h3>La cave est vide !</h3>
+                    <div class="col-md-1"></div>
+                    <h3 class="col-md-10" style="color:white;">La cave est vide !</h3>
+                    <div class="col-md-1"></div>
                 <?php endif; ?>
 		</div>
 </div>
