@@ -289,6 +289,27 @@ footer{
 	background-color: rgba(189, 10, 65, 0.7);
 }
 
+.resume{
+	background-color: black;
+	color: #FFFFFF;
+	padding: 20px;
+	height: 100%;
+}
+
+.vin4{
+	background-color: #DECAA4;
+	padding: 20px;
+	position: relative;
+	padding-left: 70px;
+}
+.vin4 img{
+	position: absolute;
+	bottom:-10px;
+	left:-55px;
+}
+#propo1{
+	background-color: black;
+}
 /* INSCRIPTION */
 
 .form-inscription{
