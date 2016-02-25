@@ -94,7 +94,7 @@ header h1{
 /* Connexion */
 .modal-content{
 	border: 5px solid;
-	border-color: #BD0A41;
+	border-color: #9E2B40;
 }
 
 .mt-connexion{
@@ -121,11 +121,11 @@ header h1{
 }
 
 .mdp-forget a:hover{
-	color: #BD0A41;
+	color: #9E2B40;
 }
 
 header{
-	background-color: #BD0A41;
+	background-color: #9E2B40;
 	font-family: 'Alegreya Sans', serif;
 	color: white;
 	font-size: 18px;
@@ -164,7 +164,7 @@ header{
 }
 
 #btn-modal-login{
-	color: #BD0A41;
+	color: #9E2B40;
 	background-color: white;
 	border: 1px solid white;
 }
@@ -175,7 +175,7 @@ header{
 
 #btn-modal-signup{
 	color: white;
-	background-color: #BD0A41;
+	background-color: #9E2B40;
 	border: 1px solid white;
 }
 
@@ -192,7 +192,7 @@ h1{
 }
 
 .recherche{
-	background-color: #BD0A41;
+	background-color: #9E2B40;
 	font-family: 'Alegreya Sans', serif;
 	color: white;
 
@@ -289,7 +289,7 @@ footer{
 
 .apropos a:hover{
 	text-decoration: none;
-	color: #BD0A41;
+	color: #9E2B40;
 }
 
 .copyright{
@@ -326,7 +326,7 @@ footer{
 }
 
 .choisir-ce-vin{
-	background-color: #BD0A41;
+	background-color: #9E2B40;
 	border: 0;
 }
 
