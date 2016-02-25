@@ -6,6 +6,7 @@ use \W\Controller\Controller;
 use \Manager\FixUserManager as UserManager;
 use \Manager\WinesCategoriesManager as WinesCategories;
 use \Manager\AlloCineManager as AlloCine;
+use \Manager\AddWineManager as AddWine;
 use \Manager\UsersPreferencesManager as UsersPreferences;
 use W\Security\AuthentificationManager;
 
@@ -313,6 +314,7 @@ class DefaultController extends Controller
 		$err = array();
 		$params = array();
 		$userPrefs = array();
+        $addWine = new AddWine();
 
 		// On vérifie que $_GET existe et n'est pas vide
 		if(isset($_GET['id']) && !empty($_GET['id'])){
@@ -354,12 +356,36 @@ class DefaultController extends Controller
 					$selec =  array_count_values($genres);
 					$cat = new WinesCategories();
 					$params['categories'] = $cat->getWinesGenres($genres);
-                    if(isset($_GET['idVin1'])){
+                    
+                    $propositionVin = $cat->getWinesProposition($params['categories'], $userPrefs);
+                    $perfectMatch = $cat->getPerfectMatch($params['categories'], $userPrefs, $idFilm);
+                    $userProposition = $cat->getWinesUsersProposition($params['categories'], $userPrefs, $idFilm);
+                    
+                    if(isset($_GET['idVin1']) && is_numeric($_GET['idVin1'])){
+                        $resultVin1[0] = $addWine->find($_GET['idVin1']);
                         
+                        if(!empty($resultVin1)){
+                            $propositionVin = $resultVin1;
+                        }
                     }
-					$params['propositionVin'] = $cat->getWinesProposition($params['categories'], $userPrefs);
-					$params['perfectMatch'] = $cat->getPerfectMatch($params['categories'], $userPrefs, $idFilm);
-					$params['usersProposition'] = $cat->getWinesUsersProposition($params['categories'], $userPrefs, $idFilm);
+                    
+                    if(isset($_GET['idVin2']) && is_numeric($_GET['idVin2'])){
+                        $resultVin2[0] = $addWine->find($_GET['idVin2']);
+                        if(!empty($resultVin2)){
+                            $perfectMatch = $resultVin2;
+                        }
+                    }
+                    
+                    if(isset($_GET['idVin3']) && is_numeric($_GET['idVin3'])){
+                        $resultVin2[0] = $addWine->find($_GET['idVin3']);
+                        if(!empty($resultVin3)){
+                            $userProposition = $resultVin3;
+                        }
+                    }
+                    
+					$params['propositionVin'] = $propositionVin;
+					$params['perfectMatch'] = $perfectMatch;
+					$params['usersProposition'] = $userProposition;
 
 				}
 			}
