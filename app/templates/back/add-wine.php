@@ -97,12 +97,12 @@
 				<?php
 				
 				if($showErr){
-					echo '<div class="erreurs">';
+					echo '<div class="showErr">';
 					echo implode('<br/>', $err);
 					echo '</div>';
 				}
 				if($formValid) {
-					echo " Envoyé avec succés";
+					echo "Enregistré avec succés";
 					}
 
 				?>
