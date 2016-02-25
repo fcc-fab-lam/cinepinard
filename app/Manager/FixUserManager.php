@@ -26,4 +26,14 @@ class FixUserManager extends \W\Manager\UserManager {
 		return;
 	}
 
+	public function getUserbyToken($token){
+
+		$sql = "SELECT * FROM " . $this->table . " WHERE token = :token LIMIT 1";
+		$sth = $this->dbh->prepare($sql);
+		$sth->bindValue(":token", $token);
+		$sth->execute();
+
+		return $sth->fetch();
+	}
+
 }

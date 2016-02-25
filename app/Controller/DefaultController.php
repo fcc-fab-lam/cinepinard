@@ -412,7 +412,7 @@ class DefaultController extends Controller
 		// Si le $token a été correctement créé et inséré en BDD on l'envoi à l'utilisateur par email
 		if($tokenCreate){
 
-			$message = 'Cliquez sur ce lien pour réinitialiser votre mot de passe : <a href="http://localhost/cinepinard/initpwd.php?token='.$token.'">réinitialisation</a>';
+			$message = 'Cliquez sur ce lien pour réinitialiser votre mot de passe : <a href="http://'.$_SERVER["HTTP_HOST"].$this->generateUrl('init-password').'?token='.$token.'">réinitialisation</a>';
 
             $app = getApp();
             
@@ -461,5 +461,82 @@ class DefaultController extends Controller
 		$this->show('back/forget-password', $params);
 	}
 
-    
+	// Réinitialisation du mot de passe suite à token
+	public function initPassword(){
+
+		$userManager = new UserManager();
+		// On instancie nos variables
+		$err = array();
+		$formValid = false;
+		$tokenValid = false;
+		$showErr = false;
+
+		//
+		// VERIFICATION DU TOKEN
+		//
+
+		// On verifie que le token existe et n'est pas vide
+		if(isset($_GET['token']) && !empty($_GET['token'])){
+
+			// On nettoi $_GET
+			$token = trim(strip_tags($_GET['token']));
+
+			// On verifie qu'il existe en BDD
+			if($user = $userManager->getUserbyToken($token)){
+				$tokenValid = true;
+			}
+			else{
+				$err[] = 'Le token renseigné n\'est pas valide';
+			}
+		}
+
+		//
+		// VERIFICATION DU NEW PASSWORD
+		//
+
+		if(!empty($_POST)){
+
+			// On nettoit $_POST
+			foreach($_POST as $key => $value){
+				$post[$key] = trim(strip_tags($value));
+			}
+
+			// On verifie que le mdp fait au moins 8 caractères
+			if(strlen($post['password'])<8){
+				$err[] = 'Le mot de passe doit faire au moins 8 caractères';
+			}
+			// On verifie que les mdp sont identiques
+			if($post['password'] !== $post['password2']){
+				$err[] = 'Les mots de passe doivent être identique';
+			}
+
+			// On regarde s'il y a des erreurs
+			if(count($err)>0){
+				$showErr = true;
+			}
+			// S'il n'y a pas d'erreur on enregistre en BDD
+			else{
+				// On hash password
+				$password = password_hash($post['password'], PASSWORD_DEFAULT);
+				// Puis on enregistre le nouveau mdp en BDD
+				if($userManager->update(['password' => $password], $user['id'])){
+					$formValid = true;
+				}
+				else{
+					$err[] = 'Une erreur s\'est produite, veuillez réessayer';
+					$showErr = true;
+				}
+			}
+
+		}
+
+		$params = [
+			'showErr' => $showErr,
+			'err' => $err,
+			'formValid' => $formValid,
+			'tokenValid' => $tokenValid,
+		];
+
+    	$this->show('back/init-password', $params);
+	}
 }

@@ -19,6 +19,7 @@
 		['GET|POST', '/login', 'Default#login', 'login', 'Connexion', '', 2], // Connexion
 		['GET|POST', '/logout', 'Default#logout', 'logout', 'Déconnexion', '', 2], // Déconnexion
 		['GET|POST', '/mot-de-passe-oublie', 'Default#forgetPassword', 'forget-password', 'Mot de passe oublié', '', 2], // Mot de passe oublié 
+		['GET|POST', '/nouveau-mot-de-passe', 'Default#initPassword', 'init-password', 'Nouveau mot de passe', '', 2], // Token et reinitialisation MDP
 
 
 		##########
