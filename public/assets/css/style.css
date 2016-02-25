@@ -668,9 +668,11 @@ p#start {
 .showErr{
 	color: red;
 	margin-left: 15px;
+	margin-top: 10px;
 }
 
 .formValid{
 	color: green;
 	margin-left: 15px;
+	margin-top: 10px;
 }
