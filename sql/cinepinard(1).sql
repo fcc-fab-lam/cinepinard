@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 17 Février 2016 à 13:11
+-- Généré le :  Jeu 25 Février 2016 à 14:19
 -- Version du serveur :  10.1.9-MariaDB
 -- Version de PHP :  5.6.15
 
@@ -302,7 +302,7 @@ CREATE TABLE `users` (
   `nickname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL DEFAULT '2',
   `photo` varchar(255) NOT NULL,
   `phone_number` varchar(255) NOT NULL,
   `address` text NOT NULL,
@@ -321,7 +321,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `nickname`, `email`, `password`, `role_id`, `photo`, `phone_number`, `address`, `postcode`, `town`, `country`, `delivery_name`, `delivery_address`, `delivery_postcode`, `delivery_town`, `delivery_country`) VALUES
-(1, 'prenom-administrateur', 'nom-administrateur', 'pseudo-administrateur', 'admin@admin.fr', '$2y$10$XL.HeF0pJmrKRCSpxXT3ReTrdIY9c2QcqvI86dYn89/l/ZFneWMXy', 1, 'uploads/1.jpg', '0606060606', 'adresse de l''administrateur', '33500', 'Libourne', 'France', '', '', '', '', ''),
+(1, 'prenom', 'admin1', 'pseudo-admin', 'admin@admin.fr', '$2y$10$XL.HeF0pJmrKRCSpxXT3ReTrdIY9c2QcqvI86dYn89/l/ZFneWMXy', 1, 'uploads/1.jpg', '0606060606', 'adresse de l''administrateur', '33500', 'Libourne', 'France', '', '', '', '', ''),
 (2, 'prénom-utilisateur', 'nom-utilisateur', 'pseudo-utilisateur', 'user@user.fr', '$2y$10$wLcgdOLvycqYp4t7Db57.eHUqmxCPTAjsSBbGtB8z0x.xmHKOvXvS', 2, 'uploads/2.png', '0556565656', 'adresse de l''utilisateur', '33000', 'Bordeaux', 'france', '', '', '', '', '');
 
 -- --------------------------------------------------------
@@ -334,12 +334,13 @@ CREATE TABLE `users_notes_comments` (
   `id` int(11) NOT NULL,
   `movie_id` int(11) NOT NULL,
   `wine_id` int(11) NOT NULL,
-  `perfect_match` tinyint(1) NOT NULL,
+  `perfect_match` tinyint(1) NOT NULL DEFAULT '0',
   `note` int(11) NOT NULL,
   `comment` text NOT NULL,
   `user_id` int(11) NOT NULL,
-  `moderation` tinyint(1) NOT NULL,
-  `token` varchar(255) NOT NULL
+  `moderation` tinyint(1) NOT NULL DEFAULT '0',
+  `token` varchar(255) NOT NULL,
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Notes et commentaires sur les associations des utilisateurs';
 
 -- --------------------------------------------------------
@@ -448,7 +449,7 @@ INSERT INTO `wines` (`id`, `name`, `appellation`, `country`, `description`, `ima
 (69, ' MAGNUM MADEMOISELLE L 2012', 'Bordeaux / Haut-Médoc AOC', '', 'Une cuvée élaborée par l''équipe du Château La Lagune !!\n\nCe millésime 2012 présente une belle robe intense. Son nez dégage des notes de cassis, d''épices. On retrouve en bouche tous les arômes du nez sur des tanins souples et veloutés. Sexy et charmeur, c''est une vraie réussite à déguster dans sa jeunesse.', '', 1, 3, 1),
 (70, ' COTE ROTIE - LES MÉANDRES 2012 - DOMAINE GUY BERNARD', ' Rhône / Côte-Rôtie AOC ', '', 'Une Côte-Rôtie à moins de 30 € ! Une réussite à tous points de vues !\n\nLes Méandres est un mariage subtil entre souplesse et équilibre. Un vin complet sur ce millésime 2012, déjà très élégant à la dégustation. Un véritable coup de coeur qualité-prix qu''ont eu nos sommeliers avec cette cuvée dégustée au Salon des Vins d''Ampuis. Un concentré de plaisir, sans se ruiner, à savourer de suite pour les plus impatients (après un passage en carafe) !', '', 1, 3, 1),
 (71, 'CHAMPELROSE 2013 - DOMAINE COURBIS', 'Rhône / Cornas AOC', '', 'Un Cornas signé par les frères Courbis, valeur sûre et montante de l''appellation ! \n\nSur un terroir façonné par leurs mains, cette pure syrah séduira par son ampleur, sa richesse aromatique et sa texture soyeuse. Carafage indispensable pour une dégustation rapide. Ce Cornas taillé pour la garde pourra être conservé jusqu''en 2025.', '', 1, 3, 1),
-(72, ' ROSSO DI MONTALCINO 2013 - CONTI COSTANTI', 'Toscane / Rosso Di Montalcino ', '', 'Toute la chaleur de la Toscane...Des cépages uniques pour des sensations gustatives incroyables !!! \n\nUne cuvée d''une grande classe : Ses arômes fruités vous envoutent délicatement (cerise noire et prune). Une fois en bouche, des saveurs légèrement mentholées et de violette se développent avec une fraîcheur incroyable. Il s''accommodera au mieux en accompagnement de lasagnes, ou de viandes (rouges ou blanches) en sauces.', '', 1, 3, 1),
+(72, ' ROSSO DI MONTALCINO 2013 - CONTI COSTANTI', 'Toscane / Rosso Di Montalcino ', 'ITALIE', 'Toute la chaleur de la Toscane...Des cépages uniques pour des sensations gustatives incroyables !!! \n\nUne cuvée d''une grande classe : Ses arômes fruités vous envoutent délicatement (cerise noire et prune). Une fois en bouche, des saveurs légèrement mentholées et de violette se développent avec une fraîcheur incroyable. Il s''accommodera au mieux en accompagnement de lasagnes, ou de viandes (rouges ou blanches) en sauces.', '', 1, 3, 1),
 (73, ' CHATEAU SOCIANDO-MALLET 2011', 'Bordeaux / Haut-Médoc AOC', '', 'Une révélation du millésime !\n\nChâteau Sociando-Mallet produit des vins d''une belle régularité. Ce millésime 2011 ne déroge pas à la règle. D''une couleur sombre et profonde, il dégage un nez aux arômes complexes de pettis fruits mûrs avec un boisé très élégant. Après une attaque chaleureuse, on retrouve beaucoup de finesse et d''élégance dans ce millésime. Dense, épicé, d''une belle matière avec une longue finale, ce vin est d''une élégance extrême.', '', 1, 3, 1),
 (74, 'CHATEAU LANESSAN 2005', 'Bordeaux / Haut-Médoc AOC ', '', 'De loin la meilleure performance de la propriété sur cet exceptionnel millésime 2005. \n\nAlliant la maturité du fruit, la fraîcheur des épices ainsi qu''une bonne constitution de tanins, le résultat est à la hauteur du plaisir. Représentatif de son appellation, il possède en lui les 4 cépages de la région Bordelaise. Elégant et délicat au nez, plus dense et charnu en bouche, c''est un des plus beaux cru bourgeois de ce millésime 2005!', '', 1, 3, 1),
 (75, ' CROZES-HERMITAGE - ROCHE PIERRE 2012 - DOMAINE BELLE', 'Rhône / Crozes-Hermitage AOC', '', ' " Je suis époustouflé, (...) l''un des meilleurs vins de cette appellation."  R. Parker\n\nDès l’ouverture le nez explose de fruits noirs, d’épices douces, de muscade, de mûre sauvage, de cerise noire. La bouche encore jeune, fougueuse part sur une attaque est franche et virile. Ses tanins puissants et démonstratifs donnent tout son caractère au vin. Son élevage en fûts de chêne français ont canalisé sa force et assagir son tempérament ; mais il faudra être encore un peu patients pour profiter pleinement de ses qualités ! Une Belle Réussite ! Ce 2012 est à nos yeux un des plus beaux millésimes de ces dix dernières années.\n', '', 1, 3, 1),
@@ -506,7 +507,7 @@ INSERT INTO `wines` (`id`, `name`, `appellation`, `country`, `description`, `ima
 (126, ' PORTO NIEPOORT WHITE', 'Spiritueux / Porto /', '', 'L''intensité aromatique mêlée à la douceur et la légèreté !\n\nProduit exclusivement à partir de raisins blancs, il est vieillit un an dans de grands réservoirs en chêne puis 3 ans dans des vieux fûts de petite taille. Le « White » mêle des arômes de fruits secs, de pruneau, de noix, d’amandes et vous séduira par sa douceur et sa structure tout en légèreté.', '', 2, 8, 1),
 (127, ' JURANCON 2013 - DOMAINE UROULAT', ' Sud-Ouest / Jurançon AOC', '', 'Un régal de douceur, un modèle de grâce et d’équilibre : un Jurançon absolument somptueux !\n\nEquilibré et de fin par son harmonie entre la douceur du fruit et la nervosité de son acidité, ce vin moelleux est un vrai petit bijou. Ses arômes de fruits frais (abricot, mangue, fruits exotiques) se prolongent dans une finale délicieuse et gourmande, jamais alourdie par une liqueur excessive. Un allié de choix pour accompagner avec raffinement vos foies gras et desserts en tous genres.', '', 2, 8, 1),
 (128, ' MACVIN - DOMAINE ROLET ET FILS', ' Jura / Macvin AOC /', '', 'LE produit phare du Jura, le vin de dessert par excellence !\n\nCette spécialité du Jura (mutation du moût avec de l''eau de vie) bénéficie d''un vieillissement deux fois plus long que la norme en vigueur. Ce travail de patience est récompensé par ce Macvin aux arômes de confit et de raisins secs. Une magnifique originalité  ! Et si vous avez encore des doutes, testez-le avec un dessert au chocolat ou un simple melon des Charentes… plaisir garanti !', '', 2, 8, 1),
-(129, ' TOKAJI LATE HARVEST 2009 - KESOI SZURETELESU - KIKELET PINCE', 'Hongrie / Vin', '', 'Proclamé par Louis XIV « Vin des Rois, Roi des vins », ce célèbre Tokaj venu tout droit de Hongrie va surprendre par sa finesse !\n\nL''occasion de découvrir un nectar sans se tromper !\n\nVinatis vous invite à découvrir ce somptueux nectar : un vin blanc moelleux de type vendanges tardives surprenant ! Excellent en apéritif, ce célèbre vin accompagne à merveille un foie gras poêlé, les desserts ou les fromages à pâte persillée comme les bleus.  En bouche, les arômes de fruits sont présents et gourmands (pêche, poire, ananas). La finale est souple, vive et donne à ce grand vin un style original et racé. Un très bel exemple de vendanges tardives.', '', 2, 8, 1),
+(129, ' TOKAJI LATE HARVEST 2009 - KESOI SZURETELESU - KIKELET PINCE', 'Hongrie / Vin', 'HONGRIE', 'Proclamé par Louis XIV « Vin des Rois, Roi des vins », ce célèbre Tokaj venu tout droit de Hongrie va surprendre par sa finesse !\n\nL''occasion de découvrir un nectar sans se tromper !\n\nVinatis vous invite à découvrir ce somptueux nectar : un vin blanc moelleux de type vendanges tardives surprenant ! Excellent en apéritif, ce célèbre vin accompagne à merveille un foie gras poêlé, les desserts ou les fromages à pâte persillée comme les bleus.  En bouche, les arômes de fruits sont présents et gourmands (pêche, poire, ananas). La finale est souple, vive et donne à ce grand vin un style original et racé. Un très bel exemple de vendanges tardives.', '', 2, 8, 1),
 (130, ' MONTAGNY 1ER CRU 2012 - OLIVIER LEFLAIVE', ' Bourgogne / Montagny 1er Cru AOC', '', 'Une cuvée qui marque tout le savoir-faire d''Olivier Leflaive !\n\nLe soin apporté à la vinification et à l’élevage de cette cuvée se ressent avec ce vin flatteur parfaitement équilibré entre le gras et la vivacité. Sa longue finale, ses arômes d’agrumes, de fleurs blanches et d’amande grillée nous invite à savourer ce bijou du terroir autour d''un poisson grillé.', '', 2, 9, 1),
 (131, ' SAINT AUBIN 1ER CRU EN REMILLY 2011 - OLIVIER LEFLAIVE', 'Bourgogne / Saint-Aubin 1er Cru ', '', 'Une jolie fraîcheur et une belle concentration pour ce premier cru !\nCe Saint-Aubin s''ouvre sur un nez fin et subtil s''épanouissant sur des arômes minéraux rehaussés de notes d''amande, de cannelle et d''épices. Un vin d''une belle concentration, à la texture minérale bien équilibrée qui s''épanouit dans une longue finale...Une cuvée enfin prête à boire !', '', 2, 9, 1),
 (132, ' CHEVALIER-MONTRACHET 2012 - BOUCHARD PERE ET FILS', 'Bourgogne / Chevalier-Montrachet AOC', '', 'Onctueux, complexe et riche... L''excellence de la Bourgogne !\n\nDécrite dans le magazine Bourgogne Aujourd''hui comme "une cuvée d''un très haut niveau", ce Chevalier-Montrachet délivre un bouquet délicat et raffiné aux notes intenses d''agrumes, de fruits secs, de fleur d''oranger et d''épices marié à une délicieuse note grillée. Magnifiquement équilibré entre la richesse et la minéralité, il se révèle tout à la fois complexe et léger... L''élégance à son paroxysme !', '', 2, 9, 1),
@@ -589,9 +590,7 @@ INSERT INTO `wines_categories` (`id`, `name`) VALUES
 (1, 'vins rouges'),
 (2, 'vins blancs'),
 (3, 'vins rosés'),
-(4, 'effervescents'),
-(5, 'bières'),
-(6, 'autres');
+(4, 'effervescents');
 
 -- --------------------------------------------------------
 
@@ -601,30 +600,31 @@ INSERT INTO `wines_categories` (`id`, `name`) VALUES
 
 CREATE TABLE `wines_genres` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `id_categorie` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='genres des vins';
 
 --
 -- Contenu de la table `wines_genres`
 --
 
-INSERT INTO `wines_genres` (`id`, `name`) VALUES
-(1, 'rouge fruité'),
-(2, 'rouge puissant'),
-(3, 'rouge boisé'),
-(4, 'rouge souple'),
-(5, 'rouge sucré'),
-(6, 'blanc fruité'),
-(7, 'blanc puissant'),
-(8, 'blanc sucré'),
-(9, 'blanc souple'),
-(10, 'blanc sec'),
-(11, 'rosé fruité'),
-(12, 'rosé puissant'),
-(13, 'rosé sucré'),
-(14, 'effervescent rouge'),
-(15, 'effervescent blanc'),
-(16, 'effervescent rosé');
+INSERT INTO `wines_genres` (`id`, `name`, `id_categorie`) VALUES
+(1, 'rouge fruité', 1),
+(2, 'rouge puissant', 1),
+(3, 'rouge boisé', 1),
+(4, 'rouge souple', 1),
+(5, 'rouge sucré', 1),
+(6, 'blanc fruité', 2),
+(7, 'blanc puissant', 2),
+(8, 'blanc sucré', 2),
+(9, 'blanc souple', 2),
+(10, 'blanc sec', 2),
+(11, 'rosé fruité', 3),
+(12, 'rosé puissant', 3),
+(13, 'rosé sucré', 3),
+(14, 'effervescent rouge', 4),
+(15, 'effervescent blanc', 4),
+(16, 'effervescent rosé', 4);
 
 --
 -- Index pour les tables exportées
@@ -664,6 +664,12 @@ ALTER TABLE `users`
 -- Index pour la table `users_notes_comments`
 --
 ALTER TABLE `users_notes_comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `users_preferences`
+--
+ALTER TABLE `users_preferences`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -719,6 +725,11 @@ ALTER TABLE `users`
 ALTER TABLE `users_notes_comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `users_preferences`
+--
+ALTER TABLE `users_preferences`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `wines`
 --
 ALTER TABLE `wines`
@@ -727,7 +738,7 @@ ALTER TABLE `wines`
 -- AUTO_INCREMENT pour la table `wines_categories`
 --
 ALTER TABLE `wines_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `wines_genres`
 --
