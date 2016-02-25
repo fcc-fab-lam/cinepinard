@@ -666,15 +666,11 @@ p#start {
 }
 
 .showErr{
-	height: 50px;
-	line-height: 50px;
 	color: red;
 	margin-left: 15px;
 }
 
 .formValid{
-	height: 50px;
-	line-height: 50px;
 	color: green;
 	margin-left: 15px;
 }
