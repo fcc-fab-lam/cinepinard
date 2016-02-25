@@ -180,6 +180,7 @@ class AdminController extends Controller
 					'description'=> $post['description'],
 					'categorie_id'=>$post['categorie_id'],
 					'genre_id' => $post['genre_id'],
+					'moderation'=> 1,
 				];
 
 				$userManager = new AddWine();
