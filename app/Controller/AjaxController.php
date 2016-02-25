@@ -17,17 +17,23 @@ class AjaxController extends Controller
 
 		switch ($type) {
 			case 'wines':
-
+                /*$searchWines = new AddWine;
+                $sql = "SELECT * FROM " . $searchWines->table." WHERE name LIKE :name";
+                
+                $sth = $searchWines->dbh->prepare($sql);
+                $sth->bindValue(':name', '%'.$search.'%');
+                $sth->execute();
+                $json = $sth->fetchAll();*/
 			break;
 
 			case 'movies':
 				$allocine = new AlloCine();
-				$result = json_decode($allocine->search($search));
+				$resultMovies = json_decode($allocine->search($search));
 				
-				if(!$result->feed->totalResults){
+				if(!$resultMovies->feed->totalResults){
 					return false;
 				}
-				$json = $result->feed->movie;
+				$json = $resultMovies->feed->movie;
 			break;
 
 			default: 

@@ -27,5 +27,5 @@
 		# et j'avais la flemme de chercher dans le code :-)
 		#
 		##########
-		['GET', '/ajax/[wines|movies:type]/[:search]', 'Ajax#getJson', 'ajax', '', 'back', 0], // Retourne un JSON des vins ou des films
+		['GET', '/ajax/[wines|movies:type]/"[:search]"', 'Ajax#getJson', 'ajax', '', 'back', 0], // Retourne un JSON des vins ou des films
 	);

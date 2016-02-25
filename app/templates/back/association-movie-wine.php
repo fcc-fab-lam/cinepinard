@@ -45,7 +45,7 @@
         <div class="col-lg-5 col-md-12">
             <h2 class="col-md-12">Rechercher le vin : </h2>			
             <div class="col-lg-10 col-md-12">
-                <input id="film" name="vin" class="col-lg-12" type="text" placeholder="Ex : Saint Julien">
+                <input id="vin" name="vin" class="col-lg-12" type="text" placeholder="Ex : Saint Julien">
                 <input type="hidden" name="idVin">
             </div>
             <div class="col-lg-2"></div>
@@ -121,6 +121,18 @@ $(function(){
     display: 'originalTitle',
     source: function(search, syncResults, asyncResults) {
       $.get('ajax/movies/'+ search, function(data) {
+        asyncResults(data);
+      });
+    }
+  });
+
+  $('#vin').typeahead({
+    highlight: true,
+  },
+  {
+    display: 'name',
+    source: function(search, syncResults, asyncResults) {
+      $.get('ajax/wines/'+ search, function(data) {
         asyncResults(data);
       });
     }
