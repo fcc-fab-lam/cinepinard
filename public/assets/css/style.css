@@ -59,15 +59,21 @@ input[type="checkbox"]:checked + span{
 /* PAGE D'ACCUEIL */
 
 /* Menu */
-header ul, nav{
+nav{
 	display: inline-block;
-	padding: 10px 0px 0px 0px;
+}
+
+.titles-header{
+	margin-top: 18px;
+}
+
+header{
+	min-height: 60px;
 }
 
 header li:hover{
 	font-weight: bold;
 }
-
 
 header a{
 	color: white;
@@ -81,11 +87,9 @@ header a:hover{
 header h1{
 	font-family: 'finger paint';
 	display: inline-block;
-	margin: auto;
+	margin: 10px 10px 0px 10px;
+	padding: 0;
 }
-
-
-
 
 /* Connexion */
 .modal-content{
@@ -101,6 +105,10 @@ header h1{
 .modal-body{
 	color: black;
 	padding: 15px;
+}
+
+.modal-body input{
+	padding: 5px;
 }
 
 .modal-body label{
@@ -141,11 +149,14 @@ header{
 
 .islogin{
 	padding: 10px;
-	margin-top: 5px;
 }
 
 .islogin a{
 	margin-left: 15px;
+}
+
+.islogin a:hover{
+	font-weight: bold;
 }
 
 .bold{
@@ -251,6 +262,23 @@ footer{
 	font-size: 20px;
 }
 
+.apropos{
+	text-align: left;
+}
+
+.apropos a{
+	color: white;
+}
+
+.apropos a:hover{
+	text-decoration: none;
+	color: #BD0A41;
+}
+
+.copyright{
+	text-align: right;
+}
+
 /* RESULTATS RECHERCHE */
 
 .resultat-film{
@@ -345,10 +373,6 @@ footer{
 }
 
 /* LAYOUT BACK */
-
-.header-back{
-	padding-bottom: 5px;
-}
 
 .login-back{
 	float: right;

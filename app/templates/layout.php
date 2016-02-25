@@ -25,26 +25,12 @@
         <div class="container-fluid">
             <header class="row">
                 <!-- PARTIE GAUCHE DU HEADER -->
-                <nav class="col-lg-6 col-md-12 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <h1 class="brand"><a href="<?=$this->url('home') ?>">Wine Screen</a></h1>
-                    <ul class="list-inline menu">
-<?php       require('../app/routes.php'); // on recupere requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes
-            foreach($w_routes as $value) : // on boucle sur le tableau des routes 
-                if($value['5'] == 'front') : // si la route est prévue pour le front
-                    if($value['6'] == '2') : // si la route est prevu pour tous les utilisateurs ?>
-                        <li><a href="<?=$this->url($value['3']) ?>"<?=($_SERVER['W_ROUTE_NAME'] == $value['3']) ? ' class="active"' : '' ?>><?=$value['4'] ?></a></li>
-<?php               endif;
-                endif;
-            endforeach; 
-
-            if(!empty($w_user)) : // si l'utilisateur est connecté on affiche un lien vers le back ?>
-                        <li><a href="<?=$this->url('user-profil') ?>">Mon compte</a></li>
-<?php       endif; ?>
-                    </ul>
-                </nav>
+                </div>
 
                 <!-- PARTIE DROITE DU HEADER -->
-                <div class="col-lg-6 col-md-12 col-sm-12 connexion">
+                <div class="col-lg-6 col-md-6 col-sm-12 connexion">
 
             <!-- si l'utilisateur n'est pas connecté on affiche un lien vers l'inscription et la connexion -->
 
@@ -117,6 +103,10 @@
                     <div class="login">
                         <div class="islogin">
                             Bonjour <span class="bold"><?=$w_user['nickname'] ?></span>
+                            <!-- MON COMPTE -->
+<?php                       if(!empty($w_user)) : // si l'utilisateur est connecté on affiche un lien vers le back ?>
+                                <a href="<?=$this->url('user-profil') ?>">Mon compte</a>
+<?php                       endif; ?>
                             <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
                         </div>
                     </div>
@@ -130,7 +120,14 @@
         </main>
     <!-- FIN DU CONTAINER PRINCIPAL -->
     </div>
-        <footer>WineScreen &copy; <?php echo date('Y'); ?></footer>
+        <footer>
+                <div class="col-md-6 apropos">
+                    <a href="<?=$this->url('about-us') ?>">Qui sommes-nous ?</a>
+                </div>
+                <div class="col-md-6 copyright">
+                    WineScreen &copy; <?php echo date('Y'); ?>
+                </div>
+        </footer>
 
         <!-- JQUERY CDN -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>

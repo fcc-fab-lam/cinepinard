@@ -10,11 +10,15 @@
 </head>
 <body>
     <div class="container-principal">
-        <header class="container-fluid header-back">
+        <header class="container-fluid header">
         <div class="row">
-            <nav class="col-lg-8 col-md-12">
-                <ul class="list-inline menu-back">
-                    <h1 class="brand"><a href="<?=$this->url('home') ?>">Wine Screen</a></h1>
+
+            <!-- PARTIE GAUCHE DU HEADER -->
+            <div class="col-lg-3 col-md-12"><h1 class="brand"><a href="<?=$this->url('home') ?>">Wine Screen</a></h1></div>
+
+            <!-- PARTIE CENTRALE DU HEADER -->
+            <nav class="col-lg-6 col-md-12">
+                <ul class="list-inline titles-header">
 <?php   require('../app/routes.php'); // on requiert le fichier routes pour avoir accés à la variable $w_routes contenant toutes les routes 
         foreach($w_routes as $value) : // on boucle sur le tableau des routes 
             if($value['5'] == 'back') : // si la route est prévue pour le back 
@@ -29,7 +33,9 @@
         endforeach; ?>
                 </ul>
             </nav>
-            <div class="col-lg-4 col-md-12">
+
+            <!-- PARTIE DROITE DU HEADER -->
+            <div class="col-lg-3 col-md-12">
                 <div class="islogin login-back">
                     Bonjour <span class="bold"><?=$w_user['nickname'] ?></span>
                     <a href="<?=$this->url('logout') ?>">Se déconnecter</a>
@@ -43,7 +49,14 @@
 		</main>
     </div>
     
-    <footer>WineScreen &copy; <?php echo date('Y'); ?></footer>
+        <footer>
+            <div class="col-md-6 apropos">
+                <a href="<?=$this->url('about-us') ?>">Qui sommes-nous ?</a>
+            </div>
+            <div class="col-md-6 copyright">
+                WineScreen &copy; <?php echo date('Y'); ?>
+            </div>
+        </footer>
 
 	<!-- JQUERY CDN -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
