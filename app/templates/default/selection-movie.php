@@ -34,7 +34,7 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
         	<!-- CONSEIL VIN POUR FILM SELECTIONE -->
                 <article class="row">
                     <!-- RESUME DU FILM -->
-                    <div class="col-md-6 table2" id="film">
+                    <div class="col-md-6 table2" id="panneaufilm">
                         <!-- AFFICHE -->
                         <div class="row">
                             <div class="col-md-4">
