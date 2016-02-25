@@ -15,7 +15,6 @@
         <div class="col-md-8 col-sm-8">
             <div class="">
                 <div class="row profil-utilisateur">
-                   <div class="erreur"><?php if(!$success){echo implode('<br>', $err);} ?></div>
                     <div class="col-lg-5 col-md-12">
                         <h2 class="col-md-12">Rechercher le film : </h2>			
                         <div class="col-lg-10 col-md-12">
@@ -37,17 +36,15 @@
                         <h2 class="col-md-12">&nbsp;</h2>
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Associer</button>
                     </div>
+                    <?php 
+                        if(!empty($err)) { 
+                            echo '<div class="showErr">'.implode('<br/>', $err).'</div>';
+                        }
+                        if(isset($success) && $success){
+                            echo 'Perfect Match enregistré avec succés !';
+                        }
+                    ?>
                 </div>
-
-        <?php 
-                if(isset($_SESSION['listErr'])) { 
-                    echo '<div class="erreurs">'.implode('<br/>', $_SESSION['listErr']).'</div>';
-                    unset($_SESSION['listErr']);
-                }
-                if(isset($_SESSION['success']) && $_SESSION['success']){
-                    echo 'Perfect Match enregistré avec succés !';
-                }
-        ?>
 	</div>
 
 <!-- FIN RECHERCHE -->
