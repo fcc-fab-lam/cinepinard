@@ -7,6 +7,16 @@
 	<div class="container-fluid">
 		<div class="row">
 			<form role="form" class="form-horizontal form-inscription" method="post" action="" enctype="multipart/form-data">
+                <?php
+                    if($showErr){
+                        echo '<p class="showErr">';
+                        echo implode('<br/>', $err);
+                        echo '</p>';
+                    }
+                    if($formValid){
+                        echo 'Inscription réussie';
+                    }
+                ?>
 				<div class="form-group">
 					<label class="control-label col-sm-3" for="lastname">Nom :</label>
 					<div class="col-sm-9">
@@ -76,16 +86,6 @@
 					<input class="btn btn-default" type="submit" value="Je m'inscris !" />
 				</div>
 			</form>
-			<?php
-				if($showErr){
-					echo '<div class="erreurs">';
-					echo implode('<br/>', $err);
-					echo '</div>';
-				}
-				if($formValid){
-					echo 'Inscription réussie';
-				}
-			?>
 		</div>
 	</div>
 </div>
