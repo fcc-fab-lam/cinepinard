@@ -78,7 +78,7 @@
 				    <select id="genre_id" name="genre_id" class="form-control">
 				    	<option value="">Choisir un genre de vin</option>
 					<?php foreach ($listeGenreVin as $key => $value) : ?>
-						<option value="<?php echo $value['id'] ?>" class="vin<?=$value['id_categorie'] ?>"><?php echo ucfirst($value['name']) ?></option>
+						<option value="<?php echo $value['id'] ?>" class="vin-<?=$value['id_categorie'] ?>"><?php echo ucfirst($value['name']) ?></option>
 					<?php endforeach; ?>
 				    </select>
 				  </div>
@@ -88,7 +88,7 @@
 				<div class="form-group">
 				  <label class="col-md-4 col-lg-4 control-label" for="singlebutton"></label>
 				  <div class="col-md-8 col-lg-8">
-				    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Valider</button>
+				    <button id="singlebutton" name="singlebutton" class="btn btn-default" type="submit">Valider</button>
 				  </div>
 				</div>
 

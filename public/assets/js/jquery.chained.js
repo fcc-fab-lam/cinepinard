@@ -39,8 +39,8 @@
                 
                     $("option", self).each(function() {
                         /* Remove unneeded items but save the default value. */
-                        if (!$(this).hasClass("vin" + selected) && 
-                            !$(this).hasClass("vin" + selected_first) && $(this).val() !== "") {
+                        if (!$(this).hasClass("vin-" + selected) && 
+                            !$(this).hasClass("vin-" + selected_first) && $(this).val() !== "") {
                                 $(this).remove();
                         }                        
                     });
