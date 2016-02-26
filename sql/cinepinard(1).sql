@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 25 Février 2016 à 14:19
+-- Généré le :  Ven 26 Février 2016 à 12:10
 -- Version du serveur :  10.1.9-MariaDB
 -- Version de PHP :  5.6.15
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `cinepinard`
 --
-CREATE DATABASE IF NOT EXISTS `cinepinard` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `cinepinard` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `cinepinard`;
 
 -- --------------------------------------------------------
@@ -146,19 +146,11 @@ INSERT INTO `genres_associations` (`id`, `id_movies_genre`, `id_wines_genre`, `m
 (104, 13023, 12, 1),
 (105, 13019, 11, 1),
 (106, 13025, 15, 1),
-(107, 13026, 16, 1),
 (108, 13016, 15, 1),
-(109, 13001, 15, 1),
 (110, 13027, 15, 1),
-(111, 13047, 15, 1),
 (112, 13040, 15, 1),
-(113, 13005, 16, 1),
-(114, 13002, 16, 1),
 (115, 13013, 15, 1),
-(116, 13049, 15, 1),
-(117, 13006, 16, 1),
 (118, 13007, 15, 1),
-(119, 13054, 15, 1),
 (120, 13008, 15, 1),
 (121, 13009, 15, 1),
 (122, 13010, 16, 1),
@@ -166,29 +158,21 @@ INSERT INTO `genres_associations` (`id`, `id_movies_genre`, `id_wines_genre`, `m
 (124, 13033, 15, 1),
 (125, 13036, 16, 1),
 (126, 13012, 15, 1),
-(127, 13014, 15, 1),
-(128, 13015, 15, 1),
 (129, 13031, 15, 1),
 (130, 13053, 15, 1),
-(131, 13043, 15, 1),
 (132, 13048, 15, 1),
 (133, 13028, 15, 1),
-(134, 13018, 15, 1),
 (135, 13024, 16, 1),
 (136, 13021, 15, 1),
-(137, 13051, 15, 1),
 (138, 13050, 15, 1),
-(139, 13023, 15, 1),
 (140, 13019, 15, 1),
 (141, 13025, 14, 1),
-(142, 13016, 14, 1),
 (143, 13027, 14, 1),
 (144, 13047, 16, 1),
 (145, 13040, 14, 1),
 (146, 13013, 16, 1),
 (147, 13049, 16, 1),
 (148, 13054, 14, 1),
-(149, 13008, 14, 1),
 (150, 13009, 14, 1),
 (151, 13022, 14, 1),
 (152, 13033, 16, 1),
@@ -197,12 +181,12 @@ INSERT INTO `genres_associations` (`id`, `id_movies_genre`, `id_wines_genre`, `m
 (155, 13015, 14, 1),
 (156, 13031, 14, 1),
 (157, 13043, 16, 1),
-(158, 13048, 16, 1),
 (159, 13018, 14, 1),
 (160, 13021, 14, 1),
 (161, 13051, 16, 1),
 (162, 13050, 14, 1),
-(163, 13023, 14, 1);
+(163, 13023, 14, 1),
+(164, 13023, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -313,16 +297,23 @@ CREATE TABLE `users` (
   `delivery_address` text NOT NULL,
   `delivery_postcode` varchar(255) NOT NULL,
   `delivery_town` varchar(255) NOT NULL,
-  `delivery_country` varchar(255) NOT NULL
+  `delivery_country` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Fiches utilisateurs';
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `nickname`, `email`, `password`, `role_id`, `photo`, `phone_number`, `address`, `postcode`, `town`, `country`, `delivery_name`, `delivery_address`, `delivery_postcode`, `delivery_town`, `delivery_country`) VALUES
-(1, 'prenom', 'admin1', 'pseudo-admin', 'admin@admin.fr', '$2y$10$XL.HeF0pJmrKRCSpxXT3ReTrdIY9c2QcqvI86dYn89/l/ZFneWMXy', 1, 'uploads/1.jpg', '0606060606', 'adresse de l''administrateur', '33500', 'Libourne', 'France', '', '', '', '', ''),
-(2, 'prénom-utilisateur', 'nom-utilisateur', 'pseudo-utilisateur', 'user@user.fr', '$2y$10$wLcgdOLvycqYp4t7Db57.eHUqmxCPTAjsSBbGtB8z0x.xmHKOvXvS', 2, 'uploads/2.png', '0556565656', 'adresse de l''utilisateur', '33000', 'Bordeaux', 'france', '', '', '', '', '');
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `nickname`, `email`, `password`, `role_id`, `photo`, `phone_number`, `address`, `postcode`, `town`, `country`, `delivery_name`, `delivery_address`, `delivery_postcode`, `delivery_town`, `delivery_country`, `token`) VALUES
+(1, 'prenom', 'admin1', 'pseudo-admin', 'admin@admin.fr', '$2y$10$XL.HeF0pJmrKRCSpxXT3ReTrdIY9c2QcqvI86dYn89/l/ZFneWMXy', 1, '/cinepinard/public/uploads/user-1.jpeg', '0606060606', 'adresse de l''administrateur', '33500', 'Libourne', 'France', '', '', '', '', '', ''),
+(2, 'prénom-utilisateur', 'nom-utilisateur', 'pseudo-utilisateur', 'user@user.fr', '$2y$10$wLcgdOLvycqYp4t7Db57.eHUqmxCPTAjsSBbGtB8z0x.xmHKOvXvS', 2, 'uploads/2.png', '0556565656', 'adresse de l''utilisateur', '33000', 'Bordeaux', 'france', '', '', '', '', '', ''),
+(3, 'Bertrand', 'Caillet', 'tramb', 'zoubrouska@hotmail.com', '$2y$10$6TvxIexNC4Nd2D4.GZVhtOiymX5SV9uPX6ewONz030UCR3/lnQUdy', 2, '/cinepinard/public/uploads/3.jpeg', '', '', '', '', '', '', '', '', '', '', ''),
+(4, 'Fabien', 'Lelibournin', 'Fabounet', 'fabounet@gmail.com', '$2y$10$WPQ9boOT0KH/cNCX04nRAeIcxvpdX/LfIRyO0.KClYyZtwI55quJO', 2, '/cinepinard/public/uploads/4.jpeg', '', '', '', '', '', '', '', '', '', '', ''),
+(5, 'emilieRose', 'Detoulouse', 'emy', 'emy@gmail.com', '$2y$10$8YQ.PqaHr5n.jWSYiQTzbOqZ/yL0gF4rCpqydvnUkWV/OJHs5B7iy', 2, '/cinepinard/public/uploads/user-5.jpeg', '', '', '', '', '', '', '', '', '', '', ''),
+(6, 'Paulin', 'Krav', 'paulinet', 'paulinet@gmail.com', '$2y$10$GzItA85nPOBxCbatTnMGdOGXBBxqwr.EjZPujjeq9cT/yPuY7w3JS', 2, '/cinepinard/public/uploads/user-6.jpeg', '', '', '', '', '', '', '', '', '', '', ''),
+(7, 'Admin', 'BigBoss', 'Boss', 'boss@gmail.com', '', 1, '', '', '', '', '', '', '', '', '', '', '', ''),
+(8, 'Rituel', 'leffe', 'rituel', 'rituel@gmail.com', '$2y$10$024q7oVw5ovf8xK/ZxpWx.Cl607gEvZx4XPIm9d0ZKySg8AGPf3bW', 2, '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -343,6 +334,40 @@ CREATE TABLE `users_notes_comments` (
   `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Notes et commentaires sur les associations des utilisateurs';
 
+--
+-- Contenu de la table `users_notes_comments`
+--
+
+INSERT INTO `users_notes_comments` (`id`, `movie_id`, `wine_id`, `perfect_match`, `note`, `comment`, `user_id`, `moderation`, `token`, `date`) VALUES
+(1, 47395, 165, 0, 8, 'C''est un delicieux mariage entre le subtil film de  Sofia et ce delicieux vin. Bravo', 3, 1, '', '0000-00-00 00:00:00'),
+(2, 60702, 167, 0, 8, 'Pétillant pour les yeux, petillant pour le goût !', 3, 1, '', '0000-00-00 00:00:00'),
+(3, 21189, 13, 0, 9, 'excellent vin ; On le commande où ?', 3, 1, '', '0000-00-00 00:00:00'),
+(4, 5818, 158, 0, 7, '', 4, 3, '', '0000-00-00 00:00:00'),
+(5, 19395, 35, 0, 7, 'J''adore le rosé ^^', 4, 0, '', '0000-00-00 00:00:00'),
+(6, 11027, 97, 0, 0, 'un tres bon vin, pour un film audacieux', 4, 0, '', '0000-00-00 00:00:00'),
+(7, 138837, 80, 0, 8, 'j adore ce vin', 5, 0, '', '0000-00-00 00:00:00'),
+(8, 272, 99, 0, 6, 'tvb... Bizarre d''avoir du Porto sur votre site...', 5, 1, '', '0000-00-00 00:00:00'),
+(9, 6787, 190, 0, 1, 'aller bon. Soit.', 5, 2, '', '0000-00-00 00:00:00'),
+(10, 110101, 159, 0, 0, '', 6, 1, '', '0000-00-00 00:00:00'),
+(11, 222528, 132, 0, 10, 'asszzdzedezzeczecze', 6, 0, '', '0000-00-00 00:00:00'),
+(12, 57689, 146, 0, 0, '', 6, 2, '', '0000-00-00 00:00:00'),
+(13, 10862, 1, 1, 0, '', 1, 1, '', '0000-00-00 00:00:00'),
+(14, 14788, 22, 1, 0, '', 3, 1, '', '0000-00-00 00:00:00'),
+(15, 1628, 92, 0, 0, '', 4, 0, '', '0000-00-00 00:00:00'),
+(16, 7653, 132, 1, 0, '', 1, 1, '', '0000-00-00 00:00:00'),
+(17, 211451, 1, 1, 0, '', 8, 1, '', '0000-00-00 00:00:00'),
+(18, 139812, 70, 0, 10, 'aéaaaaaaaaaaaaaaaaa', 8, 0, '', '0000-00-00 00:00:00'),
+(19, 146349, 3, 1, 0, '', 1, 1, '', '0000-00-00 00:00:00'),
+(20, 146349, 1, 1, 0, '', 1, 1, '', '0000-00-00 00:00:00'),
+(21, 146349, 1, 1, 0, '', 1, 1, '', '0000-00-00 00:00:00'),
+(22, 146349, 1, 1, 0, '', 1, 1, '', '0000-00-00 00:00:00'),
+(23, 2549, 1, 1, 0, '', 1, 1, '', '0000-00-00 00:00:00'),
+(24, 218770, 86, 0, 0, '', 5, 1, '', '0000-00-00 00:00:00'),
+(25, 147618, 31, 1, 0, '', 5, 1, '', '0000-00-00 00:00:00'),
+(26, 212837, 41, 0, 0, '', 4, 0, '', '0000-00-00 00:00:00'),
+(27, 190406, 58, 1, 0, '', 1, 1, '', '0000-00-00 00:00:00'),
+(28, 1628, 80, 1, 0, '', 1, 1, '', '0000-00-00 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -354,6 +379,24 @@ CREATE TABLE `users_preferences` (
   `user_id` int(11) NOT NULL,
   `categorie_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Préférences utilisateurs';
+
+--
+-- Contenu de la table `users_preferences`
+--
+
+INSERT INTO `users_preferences` (`id`, `user_id`, `categorie_id`) VALUES
+(1, 3, 1),
+(2, 3, 2),
+(3, 3, 4),
+(15, 6, 1),
+(16, 6, 2),
+(17, 6, 3),
+(18, 8, 1),
+(19, 8, 2),
+(20, 5, 1),
+(21, 4, 1),
+(22, 4, 2),
+(23, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -570,6 +613,11 @@ INSERT INTO `wines` (`id`, `name`, `appellation`, `country`, `description`, `ima
 (189, ' CHAMPAGNE LE BRUN DE NEUVILLE - CUVEE AUTHENTIQUE', 'Champagne / Champagne AOC', '', 'La presse internationale est unanime : une cuvée de plaisir et de gourmandise\n\nLe dosage de cette cuvée favorise l''expression des arômes d''agrumes, de fruits secs, de noisette et d''amande grillée. Les dégustateurs pourront apprécier sa fraîcheur éclatante, son parfum évoquant la crème, la brioche et les épices. La cuvée Authentique de la maison Le Brun de Neuville est marquée par un retour aux techniques anciennes de champagnisation : une vinification traditionnelle, une fermentation malolactique, et un tirage sous bouchage liège.', '', 4, 15, 1),
 (190, ' DIAMANT BRUT - CHAMPAGNE VRANKEN', 'Champagne / Champagne AOC ', '', 'Luxe et élégance, du flacon à la dégustation !!!\n\nDe fines bulles onctueuses pétillent dans le verre et des intenses senteurs végétales et boisées s’échappent délicatement du  magnifique flacon, rappelant les prismes d’un diamant. La dégustation promet un  voyage gustatif sous le signe du luxe. L’effervescence frivole flatte le palais tout en élégance ; la bouche est empreinte de notes de fruits sirupeux et de saveurs briochées sur une finale légèrement musquée. Ce champagne d’une classe folle fera son petit effet à l’apéritif ou à un cocktail dînatoire !', '', 4, 15, 1),
 (191, 'MOSCATO RAFFAELO - RAPHAEL DAL BO', 'Vénétie /  Blanc ', '', 'Un Moscato très gourmand, délicieusement fruité. Craquez sans compter pour ce vin finement pétillant ...\n\nCette cuvée a séduit à l''unanimité nos sommeliers pour ces fabuleux arômes de pomme, de poire qui se poursuivent en bouche au travers de fines bulles. Ses effluves de fleurs d''orangers vous emporte de suite dans un petit coin d''Italie. Fraîcheur…Douceur...Juste ce qu’il faut pour partager un vrai moment de bonheur !!!', '', 4, 14, 1);
+INSERT INTO `wines` (`id`, `name`, `appellation`, `country`, `description`, `image`, `categorie_id`, `genre_id`, `moderation`) VALUES
+(192, 'Château Cheval Blanc', 'Saint-Emillion Grand Cru', 'france', 'Cheval Blanc ou la haute noblesse de l''une des appellations les plus réputées à travers le monde, Saint-Émilion. Tout ici, depuis la vigne jusqu''à la mise en bouteille, incarne l''excellence et le savoir-faire le plus exigeant. Le terroir, une mosaïque de sables, d''argiles et de graves, concentre le meilleur de l''appellation et, par ses carences hydriques bien maîtrisées, permet des rendements faibles pour des raisins riches en matière.\r\n\r\nLes 2 cépages – cabernet franc et merlot, le premier dominant légèrement le second – sont issus des sélections massales à partir de très vieilles vignes. Les vendanges, effectuées manuellement comme il se doit pour de tels raisins, sont triées 3 fois avant une vinification précise et méticuleuse, dans des barriques de chêne neuves et achetés auprès de 7 tonneliers.\r\n\r\nVous l''aurez compris, rien n''est laissé au hasard pour ce Grand Cruhaute couturetout en rondeur et velouté, avecla complexité aromatique du cabernet franc et la richesse du merlot. L''incarnation de l''excellence et la perfection. Concernant les gardes, sachez qu''en 2010 une bouteille de 1947 a été vendue à prix d''or...', '', 1, 2, 0),
+(195, 'Château Cheval Blanc', 'Saint-Emillion Grand Cru', 'france', 'ssssssssssssssssssssssssssssssssqdadazdaedeazdeazd', '', 1, 2, 1),
+(196, 'Château Cheval Blanc', 'Saint-Emillion Grand Cru', 'france', '-è-è-è-è-è-', '', 1, 2, 1),
+(197, 'Château Haut Vigneau Pessac-Léognan', 'Pessac', 'France', 'Excellent rapport qualité-prix ! Le prix ne devrait d''ailleurs pas tarder à augmenter. Incontestablement une très belle réussite et j''en ai fait mon "vin de chevet".', '', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -624,7 +672,9 @@ INSERT INTO `wines_genres` (`id`, `name`, `id_categorie`) VALUES
 (13, 'rosé sucré', 3),
 (14, 'effervescent rouge', 4),
 (15, 'effervescent blanc', 4),
-(16, 'effervescent rosé', 4);
+(16, 'effervescent rosé', 4),
+(17, 'rouge sanglant', 1),
+(18, 'rouge bleu', 1);
 
 --
 -- Index pour les tables exportées
@@ -698,7 +748,7 @@ ALTER TABLE `wines_genres`
 -- AUTO_INCREMENT pour la table `genres_associations`
 --
 ALTER TABLE `genres_associations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 --
 -- AUTO_INCREMENT pour la table `movies_genres`
 --
@@ -718,22 +768,22 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pour la table `users_notes_comments`
 --
 ALTER TABLE `users_notes_comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT pour la table `users_preferences`
 --
 ALTER TABLE `users_preferences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT pour la table `wines`
 --
 ALTER TABLE `wines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 --
 -- AUTO_INCREMENT pour la table `wines_categories`
 --
@@ -743,7 +793,7 @@ ALTER TABLE `wines_categories`
 -- AUTO_INCREMENT pour la table `wines_genres`
 --
 ALTER TABLE `wines_genres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
