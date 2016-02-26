@@ -269,14 +269,14 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
                         
                         <!-- MODAL POUR CHOISIR CETTE ASSOCIATION -->
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-md choisir-ce-vin" data-toggle="modal" data-target="#myModal2">Choisir ce vin</button>
+                        <button type="button" class="btn btn-primary btn-md choisir-ce-vin" data-toggle="modal" data-target="#myModal3">Choisir ce vin</button>
                         
                         <!-- PROVENANCE -->
                     	<?php if(!empty($usersProposition[0]['comment'])) : ?><p><span class="bold">Commentaire : </span><?=$usersProposition[0]['comment'] ?></p><?php endif; ?>
                     </div>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="bg-danger modal-header">
