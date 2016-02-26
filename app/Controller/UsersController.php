@@ -281,7 +281,6 @@ class UsersController extends Controller
 		$this->show('back/cave', $params);
 	}
 
-    
     /**
      * Page d'ajout à la cave de l'association film/vin 
     */

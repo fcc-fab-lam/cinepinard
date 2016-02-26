@@ -23,7 +23,7 @@ class AdminController extends Controller
 	//  autorisation exclusive à l'admin.
 	public function __construct()
     {
-		//$this->allowTo(['1']);
+		$this->allowTo(['1']);
 
 	}
 
@@ -301,24 +301,11 @@ class AdminController extends Controller
 		]);
 	}
 
-	//Ajout genre de film
-	public function addMovieGenre()
-	{
-		$this->show('back/add-movie-genre', ['showErr' => $showErr, 'err' => $err]);
-	}
-
 	// Association 1 genre de film et 1 genre de vin
 	public function associationGenres()
 	{
 		$this->show('back/association-genres', ['showErr' => $showErr, 'err' => $err]);
 	}
-
-	// Liste des associations non-modérées 
-	public function listNotModeratedAssociations()
-	{
-		$this->show('back/list-not-moderated-associations', ['showErr' => $showErr, 'err' => $err]);
-	}
-
 	// Liste des commentaires non-moderés 
 	public function listNotModeratedComments($showPage = 1)
 	{	
@@ -404,12 +391,6 @@ class AdminController extends Controller
 
 
 		$this->show('back/list-not-moderated-comments', $params);
-	}
-
-	// Formulaire de moderation  
-	public function moderationForm()
-	{
-		$this->show('back/moderation-form', ['showErr' => $showErr, 'err' => $err]);
 	}
 
 }

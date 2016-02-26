@@ -292,6 +292,7 @@ class DefaultController extends Controller
 			$this->redirectToRoute('home');
 		}
 	}
+    
 	/**
 	 * Page à Propos
 	 */ 
@@ -299,6 +300,7 @@ class DefaultController extends Controller
 	{
 		$this->show('default/about-us');
 	}
+    
 	/**
      * Page Film selectionné
 	 */ 

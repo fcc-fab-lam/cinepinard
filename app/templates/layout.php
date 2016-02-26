@@ -153,7 +153,7 @@
 
 <!-- lance le script add-wine-genre-->
         <?= $this->section('scripts') ?>
-<?php if($showErr): ?>
+<?php if(isset($showErr) && $showErr): ?>
 <script>
     $(function(){
         $('#loginModal').modal('show');
