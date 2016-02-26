@@ -12,7 +12,11 @@
 	$userPrefs = '';
 
 	if(!empty($erreur)){
-		echo $erreur;
+	?>
+		<div class="col-md-1"></div>
+		<div class="col-md-10 resultat-film"><span class="bold"><?php echo $erreur; ?></span></div>
+		<div class="col-md-1"></div>
+	<?php
 	}
 	else{
 		foreach($preferences as $value){
@@ -45,7 +49,8 @@
 				<div class="col-md-1"></div>
 			</div>
 		<?php endforeach; 
-	} // Fin du else ?>
+	} // Fin du else 
+	?>
 </div>
 
 <?php $this->stop('main_content') ?>

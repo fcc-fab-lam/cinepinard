@@ -282,7 +282,7 @@ class DefaultController extends Controller
 				$params = [
 						'resultats' => $resultats,
 						'preferences' => $userPrefs,
-						'erreur' => $error, 
+						'erreur' => $error,
 						];
 
 				$this->show('default/search-results', $params);
