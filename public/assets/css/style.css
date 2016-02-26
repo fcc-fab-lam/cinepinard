@@ -16,9 +16,6 @@ html, body{
 	background-size: cover;
 }
 
-.container-accueil{
-
-}
 #carousel-homepage {
 	overflow: hidden;
 }
@@ -27,6 +24,29 @@ html, body{
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+#carousel-caption{
+	position: absolute;
+	width: 100%;
+	z-index: 10;
+
+	padding: 20px;
+
+	text-align: center;
+
+	color: white;
+	font-family: 'Alegreya Sans', cursive;
+}
+
+#carousel-caption h1{
+	font-size: 50px;
+	text-shadow: 3px 2px black;
+}
+
+ #carousel-caption p{
+ 	font-size: 24px;
+ 	text-shadow: 3px 2px black;
 }
 
 .titre-vin{

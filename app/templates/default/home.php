@@ -1,23 +1,28 @@
 <?php $this->layout('layout', ['title' => 'Accueil']) ?>
 
 <?php $this->start('main_content') ?>
+            <!-- INFO SITE -->
+<div id="carousel-caption">
+	<h1>Des films à boire</h1>
+	<p>Choisissez un film et un type de vin<br/> On s'occupe de vous recommander la meilleure bouteille !</p>
+</div>
+<div id="carousel-homepage" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
 
-	            <div id="carousel-homepage" class="carousel slide" data-ride="carousel">
-	                <div class="carousel-inner" role="listbox">
-	                    <div class="item active">
-	                        <img src="assets/img/sl1.jpg" class="img-responsive" alt="">
-	                    </div>
-	                    <div class="item">
-	                        <img src="assets/img/sl2.jpg" class="img-responsive" alt="">
-	                    </div>
-	                    <div class="item">
-	                        <img src="assets/img/sl3.jpg" class="img-responsive" alt="">
-	                    </div>
-	                    <div class="item">
-	                        <img src="assets/img/sl4.jpg" class="img-responsive" alt="">
-	                    </div>
-	                </div>
-            	</div>
+        <div class="item active">
+            <img src="assets/img/sl1.jpg" class="img-responsive" alt="">
+        </div>
+        <div class="item">
+            <img src="assets/img/sl2.jpg" class="img-responsive" alt="">
+        </div>
+        <div class="item">
+            <img src="assets/img/sl3.jpg" class="img-responsive" alt="">
+        </div>
+        <div class="item">
+            <img src="assets/img/sl4.jpg" class="img-responsive" alt="">
+        </div>
+    </div>
+ </div>
 
 <!-- DEBUT RECHERCHE -->
 <div class="recherche">
@@ -44,7 +49,7 @@
 			</div>
 
 			<div class="col-lg-2 col-md-12">
-				<input class="col-lg-12" type="submit" value="Je bois !" />
+				<input class="col-lg-12" type="submit" value="Dégustez !" />
 			</div>
 		</form>
 
