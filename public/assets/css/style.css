@@ -555,7 +555,7 @@ footer{
 	margin: 40px auto;
 }
 
-.photo-de-profil{
+.photo-de-profil, .update-photo{
 	margin: 20px 0px;
 	height: 260px;
 	width: 260px;

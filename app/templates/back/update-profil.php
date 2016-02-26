@@ -45,7 +45,7 @@
 
 			<div class="form-group">
 				<label class="control-label col-sm-5" for="photo">Modifier votre photo de profil :</label>
-				<div class="col-sm-7">
+				<div class="col-sm-7 photo-de-profil">
 					<img src="<?php echo $userInfos['photo'];?>" alt="avatar">
 					<input type="file" id="photo" name="photo" value="<?php echo $userInfos['photo']; ?>" />
 				</div>
