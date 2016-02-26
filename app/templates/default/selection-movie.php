@@ -33,7 +33,7 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
 ?>
         <!-- CONSEIL VIN POUR FILM SELECTIONE -->
 
-                <article class="row" style="display:block">
+                <article class="row active" style="display:none" id="artProposition">
                     <!-- RESUME DU FILM -->
                     <div class="col-md-6 table2" id="panneaufilm">
                         <!-- AFFICHE -->
@@ -126,7 +126,7 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
                               
                 <?php if(!empty($perfectMatch)) : ?>
                 
-                <article class="row" style="display:none">
+                <article class="row" style="display:none" id="artPerfectMatch">
                     <!-- RESUME DU FILM -->
                     <div class="col-md-6 table2" id="panneaufilm">
                         <!-- AFFICHE -->
@@ -224,7 +224,7 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
                 
                 <?php if(!empty($usersProposition)) : ?>
                 
-                <article class="row" style="display:none">
+                <article class="row" style="display:none" id="artUsersProposition">
                     <!-- RESUME DU FILM -->
                     <div class="col-md-6 table2" id="panneaufilm">
                         <!-- AFFICHE -->
@@ -328,8 +328,10 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
     </div>
 <div class="row">
     <div class="col-md-3"></div>
-    <div class="col-md-6">
+    <div class="col-md-6 text-center">
+       <?php if(!empty($perfectMatch) && !empty($usersProposition)) : ?>
         <button class="btn btn-success" id="proposition">Notre proposition</button>
+       <?php endif; ?>    
         
         <?php if(!empty($perfectMatch)) : ?>
         <button class="btn btn-danger" id="perfectMatch">Perfect Match</button>
@@ -353,6 +355,32 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
 <script>
 $(function(){
     
+    setTimeout(function(){$('#artProposition').fadeIn(500)}, 200);
+    
+    $('#refresh').on('click',function(){location.reload();});
+    
+    $('#proposition').on('click', function(){
+        if(!$('#container-propositions > .active').is('#artProposition')){
+            $('#container-propositions > .active').removeClass('active').fadeOut(500, function(){
+                $('#artProposition').addClass('active').fadeIn(500);
+            });
+        }
+    });
+    $('#perfectMatch').on('click', function(){
+        if(!$('#container-propositions > .active').is('#artPerfectMatch')){
+            $('#container-propositions > .active ').removeClass('active').fadeOut(500, function(){
+                $('#artPerfectMatch').addClass('active').fadeIn(500);
+            });
+            $('#container-propositions > .active').removeClass('active');
+        }        
+    });
+    $('#usersProposition').on('click', function(){
+        if(!$('#container-propositions > .active').is('#artUsersProposition')){
+            $('#container-propositions > .active').removeClass('active').fadeOut(500, function(){
+                $('#artUsersProposition').addClass('active').fadeIn(500);
+            });
+        }
+    });
     
 });
 </script>

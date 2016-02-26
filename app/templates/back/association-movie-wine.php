@@ -135,7 +135,7 @@ $(function(){
       visuel = select.image;
     }
     else {
-      visuel = defaultVisuel;
+      visuel = '<?= $this->assetUrl('img') ?>/vin-' + select.categorie_id + '.png';
     }
     var html = '<div class="col-md-3">';
         html+= '<img src="' + visuel +'" class="img-responsive img-thumbnail">';
