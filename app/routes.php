@@ -12,8 +12,8 @@
 		['GET|POST', '/modification-profil', 'Users#updateProfil', 'update-profil', 'Modifier mon profil', '', 2], // Modif profil de l'utilisateur
 
 		['GET|POST', '/ma-cave/[i:showPage]?', 'Users#cave', 'cave', 'Ma cave', 'back', 2], // liste des choix de l'utilisateur(cave)
-		['GET|POST', '/association-film-vin', 'Admin#associationMovieWine', 'association-movie-wine', 'Ajouter un Perfect Match', 'back', 2], // association 1 film et 1 vin
-		['GET|POST', '/ajout-fiche-vin', 'Admin#addWine', 'add-wine', 'Ajouter un vin', 'back', 2], // creation fiche vin
+		['GET|POST', '/association-film-vin', 'Admin#associationMovieWine', 'association-movie-wine', 'Ajouter un Perfect Match', 'back', 1], // association 1 film et 1 vin
+		['GET|POST', '/ajout-fiche-vin', 'Admin#addWine', 'add-wine', 'Ajouter un vin', 'back', 1], // creation fiche vin
 		['GET|POST', '/ajout-genre-vin', 'Admin#addWineGenre', 'add-wine-genre', 'Ajouter un genre de vin', 'back', 1], // Ajout genre de vin
 		['GET|POST', '/liste-commentaires-non-moderees/[i:showPage]?', 'Admin#listNotModeratedComments', 'list-not-moderated-comments', 'Modération', 'back', 1], // Liste des commentaires non-moderés 
 		['GET|POST', '/login', 'Default#login', 'login', 'Connexion', '', 2], // Connexion
