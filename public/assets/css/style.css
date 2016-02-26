@@ -400,12 +400,12 @@ footer{
 	border-radius: 5px;
 	padding: 20px;
 	position: relative;
-	padding-left: 70px;
+	padding-left: 65px;
 }
 .vin4 img{
 	position: absolute;
 	bottom:-20px;
-	left:-60px;
+	left:-70px;
 }
 
 
@@ -430,6 +430,37 @@ footer{
 	border : solid 10px #333333;
 
 }
+
+/* BOUTONS PROPOSITIONS */
+
+#boutonProposition{
+	padding-top: 30px;
+	font-family: 'Alegreya Sans', serif;
+}
+
+#boutonProposition button{
+	margin-right: 10px;
+}
+
+#proposition{
+	background-color: #e6ac00;
+	border: none;
+}
+
+#perfectMatch{
+	background-color: #9E2B40;
+	border: none;
+}
+
+#usersProposition{
+	background-color: #66004d;
+	border: none;
+}
+
+#refresh{
+	border: none;
+}
+
 
 /* INSCRIPTION */
 

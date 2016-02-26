@@ -156,7 +156,7 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
                         <!-- IMAGE -->
                         <p><img height="300px" src="assets/img/vin-<?=$perfectMatch[0]['categorie_id']?>.png" /></p>
 
-                    	<h3>Perfect Match</h3>
+                    	<h3 id="perfect"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Perfect Match ! <span class="glyphicon glyphicon-heart" aria-hidden="true"></span></h3>
                     	<!-- NOM DU VIN -->
                     	<h4 class="titre-vin"><?= (!empty($perfectMatch[0]['name'])) ? $perfectMatch[0]['name'] : 'Nom inconnu' ?></h4>
 
@@ -254,7 +254,7 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
                         <!-- IMAGE -->
                         <p><img height="300px" src="assets/img/vin-<?=$usersProposition[0]['categorie_id']?>.png" /></p>
 
-                    	<h3>Déja choisi par nos utilisateurs</h3>
+                        <h3 id="perfect"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Déja choisi par nos utilisateurs <span class="glyphicon glyphicon-star" aria-hidden="true"></span></h3>
                     	<!-- NOM DU VIN -->
                     	<h4 class="titre-vin"><?= (!empty($usersProposition[0]['name'])) ? $usersProposition[0]['name'] : 'Nom inconnu' ?></h4>
 
@@ -326,7 +326,7 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
 
     <!-- FIN DU ROW -->
     </div>
-<div class="row">
+<div class="row" id="boutonProposition">
     <div class="col-md-3"></div>
     <div class="col-md-6 text-center">
        <?php if(!empty($perfectMatch) && !empty($usersProposition)) : ?>
@@ -341,7 +341,7 @@ if(isset($usersProposition[0]['id'])){ $vin3 = $usersProposition[0]['id'];};
         <button class="btn btn-warning" id="usersProposition">Choix utlisateurs</button>
         <?php endif; ?>
 
-        <button class="btn btn-primary" id="refresh">Autres propositions</button>
+        <button class="btn btn-default" id="refresh">Autres propositions</button>
     </div>
     <div class="col-md-3"></div>
 </div>
